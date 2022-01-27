@@ -1,0 +1,73 @@
+version: '3.5'
+services:
+  fuseki:
+    image: semapps/jena-fuseki-webacl
+    container_name: fuseki_opaline
+    volumes:
+      - ./data/fuseki:/fuseki
+      - ./data/staging:/staging
+    ports:
+      - "3030:3030"
+    expose:
+      - "3030"
+    environment:
+      ADMIN_PASSWORD: "admin"
+
+  middleware:
+    build: middleware
+    container_name: middleware_opaline
+    depends_on:
+      - fuseki
+    volumes:
+      - ./middleware/:/app
+      - ./data/fuseki/backups:/app/fuseki-backups # Needed to backup fuseki datasets
+    environment:
+      - SEMAPPS_SPARQL_ENDPOINT=http://fuseki:3030/
+      - SEMAPPS_MAIN_DATASET=localData
+      - SEMAPPS_JENA_USER=admin
+      - SEMAPPS_JENA_PASSWORD=admin
+      - SEMAPPS_HOME_URL=http://localhost:3000/
+      - SEMAPPS_BACKUP_FUSEKI_DATASETS_PATH=/app/fuseki-backups
+      - SEMAPPS_OIDC_ISSUER=https://login.lescommuns.org/auth/realms/master/
+      - SEMAPPS_OIDC_CLIENT_ID=semapps
+    ports:
+      - "3000:3000"
+    expose:
+      - "3000"
+    command: bash -c "yarn install && pm2-runtime 'yarn run dev'"
+    
+  backoffice:
+    build: backoffice
+    container_name: backoffice_opaline
+    volumes:
+      - ./backoffice:/app
+    environment:
+      - REACT_APP_MIDDLEWARE_URL=http://localhost:3000/
+      - REACT_APP_MAPBOX_ACCESS_TOKEN=${REACT_APP_MAPBOX_ACCESS_TOKEN}
+      - PORT=5000
+    depends_on:
+      - middleware
+    ports:
+      - "5000:5000"
+    expose:
+      - "5000"
+    command: bash -c "yarn install && yarn start"
+    
+  frontend:
+    build: frontend
+    container_name: frontend_opaline
+    volumes:
+      - ./frontend:/app
+    environment:
+      - REACT_APP_MIDDLEWARE_URL=http://localhost:3000/
+      - REACT_APP_MAPBOX_ACCESS_TOKEN=${REACT_APP_MAPBOX_ACCESS_TOKEN}
+      - PORT=5001
+    depends_on:
+      - middleware
+    ports:
+      - "5001:5001"
+    expose:
+      - "5001"
+    command: bash -c "node -v && yarn install && yarn start"
+
+
