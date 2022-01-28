@@ -11,7 +11,9 @@ module.exports = {
     ontologies,
     containers,
     defaultContainerOptions: {
-      jsonContext: urlJoin(CONFIG.HOME_URL, 'context.json')
+      jsonContext: urlJoin(CONFIG.HOME_URL, 'context.json'),
+      allowAnonymousEdit: false,
+      allowAnonymousDelete: false
     }
   }
 };
