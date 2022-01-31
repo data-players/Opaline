@@ -32,19 +32,44 @@ module.exports = [
     path: '/files'
   },
   {
+    path: '/business-creation-goals',
+    acceptedTypes: ['opal:BusinessCreationGoal'],
+    newResourcesPermissions: writePermissionsToCreator
+  },
+  {
+    path: '/degree-levels',
+    acceptedTypes: ['opal:DegreeLevel'],
+    newResourcesPermissions: writePermissionsToCreator
+  },
+  {
+    path: '/finding-help-goals',
+    acceptedTypes: ['opal:FindingHelpGoal'],
+    newResourcesPermissions: writePermissionsToCreator
+  },
+  {
+    path: '/job-search-goals',
+    acceptedTypes: ['opal:JobSearchGoal'],
+    newResourcesPermissions: writePermissionsToCreator
+  },
+  {
     path: '/organizations',
     acceptedTypes: ['pair:Organization'],
     dereference: ['pair:hasLocation/pair:hasPostalAddress'],
     newResourcesPermissions: writePermissionsToCreator
   },
   {
-    path: '/organization-types',
-    acceptedTypes: ['pair:OrganizationType'],
+    path: '/persons',
+    acceptedTypes: ['pair:Person'],
     newResourcesPermissions: writePermissionsToCreator
   },
   {
-    path: '/persons',
-    acceptedTypes: ['pair:Person'],
+    path: '/programs',
+    acceptedTypes: ['pair:Program'],
+    newResourcesPermissions: writePermissionsToCreator
+  },
+  {
+    path: '/training-goals',
+    acceptedTypes: ['opal:TrainingGoal'],
     newResourcesPermissions: writePermissionsToCreator
   },
 ];

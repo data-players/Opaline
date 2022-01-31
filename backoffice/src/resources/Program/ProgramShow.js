@@ -8,15 +8,15 @@ import { ShowActions } from "@semapps/archipelago-layout";
 import FullWidthBox from '../../commons/FullWidthBox';
 import Title from "../commons/Title";
 
-const OrganizationShow = ({...props}) => (
+const programShow = ({...props}) => (
   <Show actions={<ShowActions hasList={false} />} {...props} >
     <FullWidthBox>
       <Title label={""}/> 
       <Typography component="div">
-        <TextField source="pair:description" />
+        <TextField source="pair:label" />
       </Typography>
     </FullWidthBox>
   </Show>
 );
 
-export default OrganizationShow;
+export default programShow;
