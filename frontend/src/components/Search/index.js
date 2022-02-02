@@ -44,7 +44,7 @@ const Search = ({
   console.log('>> selectedField:', selectedField);
   console.log('>> selectedFieldValues:', selectedFieldValues);
   console.log('>> selectedValues:', selectedValues);
-  console.log('>> results',results);
+  console.log('>> results', results);
   console.log('>+ resourceValues:', resourceValues);
   console.log('>+ fieldValues:', fieldValues);
   
@@ -103,7 +103,14 @@ const Search = ({
   const setChosenField = (field, value, replace=false) => {
     // no field to add if default choice
     if (value.choice !== 'default') {
-      searchFields.splice(searchFields.indexOf(field)+1 , replace?1:0, value)
+      // replace choice field and chosen field if replace needed
+      searchFields.splice(searchFields.indexOf(field)+1 , replace?1:0, {...value, type: 'chosen'})
+      // delete old selected value for chosen field
+      if(replace) {
+        const chosenIndex = selectedValues.indexOf(selectedValues.find(sv=>sv.field.name===field.name));
+        selectedValues.splice(chosenIndex-1, 1);
+        setSelectedValues(selectedValues);
+      }
       setSearchFields(searchFields);
     }
   }
