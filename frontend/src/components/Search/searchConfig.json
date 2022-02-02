@@ -3,10 +3,42 @@
     "root": true,
     "type": "Program",
     "slug": "programs",
-    "name": "Programmes",
+    "name": "program",
     "label": "des programmes",
     "fields" : [
       {
+        "type": "choice",
+        "name": "goal",
+        "fields": [
+          {
+            "type": "BusinessCreationGoal",
+            "slug": "business-creation-goals",
+            "name": "hasBusinessCreationGoals",
+            "label": "Création d'entreprise"
+          },{
+            "type": "JobSearchGoals",
+            "slug": "job-search-goals",
+            "name": "hasJobSearchGoals",
+            "label": "Recherche d'emploi"
+          },{
+            "type": "TrainingGoals",
+            "slug": "training-goals",
+            "name": "hasTrainingGoals",
+            "label": "Formation"
+          },{
+            "type": "FindingHelpGoals",
+            "slug": "finding-help-goals",
+            "name": "hasFindingHelpGoals",
+            "label": "Accompagnement"
+          },{
+            "type": "BusinessCreationGoal",
+            "slug": "business-creation-goals",
+            "name": "noIdea",
+            "label": "Je suis un peu perdu(e)",
+            "choice": "default"
+          }
+        ]
+      },{
         "type": "DegreeLevel",
         "slug": "degree-levels",
         "name": "hasDegreeLevel",
