@@ -23,7 +23,7 @@ export const programEdit = props => (
       <FormTab label="Principal">
         <TextInput source="pair:label" fullWidth validate={[required()]} />
         <ReferenceInput
-          source="opal:offeredBy"
+          source="opal:programOfferedBy"
           reference="Organization"
           validate={[required()]}
         >
@@ -37,11 +37,9 @@ export const programEdit = props => (
         >
           <SelectInput optionText="pair:label" />
         </ReferenceInput>
-        <SelectInput source="opal:gender" fullWidth choices={[
-          { id: 'all', name: 'Tout le monde' },
-          { id: 'female', name: 'Femme' },
-          { id: 'male', name: 'Homme' },
-        ]} initialValue={'all'} />
+        <ReferenceArrayInput source="opal:hasGenders" reference="Gender" fullWidth>
+          <SelectArrayInput optionText="pair:label" />
+        </ReferenceArrayInput>
         <BooleanInput source="opal:rqth" defaultValue={false} fullWidth />
         <BooleanInput source="opal:poleEmploi" defaultValue={false} fullWidth />
       </FormTab>

@@ -25,7 +25,7 @@ const programFilterSidebar = () => {
       <CardContent className={classes.cardContent}>
         <ReferenceFilter
           reference="Sector"
-          source="opal:offeredBy"
+          source="opal:programOfferedBy"
           // inverseSource="petr:sectorOf"
           sort={{ field: 'pair:label', order: 'DESC' }}
           limit={100}

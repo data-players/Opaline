@@ -21,6 +21,7 @@ export default {
       dereference: ['pair:hasLocation/pair:hasPostalAddress'],
       forceArray: [
         'opal:hasBusinessCreationGoals',
+        'opal:hasGenders',
         'opal:hasJoBSearchGoals',
         'opal:hasTrainingGoals',
         'opal:hasFindingHelpGoals',
@@ -34,12 +35,12 @@ export default {
     fr: {
       name: 'Programme |||| Les programmes',
       fields: {
-        'opal:offeredBy': 'Proposé par', /*Organization*/
+        'opal:programOfferedBy': 'Proposé par', /*Organization*/
         'pair:label': 'Nom',
         'opal:minimumAge' : 'Age minimum',
         'opal:maximumAge' : 'Age maximum',
         'opal:hasDegreeLevel': 'Niveau de diplôme',
-        'opal:gender': 'Genre',
+        'opal:hasGenders': 'Genres',
         'opal:rqth': 'Reconnaissance de la qualité de travailleur handicapé',
         'opal:poleEmploi': 'Inscrit à Pôle Emploi',
         'opal:hasBusinessCreationGoals': 'Création d\'entreprise',

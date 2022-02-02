@@ -47,6 +47,11 @@ module.exports = [
     newResourcesPermissions: writePermissionsToCreator
   },
   {
+    path: '/genders',
+    acceptedTypes: ['opal:Gender'],
+    newResourcesPermissions: writePermissionsToCreator
+  },
+  {
     path: '/job-search-goals',
     acceptedTypes: ['opal:JobSearchGoal'],
     newResourcesPermissions: writePermissionsToCreator

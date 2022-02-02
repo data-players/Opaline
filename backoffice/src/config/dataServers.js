@@ -10,6 +10,7 @@ const dataServers = {
         'opal:BusinessCreationGoal': ['/business-creation-goals'],
         'opal:DegreeLevel': ['/degree-levels'],
         'opal:FindingHelpGoal': ['/finding-help-goals'],
+        'opal:Gender': ['/genders'],
         'opal:JobSearchGoal': ['/job-search-goals'],
         'opal:TrainingGoal': ['/training-goals'],
         'opal:Program': ['/programs'],
