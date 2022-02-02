@@ -1,0 +1,27 @@
+[
+  {
+    "root": true,
+    "type": "Program",
+    "slug": "programs",
+    "name": "Programmes",
+    "label": "des programmes",
+    "fields" : [
+      {
+        "type": "DegreeLevel",
+        "slug": "degree-levels",
+        "name": "hasDegreeLevel",
+        "label": "Niveau de diplôme"
+      },{
+        "type": "Gender",
+        "slug": "genders",
+        "name": "hasGenders",
+        "label": "Genre",
+        "multiple": true
+      },{
+        "type": "boolean",
+        "name": "rqth",
+        "label": "RQTH"
+      }
+    ]
+  }
+]

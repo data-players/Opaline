@@ -1,157 +1,52 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Avatar, Box, Button, Chip, Container, makeStyles } from '@material-ui/core';
+
+import { Avatar, Box, Button, Chip, Container } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import OrganizationIcon from '@material-ui/icons/Home';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import WorkIcon from '@mui/icons-material/Work';
 
-import ontologies from './ontologies.json';
-import customSearchConfig from './config';
-// import ResourceIcon from '../../components/ResourceIcon';
+import useStyles from './useStyle'
+import searchConfig from './searchConfig.json';
 
+import DataFactory from '@rdfjs/data-model';
+const { literal, namedNode, quad, variable } = DataFactory;
 
-const useStyles = makeStyles(theme => ({
-  mainContainer: {
-    padding: 0,
-    [theme.breakpoints.up('sm')]: {
-      paddingLeft: 16,
-      paddingRight: 16
-    },
-    textAlign: 'center',
-    '& button': {
-      width: '90%',
-      maxWidth: 400
-    },
-    '& hr': {
-      width: '90%'
-    },
-  },
-  stepsContainer: {
-    padding: '0 8px 16px',
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
-    '& Button': {
-      padding: '8px 16px',
-      backgroundColor: 'transparent',
-      color: '#203142 !important',
-      border: '1px solid transparent',
-      '&:hover': {
-        backgroundColor: 'transparent'
-      }
-    }
-  },
-  dNone: {
-    display: 'none'
-  },
-  loading: {
-    height: 'unset'
-  },
-  stepContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    whiteSpace: 'nowrap'
-  },
-  selectedCriterias: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center'
-  },
-  criteriasContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    [theme.breakpoints.up('sm')]: {
-      paddingLeft: 24,
-      paddingRight: 24
-    },
-  },
-  criteriaContainer: {
-    width: '90%',
-    [theme.breakpoints.up('sm')]: {
-      width: 'unset',
-      minWidth: 400
-    },
-  },
-  criteria: {
-    width: '90%',
-    maxWidth: 600,
-    display: 'flex',
-    alignItems: 'center',
-    margin: 'auto',
-    textAlign: 'left'
-  },
-  manyCriterias: {
-    [theme.breakpoints.up('sm')]: {
-      display: 'flex',
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      '& > *': {
-        width: '50%'
-      }
-    }
-  },
-  criteriaChevronContainer: {
-    margin: 'auto 0',
-    minWidth: 50,
-    [theme.breakpoints.up('sm')]: {
-      minWidth: 90
-    },
-  },
-  criteriaChevron: {
-    fontSize: 50,
-    [theme.breakpoints.up('sm')]: {
-      fontSize: 90
-    },
-    stroke: 'white',
-    cursor: 'pointer',
-    '&:hover': {
-      opacity: .8
-    }
-  },
-  resourceContainer: {
-    '& button': {
-      justifyContent: 'flex-start',
-      '& svg': {
-        transform: 'scale(2)',
-        margin: '0 8px',
-        [theme.breakpoints.up('sm')]: {
-          margin: '0 16px',
-        },
-      }
-    }
-  },
-  noChoiceButton: {
-    color: '#203142 !important'
-  },
-  resultsContainer: {
-    width: '90%',
-    maxWidth: 600,
-    margin: '-16px auto'
-  },
-  resultItem: {
-    marginTop: 2,
-    listStyleType: 'disc',
-  }
-}));
+const Search = ({ 
+  addBooleanField,
+  fetchContainer,
+  resourceValues,
+  fieldValues
+}) => {
 
-const SearchPage = ({ theme }) => {
-  
   const classes = useStyles();
   
-  const dataProvider = null; // useDataProvider();
-
   const searchSteps = ['resource', 'field', 'results'];
   const [searchStep, setSearchStep] = useState(0);
   const [selectedResource, setSelectedResource] = useState();
   const [searchFields, setSearchFields] = useState([]);
   const [selectedField, setSelectedField] = useState(null);
-  const [fieldValues, setFieldValues] = useState();
-  const [storedFieldValues, setStoredFieldValues] = useState([]);
   const [selectedValues, setSelectedValues] = useState([]);
   const [results, setResults] = useState();
+  
+  let selectedFieldValues = null
+    if (selectedField?.name) {
+    selectedFieldValues = fieldValues[selectedField.name];
+  }
+  
+  console.log('>> searchStep:', searchStep);
+  console.log('>> selectedResource:', selectedResource);
+  console.log('>> searchFields:', searchFields);
+  console.log('>> selectedField:', selectedField);
+  console.log('>> selectedFieldValues:', selectedFieldValues);
+  console.log('>> selectedValues:', selectedValues);
+  console.log('>> results',results);
+  console.log('>+ resourceValues:', resourceValues);
+  console.log('>+ fieldValues:', fieldValues);
   
   const getSearchStep = (step) => {
     return searchSteps.indexOf(step)
@@ -162,7 +57,6 @@ const SearchPage = ({ theme }) => {
     setSelectedResource(null);
     setSearchFields([]);
     setSelectedField(null);
-    setFieldValues(null);
     setSelectedValues([]);
     setResults(null);
   }
@@ -179,7 +73,7 @@ const SearchPage = ({ theme }) => {
     setResults(null);
     if (resource !== selectedResource) {
       setSelectedResource(resource);
-      setSearchFields(customSearchConfig.find( resourceConfig => resourceConfig === resource ).fields);
+      setSearchFields(searchConfig.find( resourceConfig => resourceConfig === resource ).fields);
       const nextField = goToNextField(resource, null);
       if (! nextField) {
         setSelectedField();
@@ -187,24 +81,6 @@ const SearchPage = ({ theme }) => {
     }
     setSelectedValues([]);
   };
-  
-  const getSelectedFieldValues = async (resource, field) => {
-    setFieldValues([]);
-    const storedField = storedFieldValues.find(storedField =>
-      storedField.resource === resource.name && storedField.name === field.type
-    )
-    if (storedField) {
-      setFieldValues(storedField.data);  
-    } else {
-      const fieldValues = await dataProvider.getList(field.type, {});
-      setFieldValues(fieldValues.data);
-      setStoredFieldValues([...storedFieldValues, {
-        resource: resource.name,
-        name:field.type,
-        data:fieldValues.data
-      }]);
-    }
-  }
   
   const findNextField = (resource, selectedField, backward=false) => {
     if (! resource) {
@@ -242,7 +118,6 @@ const SearchPage = ({ theme }) => {
     setSearchStep(getSearchStep('field'));
     if (field !== selectedField) {
       setSelectedField(field);
-      getSelectedFieldValues(resource, field);
     }
   };
   
@@ -281,74 +156,23 @@ const SearchPage = ({ theme }) => {
     setSelectedValues(selectedValues.filter(selectedValue => selectedValue.value.id !== value.id));
   }
   
-  const getFullPredicate = (predicate) => {
-    const predicatePrefix = predicate.split(':')[0];
-    const predicateValue = predicate.split(':')[1];
-    const predicateOntologie = ontologies.find( ontologie => ontologie.prefix === predicatePrefix );
-    return predicateOntologie.url + predicateValue;
-  }
-  
   const getResults = async () => {
-    if (!selectedResource) {
+    if (!selectedResource || !resourceValues) {
       return;
     }
-    const sparqlWhere = selectedValues.map( (selectedValue, index) => { 
-      /*
-      if (! selectedValue.field.path ) {
-        return ({
-          "type": "bgp",
-          "triples": [{
-            "subject": DataFactory.variable("s1"),
-            "predicate": DataFactory.namedNode(getFullPredicate(selectedValue.field.name)),
-            "object": DataFactory.namedNode(selectedValue.value.id)
-          }]
-        })
-      } else {
-        return ({
-          "type": "bgp",
-          "triples": [{
-            "subject": DataFactory.variable("s1"),
-            "predicate": {
-              "type": "path",
-              "pathType": selectedValue.field.path.pathType,
-              "items": [DataFactory.namedNode(getFullPredicate(selectedValue.field.path.name))]
-            },
-            "object": DataFactory.blankNode("blank" + index)
-          },{
-            "subject": DataFactory.blankNode("blank" + index),
-            "predicate": DataFactory.namedNode(getFullPredicate(selectedValue.field.name)),
-            "object": DataFactory.namedNode(selectedValue.value.id)
-          }]
-        })
-      }
-      */
-    });
-    const results = await dataProvider.getList(
-      selectedResource.name,
-      {
-        "filter": {
-          "sparqlWhere": sparqlWhere
-        }
-    });
-      
-    const uniqueResources = [...new Set(results.data.map(item => item[selectedResource["result-path"]["name"]]))];
-    const resultsByResource = await Promise.all( uniqueResources.map(async uniqueResource => {
-      const resourceData = await dataProvider.getOne(selectedResource.name, {id: uniqueResource});
-      return ([ 
-        uniqueResource, {
-          id : uniqueResource,
-          resourceData : resourceData.data,
-          list: results.data
-            .filter(item => item[selectedResource["result-path"]["name"]] === uniqueResource)
-            .map(item => item["pair:label"])
-        }
-      ])
-    }))
-  
-    setResults({
-      ...results,
-      dataByResource: Object.fromEntries(resultsByResource)
-    });
+    let results = resourceValues.data;
+    console.log('--1', results);   
+    selectedValues.forEach(selectedValue => {
+      results = results.filter(result => {
+        // single value to array :
+        let resultValues = [].concat(result[selectedValue.field.name])
+        console.log('--2', selectedValue.value.id);
+        console.log('--3', resultValues);
+        return resultValues.includes(selectedValue.value.id);
+      })
+    })
+    console.log('--9', results);   
+    setResults(results);
   }
   
   useEffect( () => { 
@@ -368,6 +192,19 @@ const SearchPage = ({ theme }) => {
     });
   }
 
+  //== Get all data
+  useEffect( () => { 
+    const rootContainer = searchConfig[0];
+    fetchContainer(rootContainer);
+    rootContainer.fields.forEach(field => {
+      if (field.type === 'boolean') {
+        addBooleanField(field);
+      } else if (field) {
+        fetchContainer(field);
+      }
+    })
+  }, []);
+  
   return (
     <Container className={classes.mainContainer} maxWidth="lg">
       { ! selectedResource &&
@@ -406,7 +243,7 @@ const SearchPage = ({ theme }) => {
                 >
                   Résultats 
                   { results &&
-                    <span>&nbsp;({results.total})</span>
+                    <span>&nbsp;({results.length})</span>
                   }
                 </Button>
               </Box>
@@ -428,16 +265,21 @@ const SearchPage = ({ theme }) => {
           { selectedValues.length > 0 &&
             <Box pb={1} mt={-1} className={classes.selectedCriterias}>
               {
-                selectedValues.map((selectedValue, index) => (
+                selectedValues.map((selectedValue, index) => {
+                  const label = selectedValue.field.type!=='boolean'
+                    ? selectedValue.value.label
+                    : selectedValue.field.label + ' : ' + selectedValue.value.label
+                  return (
                   selectedValue &&
                     <Box pt={1} pl={2} key={index}>
                       <Chip 
-                        label={selectedValue.value["pair:label"]}
+                        label={label}
                         onClick={()=>handleDeleteSelectedValueClick(selectedValue.field, selectedValue.value)}
                         onDelete={()=>handleDeleteSelectedValueClick(selectedValue.field, selectedValue.value)}
                       />
                     </Box>
-                ))
+                  )
+                })
               }
             </Box>
           }
@@ -462,7 +304,7 @@ const SearchPage = ({ theme }) => {
             { selectedField === null &&
               <Box className={classes.criteriaContainer}>              
                 {
-                  customSearchConfig.map((resource, index) => (
+                  searchConfig.map((resource, index) => (
                     <Box pt={2} key={index} className={classes.resourceContainer}>
                       <Button 
                         variant="contained" 
@@ -480,16 +322,16 @@ const SearchPage = ({ theme }) => {
             { 
               searchFields.filter(field => selectedField === field).map((field, index) => (
                 <Box key={index} className={classes.criteriaContainer}>
-                  <Box className={ (fieldValues.length > 6) ? classes.manyCriterias : null }>
+                  <Box className={ (selectedFieldValues?.length > 6) ? classes.manyCriterias : null }>
                     {
-                      fieldValues?.map((value, index) => (
+                      selectedFieldValues?.map((value, index) => (
                         <Box pt={2} key={index}>
                           <Button 
                             variant="contained" 
-                            color={selectedValues.find(selectedValue => selectedValue.value.id === value.id) ? "primary" : "secondary"}
+                            color={selectedValues.find(selectedValue => (selectedValue.value.id === value.id)) ? "primary" : "secondary"}
                             onClick={()=>handleValueClick(field, value)}
                           >
-                            {value["pair:label"]}
+                            {value.label}
                           </Button>
                         </Box>
                       ))
@@ -525,46 +367,29 @@ const SearchPage = ({ theme }) => {
             { results && 
               <Box>
                 <hr />
-                { results.total === 0 &&
+                { results.length === 0 &&
                   <Box p={3}>
                     <p>Aucun résultat : Veuillez modifier vos critères de recherche.</p>
                   </Box>
                 }
-                { results.total > 0 &&
-                  <h2>Résultats ({results.total}) :</h2>
+                { results.length > 0 &&
+                  <h2>Résultats ({results.length}) :</h2>
                 }
-                { results.data && 
-                  <Box className={classes.resultsContainer}>
-                    {/*
-                    <ListContext.Provider
-                      value={{
-                          loaded: true,
-                          loading: false,
-                          ids: Object.keys(results.dataByResource),
-                          data: results.dataByResource,
-                          total: Object.keys(results.dataByResource).length,
-                          resource: selectedResource["result-path"]["type"],
-                          basePath: '/' + selectedResource["result-path"]["type"],
-                      }}
-                    >
-                      <SimpleList
-                        primaryText={record => record.resourceData["pair:label"]}
-                        secondaryText={record => { return (
-                          <ul>
-                            {record.list.map((item, index) => <li key={index} className={classes.resultItem}>{item}</li>)}
-                          </ul>
-                        )}}
-                        leftAvatar={record => (
-                          <Avatar src={record.resourceData['petr:logo']} width="100%">
-                            <OrganizationIcon />
-                          </Avatar>
-                        )}
-                        linkType="show"
+                <List sx={{/* width: '100%', maxWidth: 360, bgcolor: 'background.paper' */}}>
+                  { results.map((result, index) => (
+                    <ListItem>
+                      <ListItemAvatar>
+                        <Avatar>
+                          <WorkIcon />
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText 
+                        primary={result.id} 
+                        secondary={<>{result.hasGenders}<br />{result.hasDegreeLevel}</>}
                       />
-                    </ListContext.Provider>
-                    */}
-                  </Box>
-                }
+                    </ListItem>
+                  )) }
+                </List>
               </Box>
             }
           </Box>
@@ -589,4 +414,4 @@ const SearchPage = ({ theme }) => {
   );
 };
 
-export default SearchPage;
+export default Search;
