@@ -1,11 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react';
 
 import { Avatar, Box, Button, Chip, Container } from '@material-ui/core';
+import Checkbox from '@mui/material/Checkbox';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import OrganizationIcon from '@material-ui/icons/Home';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import WorkIcon from '@mui/icons-material/Work';
@@ -14,6 +17,7 @@ import useStyles from './useStyle'
 import searchConfig from './searchConfig.json';
 
 import DataFactory from '@rdfjs/data-model';
+import { svgIconClasses } from '@mui/material';
 const { literal, namedNode, quad, variable } = DataFactory;
 
 const Search = ({ 
@@ -32,6 +36,7 @@ const Search = ({
   const [selectedField, setSelectedField] = useState(null);
   const [selectedValues, setSelectedValues] = useState([]);
   const [results, setResults] = useState();
+  const [checked, setChecked] = useState([]);
   
   let selectedFieldValues = null
     if (selectedField?.name) {
@@ -45,6 +50,7 @@ const Search = ({
   console.log('>> selectedFieldValues:', selectedFieldValues);
   console.log('>> selectedValues:', [...selectedValues]);
   console.log('>> results', results);
+  console.log('>> checked:', checked);
   console.log('>+ resourceValues:', resourceValues);
   console.log('>+ fieldValues:', fieldValues);
   */
@@ -124,12 +130,20 @@ const Search = ({
   const handleFieldClick = (field) => {
     setSearchStep(getSearchStep('field'));
     if (field !== selectedField) {
+      setChecked([]);
       setSelectedField(field);
+      if (field.multiple) {
+        const currentSelectedValue = selectedValues.find(sv => sv.field.name === field.name);
+        if (currentSelectedValue) {
+          setChecked(currentSelectedValue.value);
+        }
+      }
     }
   };
   
   const handleValueClick = (field, value) => {
     if (value) {
+      // id filling
       if (! value.id) {
         value.id = value.name
       }
@@ -147,7 +161,7 @@ const Search = ({
           setChosenField(field, value)
         }
       } else {
-        if (currentValueForField.value.id === value.id) {
+        if (currentValueForField.value.id === value.id && ! Array.isArray(currentValueForField.value)) {
           goToNextField(selectedResource, field);
           return;
         } else {
@@ -180,12 +194,29 @@ const Search = ({
       return;
     }
     let results = resourceValues.data;
-    selectedValues.forEach(selectedValue => {
-      if (selectedValue.field.type !== 'field-choice') {
+    selectedValues.forEach(sv => {
+      if (sv.field.type !== 'field-choice') {
+        const fieldName = sv.field.name;
+        // single selected value to array :
+        const values = [].concat(sv.value);
+        // array of all selected ids for the current field
+        const valueIds = values.map(v => v.id)
         results = results.filter(result => {
-          // single value to array :
-          let resultValues = [].concat(result[selectedValue.field.name])
-          return resultValues.includes(selectedValue.value.id);
+          // result kept if no value for the current field
+          if (! result[fieldName] && ! sv.field.required) { 
+            return true
+          } else {
+            // single value to array for the current field
+            let resultValues = [].concat(result[fieldName])
+            // check if at least one result value matches with one selected value
+            let resultOk = false;
+            resultValues.forEach(rv => {
+              if (valueIds.includes(rv)) {
+                resultOk = true;
+              }
+            })
+            return resultOk;
+          }
         })
       }
     })
@@ -293,9 +324,17 @@ const Search = ({
               {
                 selectedValues.map((selectedValue, index) => {
                   if (selectedValue.field.type !== 'field-choice') {
-                    const label = selectedValue.field.type!=='boolean'
-                      ? selectedValue.value.label
-                      : selectedValue.field.label + ' : ' + selectedValue.value.label
+                    let label = '';
+                    if (! Array.isArray(selectedValue.value)) {
+                      label = selectedValue.field.type!=='boolean'
+                        ? selectedValue.value.label
+                        : selectedValue.field.label + ' : ' + selectedValue.value.label
+                    } else {
+                      selectedValue.value.forEach(v => {
+                        if (label !== '') { label += '/' }
+                        label = label + v.label;
+                      })
+                    }
                     return (
                     selectedValue &&
                       <Box pt={1} pl={2} key={index}>
@@ -331,54 +370,95 @@ const Search = ({
             }
             { 
               searchFields.filter(field => selectedField === field).map((field, index) => {
-                if (field.type !== 'field-choice') { return(
+                const isChoice = field.type === 'field-choice';
+                const fieldsArray = isChoice ? selectedField.fields : selectedFieldValues;
+                const matchField = isChoice ? 'name' : 'id';
+                const multiple = field.multiple;
+                
+                const handleToggle = (value) => () => {
+                  const currentIndex = checked.indexOf(value);
+                  const newChecked = [...checked];
+
+                  if (currentIndex === -1) {
+                    newChecked.push(value);
+                  } else {
+                    newChecked.splice(currentIndex, 1);
+                  }
+
+                  setChecked(newChecked);
+                };
+                
+                return(
                   <Box key={index} className={classes.criteriaContainer}>
-                    <Box className={ (selectedFieldValues?.length > 6) ? classes.manyCriterias : null }>
-                      {
-                        selectedFieldValues?.map((value, index) => (
-                          <Box pt={2} key={index}>
-                            <Button 
-                              variant="contained" 
-                              color={selectedValues.find(selectedValue => (selectedValue.value.id === value.id)) ? "primary" : "secondary"}
-                              onClick={()=>handleValueClick(field, value)}
-                            >
-                              {value.label}
-                            </Button>
-                          </Box>
-                        ))
-                      }
-                    </Box>
-                    <Box pt={3}>
-                      <Button 
-                        variant="contained" 
-                        color="default"
-                        className={classes.noChoiceButton}
-                        onClick={()=>handleValueClick(field, null)}
-                      >
-                        Ignorer ce critère
-                      </Button>
-                    </Box>
+                    { ! multiple && fieldsArray &&
+                      <Box className={ (selectedFieldValues?.length > 6) ? classes.manyCriterias : null }>
+                        { 
+                          fieldsArray.map((value, index) => (
+                            <Box pt={2} key={index}>
+                              <Button 
+                                variant="contained" 
+                                color={selectedValues.find(sv => (sv.value[matchField] === value[matchField])) ? "primary" : "secondary"}
+                                onClick={()=>handleValueClick(field, value)}
+                              >
+                                {value.label}
+                              </Button>
+                            </Box>
+                          ))
+                        }
+                      </Box>
+                    }
+                    { multiple && fieldsArray &&
+                      <>
+                        <List sx={{ /*width: '100%', maxWidth: 360, bgcolor: 'background.paper'*/ }}>
+                          { fieldsArray.map((value, index) => {
+                            const labelId = `checkbox-list-label-${value}`;
+                            return (
+                              <ListItem
+                                key={index}
+                                disablePadding
+                              >
+                                <ListItemButton role={undefined} onClick={handleToggle(value)} dense>
+                                  <ListItemIcon>
+                                    <Checkbox
+                                      edge="start"
+                                      checked={checked.indexOf(value) !== -1}
+                                      tabIndex={-1}
+                                      disableRipple
+                                      inputProps={{ 'aria-labelledby': labelId }}
+                                    />
+                                  </ListItemIcon>
+                                  <ListItemText id={labelId} primary={value.label} />
+                                </ListItemButton>
+                              </ListItem>
+                            );
+                          })}
+                        </List>
+                        <Box pt={3}>
+                          <Button 
+                            variant="contained" 
+                            color="default"
+                            className={classes.noChoiceButton}
+                            onClick={()=>handleValueClick(field, checked)}
+                          >
+                            Suivant
+                          </Button>
+                        </Box>
+                      </>
+                    }
+                    { ! isChoice && ! multiple &&
+                      <Box pt={3}>
+                        <Button 
+                          variant="contained" 
+                          color="default"
+                          className={classes.noChoiceButton}
+                          onClick={()=>handleValueClick(field, null)}
+                        >
+                          Ignorer ce critère
+                        </Button>
+                      </Box>
+                    }
                   </Box>
-                )} else { 
-                  return(
-                  <Box key={index} className={classes.criteriaContainer}>
-                    <Box className={ (selectedFieldValues?.length > 6) ? classes.manyCriterias : null }>
-                      {
-                        selectedField.fields.map((value, index) => (
-                          <Box pt={2} key={index}>
-                            <Button 
-                              variant="contained" 
-                              color={selectedValues.find(selectedValue => (selectedValue.value.name === value.name)) ? "primary" : "secondary"}
-                              onClick={()=>handleValueClick(field, value)}
-                            >
-                              {value.label}
-                            </Button>
-                          </Box>
-                        ))
-                      }
-                    </Box>
-                  </Box>
-                )}
+                )
               })
             }
             { selectedResource &&

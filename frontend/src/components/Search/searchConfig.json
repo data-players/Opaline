@@ -15,25 +15,31 @@
             "parent": "goal",
             "slug": "business-creation-goals",
             "name": "hasBusinessCreationGoals",
-            "label": "Création d'entreprise"
+            "label": "Création d'entreprise",
+            "required": true
           },{
             "type": "chosen-field",
             "parent": "goal",
             "slug": "job-search-goals",
             "name": "hasJobSearchGoals",
-            "label": "Recherche d'emploi"
+            "label": "Recherche d'emploi",
+            "multiple": 3,
+            "required": true
           },{
             "type": "chosen-field",
             "parent": "goal",
             "slug": "training-goals",
             "name": "hasTrainingGoals",
-            "label": "Formation"
+            "label": "Formation",
+            "required": true
           },{
             "type": "chosen-field",
             "parent": "goal",
             "slug": "finding-help-goals",
             "name": "hasFindingHelpGoals",
-            "label": "Accompagnement"
+            "label": "Accompagnement",
+            "multiple": 999,
+            "required": true
           },{
             "type": "no-choice",
             "parent": "goal",
