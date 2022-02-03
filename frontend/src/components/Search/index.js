@@ -37,16 +37,17 @@ const Search = ({
     if (selectedField?.name) {
     selectedFieldValues = fieldValues[selectedField.name];
   }
-  
+  /*
   console.log('>> selectedResource:', selectedResource);
   console.log('>> searchStep:', searchStep);
   console.log('>> searchFields:', searchFields);
   console.log('>> selectedField:', selectedField);
   console.log('>> selectedFieldValues:', selectedFieldValues);
-  console.log('>> selectedValues:', selectedValues);
+  console.log('>> selectedValues:', [...selectedValues]);
   console.log('>> results', results);
   console.log('>+ resourceValues:', resourceValues);
   console.log('>+ fieldValues:', fieldValues);
+  */
   
   const getSearchStep = (step) => {
     return searchSteps.indexOf(step)
@@ -75,21 +76,21 @@ const Search = ({
     if (! selectedField) {
       return Object.values(resource.fields)[0]; 
     }
-    const fieldIndex = resource.fields.findIndex(field => field.type === selectedField.type);
+    const fieldIndex = searchFields.findIndex(field => field.name === selectedField.name);
     if (fieldIndex === -1) {
       return; 
     }
     if (! backward ) {
-      if (fieldIndex >= (Object.keys(resource.fields).length - 1)) {
+      if (fieldIndex >= (Object.keys(searchFields).length - 1)) {
         handleResultsStepClick();
         return; 
       }
-      return Object.values(resource.fields)[fieldIndex + 1];
+      return Object.values(searchFields)[fieldIndex + 1];
     } else {
       if (fieldIndex === 0) {
         return; 
       }
-      return Object.values(resource.fields)[fieldIndex - 1];
+      return Object.values(searchFields)[fieldIndex - 1];
     }
   }
   
@@ -101,18 +102,23 @@ const Search = ({
   }
   
   const setChosenField = (field, value, replace=false) => {
-    // no field to add if default choice
-    if (value.choice !== 'default') {
-      // replace choice field and chosen field if replace needed
-      searchFields.splice(searchFields.indexOf(field)+1 , replace?1:0, {...value, type: 'chosen'})
-      // delete old selected value for chosen field
-      if(replace) {
-        const chosenIndex = selectedValues.indexOf(selectedValues.find(sv=>sv.field.name===field.name));
-        selectedValues.splice(chosenIndex-1, 1);
-        setSelectedValues(selectedValues);
+    const choiceFieldIndex = searchFields.indexOf(field);
+    if (replace) {
+      const currentChosenExist = searchFields.find(sf=>sf.parent===field.name);
+      if (currentChosenExist) {
+        // delete current chosen-field
+        searchFields.splice(choiceFieldIndex+1 , 1)
+        // delete old selected value
+        const valueIndex = selectedValues.findIndex(sv=>sv.field.parent===field.name);
+        selectedValues.splice(valueIndex, 1);
+        setSelectedValues([...selectedValues]);
       }
-      setSearchFields(searchFields);
     }
+    if (value.type !== 'no-choice') {
+      // add chosen-field
+      searchFields.splice(choiceFieldIndex+1 , 0, value)
+    }
+    setSearchFields([...searchFields]);
   }
 
   const handleFieldClick = (field) => {
@@ -129,12 +135,15 @@ const Search = ({
       }
       const currentValueForField = selectedValues.find(selectedValue => selectedValue.field === field);
       if (! currentValueForField) {
-        selectedValues.push({
-          field: field,
-          value: value
-        })
+        if (field.type !== 'chosen-field') {
+          selectedValues.push({ field: field, value: value });
+        } else {
+          // insert chosen-field just after parent field-choice
+          const choiceFieldIndex = selectedValues.findIndex(sv=> sv.field.name === field.parent);
+          selectedValues.splice(choiceFieldIndex+1, 0, { field: field, value: value });
+        }
         setSelectedValues([...selectedValues]);
-        if (field.type === 'choice') {
+        if (field.type === 'field-choice') {
           setChosenField(field, value)
         }
       } else {
@@ -142,8 +151,8 @@ const Search = ({
           goToNextField(selectedResource, field);
           return;
         } else {
-          if (field.type === 'choice') {
-            setChosenField(field, value, true)
+          if (field.type === 'field-choice') {
+            setChosenField(field, value, /*replace=*/true)
           }
           setSelectedValues(selectedValues.map(selectedValue => {
             if (selectedValue.field === field) {
@@ -171,19 +180,15 @@ const Search = ({
       return;
     }
     let results = resourceValues.data;
-    console.log('--1', results);   
     selectedValues.forEach(selectedValue => {
-      if (selectedValue.field.type !== 'choice') {
+      if (selectedValue.field.type !== 'field-choice') {
         results = results.filter(result => {
           // single value to array :
           let resultValues = [].concat(result[selectedValue.field.name])
-          console.log('--2', selectedValue.value.id);
-          console.log('--3', resultValues);
           return resultValues.includes(selectedValue.value.id);
         })
       }
     })
-    console.log('--9', results);   
     setResults(results);
   }
   
@@ -208,7 +213,7 @@ const Search = ({
   const getData = (data) => {
     data.forEach(field => {
       switch (field.type) {
-        case 'choice':
+        case 'field-choice':
         getData(field.fields);
         break;
         case 'boolean':
@@ -287,7 +292,7 @@ const Search = ({
             <Box pb={1} mt={-1} className={classes.selectedCriterias}>
               {
                 selectedValues.map((selectedValue, index) => {
-                  if (selectedValue.field.type !== 'choice') {
+                  if (selectedValue.field.type !== 'field-choice') {
                     const label = selectedValue.field.type!=='boolean'
                       ? selectedValue.value.label
                       : selectedValue.field.label + ' : ' + selectedValue.value.label
@@ -326,7 +331,7 @@ const Search = ({
             }
             { 
               searchFields.filter(field => selectedField === field).map((field, index) => {
-                if (field.type !== 'choice') { return(
+                if (field.type !== 'field-choice') { return(
                   <Box key={index} className={classes.criteriaContainer}>
                     <Box className={ (selectedFieldValues?.length > 6) ? classes.manyCriterias : null }>
                       {
@@ -363,7 +368,7 @@ const Search = ({
                           <Box pt={2} key={index}>
                             <Button 
                               variant="contained" 
-                              color={selectedValues.find(selectedValue => (selectedValue.value.id === value.id)) ? "primary" : "secondary"}
+                              color={selectedValues.find(selectedValue => (selectedValue.value.name === value.name)) ? "primary" : "secondary"}
                               onClick={()=>handleValueClick(field, value)}
                             >
                               {value.label}

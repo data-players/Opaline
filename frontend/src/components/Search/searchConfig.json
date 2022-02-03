@@ -7,35 +7,38 @@
     "label": "des programmes",
     "fields" : [
       {
-        "type": "choice",
+        "type": "field-choice",
         "name": "goal",
         "fields": [
           {
-            "type": "BusinessCreationGoal",
+            "type": "chosen-field",
+            "parent": "goal",
             "slug": "business-creation-goals",
             "name": "hasBusinessCreationGoals",
             "label": "Création d'entreprise"
           },{
-            "type": "JobSearchGoals",
+            "type": "chosen-field",
+            "parent": "goal",
             "slug": "job-search-goals",
             "name": "hasJobSearchGoals",
             "label": "Recherche d'emploi"
           },{
-            "type": "TrainingGoals",
+            "type": "chosen-field",
+            "parent": "goal",
             "slug": "training-goals",
             "name": "hasTrainingGoals",
             "label": "Formation"
           },{
-            "type": "FindingHelpGoals",
+            "type": "chosen-field",
+            "parent": "goal",
             "slug": "finding-help-goals",
             "name": "hasFindingHelpGoals",
             "label": "Accompagnement"
           },{
-            "type": "BusinessCreationGoal",
-            "slug": "business-creation-goals",
+            "type": "no-choice",
+            "parent": "goal",
             "name": "noIdea",
-            "label": "Je suis un peu perdu(e)",
-            "choice": "default"
+            "label": "Je suis un peu perdu(e)"
           }
         ]
       },{
