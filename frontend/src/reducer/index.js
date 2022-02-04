@@ -5,7 +5,9 @@ import {
 }
   from '../actions';
 
-const initialState = {};
+const initialState = {
+  loading: true
+};
 
 const reducer = (state = initialState, action = {}) => {
   console.log('** reducer', action);
@@ -35,7 +37,8 @@ const reducer = (state = initialState, action = {}) => {
         resourceValues: {
           data: action.resourceValues,
           container: action.container
-        }
+        },
+        loading: false
       };
     default:
       return state;

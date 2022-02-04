@@ -290,7 +290,6 @@ const Search = ({
   
   useEffect( () => { 
     const rootContainer = searchConfig[0];
-    fetchContainer(rootContainer);
     getData(rootContainer.fields);
     handleNewSearchClick();
   }, []);
