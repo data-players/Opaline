@@ -43,7 +43,7 @@ const Search = ({
     selectedFieldValues = fieldValues[selectedField.name];
   }
   
-  /*
+
   console.log('>> selectedResource:', selectedResource);
   console.log('>> searchStep:', searchStep);
   console.log('>> searchFields:', searchFields);
@@ -54,18 +54,23 @@ const Search = ({
   console.log('>> checked:', checked);
   console.log('>+ resourceValues:', resourceValues);
   console.log('>+ fieldValues:', fieldValues);
-  */
+
   
   const getSearchStep = (step) => {
     return searchSteps.indexOf(step)
   }
   
   const handleNewSearchClick = () => {
+    const rootContainer = searchConfig[0];
     setSearchStep(getSearchStep('start'));
-    setSearchFields([]);
     setSelectedField(null);
     setSelectedValues([]);
     setResults(null);
+    setChecked([]);
+    setTextFieldValue(null);
+    setSelectedResource(rootContainer);
+    setSearchFields(rootContainer.fields);
+    goToNextField(rootContainer, null);
   }
 
   const goToNextField = (resource, field, backward=false) => {
@@ -282,10 +287,10 @@ const Search = ({
     const rootContainer = searchConfig[0];
     fetchContainer(rootContainer);
     getData(rootContainer.fields);
-    setSelectedResource(rootContainer);
-    setSearchFields(rootContainer.fields);
-    goToNextField(rootContainer, null);
+    handleNewSearchClick();
   }, []);
+  
+
   
   return (
     <Container className={classes.mainContainer} maxWidth="lg">
