@@ -27,9 +27,13 @@ const Search = ({
 }) => {
 
   const classes = useStyles();
+    
   
+  const getSearchStep = (step) => {
+    return searchSteps.indexOf(step)
+  }
   const searchSteps = ['start', 'field', 'results'];
-  const [searchStep, setSearchStep] = useState(0);
+  const [searchStep, setSearchStep] = useState(getSearchStep('start'));
   const [selectedResource, setSelectedResource] = useState();
   const [searchFields, setSearchFields] = useState([]);
   const [selectedField, setSelectedField] = useState(null);
@@ -55,10 +59,6 @@ const Search = ({
   console.log('>+ resourceValues:', resourceValues);
   console.log('>+ fieldValues:', fieldValues);
 
-  
-  const getSearchStep = (step) => {
-    return searchSteps.indexOf(step)
-  }
   
   const handleNewSearchClick = () => {
     const rootContainer = searchConfig[0];
@@ -134,11 +134,16 @@ const Search = ({
   }
 
   const handleFieldClick = (field) => {
-    setSearchStep(getSearchStep('field'));
     if (field !== selectedField) {
       setChecked([]);
       setTextFieldValue('');
       setSelectedField(field);
+      if (searchFields.findIndex(sf => sf.name === field.name) > 0) {
+        setSearchStep(getSearchStep('field'));
+      } else {
+        setSearchStep(getSearchStep('start'));
+      }
+      //setSearchStep(getSearchStep('field'));
       const currentSelectedValue = selectedValues.find(sv => sv.field.name === field.name);
       if (currentSelectedValue) {
         if (field.multiple) {
@@ -289,9 +294,8 @@ const Search = ({
     getData(rootContainer.fields);
     handleNewSearchClick();
   }, []);
-  
 
-  
+
   return (
     <Container className={classes.mainContainer} maxWidth="lg">
       { selectedResource &&
