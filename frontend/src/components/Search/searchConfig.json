@@ -1,7 +1,7 @@
 [
   {
     "root": true,
-    "type": "Program",
+    "type": "resource",
     "slug": "programs",
     "name": "program",
     "label": "des programmes",
@@ -48,12 +48,12 @@
           }
         ]
       },{
-        "type": "DegreeLevel",
+        "type": "standard",
         "slug": "degree-levels",
         "name": "hasDegreeLevel",
         "label": "Niveau de diplôme"
       },{
-        "type": "Gender",
+        "type": "standard",
         "slug": "genders",
         "name": "hasGenders",
         "label": "Genre",
@@ -62,6 +62,12 @@
         "type": "boolean",
         "name": "rqth",
         "label": "RQTH"
+      },{
+        "type": "range",
+        "name": "age",
+        "min": "opal:minimumAge",
+        "max": "opal:maximumAge",
+        "label": "Votre âge"
       }
     ]
   }
