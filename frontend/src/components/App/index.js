@@ -30,7 +30,7 @@ const App = ({ loading }) => {
       {!loading && (
         <Switch>
           <Route exact path="/" component={Search} />
-          <Route exact path="/program/:slug" component={Program} />
+          <Route exact path="/programmes/:slug" component={Program} />
           <Route component={NotFound} />
         </Switch>
       )}

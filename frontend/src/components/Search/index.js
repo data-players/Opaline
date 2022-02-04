@@ -13,6 +13,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import WorkIcon from '@mui/icons-material/Work';
 
+import { getSlugFromContainerUrl } from '../../selectors/urls';
 import useStyles from './useStyle'
 import searchConfig from './searchConfig.json';
 
@@ -555,15 +556,17 @@ const Search = ({
                 <List sx={{/* width: '100%', maxWidth: 360, bgcolor: 'background.paper' */}}>
                   { results.map((result, index) => (
                     <ListItem key={index}>
-                      <ListItemAvatar>
-                        <Avatar>
-                          <WorkIcon />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText 
-                        primary={result.id} 
-                        secondary={<>{result.hasGenders}<br />{result.hasDegreeLevel}</>}
-                      />
+                      <ListItemButton component="a" href={`/programmes/${getSlugFromContainerUrl('programs', result.id)}`}>
+                        <ListItemAvatar>
+                          <Avatar>
+                            <WorkIcon />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText 
+                          primary={result.id} 
+                          secondary={<>{result.hasGenders}<br />{result.hasDegreeLevel}</>}
+                        />
+                      </ListItemButton>
                     </ListItem>
                   )) }
                 </List>

@@ -16,3 +16,8 @@ export const getUrl = (prefix, string) => {
 export const getProgramFromSlug = (programs, slug) => {
   return programs.find((program) => getSlugFromString(program.label) === slug);
 };
+
+export const getSlugFromContainerUrl = (containerSlug, url) => {
+  console.log(process.env.REACT_APP_MIDDLEWARE_URL, containerSlug);
+  return url.replace(process.env.REACT_APP_MIDDLEWARE_URL + containerSlug + '/', '');
+}
