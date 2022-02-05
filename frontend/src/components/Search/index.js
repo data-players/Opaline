@@ -5,7 +5,6 @@ import { Avatar, Box, Button, Chip, Container, TextField } from '@material-ui/co
 import Checkbox from '@mui/material/Checkbox';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import OrganizationIcon from '@material-ui/icons/Home';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -17,9 +16,7 @@ import WorkIcon from '@mui/icons-material/Work';
 import { getSlugFromContainerUrl } from '../../selectors/urls';
 import useStyles from './useStyle'
 import searchConfig from './searchConfig.json';
-
-import DataFactory from '@rdfjs/data-model';
-const { literal, namedNode, quad, variable } = DataFactory;
+import AppBar from '../AppBar';
 
 
 const Search = ({
@@ -307,6 +304,7 @@ const Search = ({
 
   return (
     <>
+      <AppBar/>
       { loading &&
         <div className="loading">
           Chargement, veuillez patienter...

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import AppBar from '../AppBar';
 
 const Program = ({ program }) => {
   return (
@@ -8,7 +9,10 @@ const Program = ({ program }) => {
         <Redirect to="/404" />
       }
       { program &&
-        <div>Programme : {program.label}</div>
+        <>
+          <AppBar/>
+          <div>Programme : {program.label}</div>
+        </>
       }
     </>
   );

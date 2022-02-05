@@ -9,6 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import WorkIcon from '@mui/icons-material/Work';
 
+import AppBar from '../AppBar';
 import { getSlugFromContainerUrl } from '../../selectors/urls';
 
 
@@ -20,6 +21,7 @@ const Structure = ({ structure, programs }) => {
       }
       { structure &&
         <>
+          <AppBar/>
           <div>Structure : {structure.label}</div>
           <List sx={{/* width: '100%', maxWidth: 360, bgcolor: 'background.paper' */}}>
             { programs.map((program, index) => (
