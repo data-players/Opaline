@@ -9,7 +9,7 @@ const Program = ({ program }) => {
         <Redirect to="/404" />
       }
       { program &&
-        <div>programme : {program.label}</div>
+        <div>Programme : {program.label}</div>
       }
     </>
   );

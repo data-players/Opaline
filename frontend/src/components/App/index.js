@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Switch, useHistory } from 'react-router-dom';
 import NotFound from '../NotFound';
 import Search from '../../containers/Search';
 import Program from '../../containers/Program';
@@ -13,9 +13,19 @@ function Users() {
   return <h2>Users</h2>;
 }
 
+function GoBack() {
+  const history = useHistory();
+  return (
+    <BrowserRouter>
+      <button onClick={() => history.goBack()}>Back</button>
+    </BrowserRouter>
+  );
+}
+
 const App = ({ loading }) => {
   return (
     <BrowserRouter>
+        <GoBack/>
         <nav>
           <ul>
             <li>

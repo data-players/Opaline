@@ -40,6 +40,7 @@ const Search = ({
   const [selectedField, setSelectedField] = useState(null);
   const [selectedValues, setSelectedValues] = useState([]);
   const [results, setResults] = useState();
+  const [resultsByStructure, setResultsByStructure] = useState();
   const [checked, setChecked] = useState([]);
   const [textFieldValue, setTextFieldValue] = useState();
   
@@ -58,6 +59,7 @@ const Search = ({
   console.log('>> selectedFieldValues:', selectedFieldValues);
   console.log('>> selectedValues:', [...selectedValues]);
   console.log('>> results', results);
+  console.log('>> resultsByStructure', resultsByStructure);
   console.log('>> checked:', checked);
   console.log('>+ resourceValues:', resourceValues);
   console.log('>+ fieldValues:', fieldValues);
@@ -255,6 +257,12 @@ const Search = ({
       }
     })
     setResults(results);
+    const resultsByStructure = 
+      results
+        .map(result => result.programOfferedBy)
+        .filter((value, index, self) => self.indexOf(value) === index)
+        .map(result => resourceValues['organizations'].find(resource => resource.id === result));
+    setResultsByStructure(resultsByStructure);
   }
   
   useEffect( () => { 
@@ -554,17 +562,17 @@ const Search = ({
                   <h2>Résultats ({results.length}) :</h2>
                 }
                 <List sx={{/* width: '100%', maxWidth: 360, bgcolor: 'background.paper' */}}>
-                  { results.map((result, index) => (
+                  { resultsByStructure.map((result, index) => (
                     <ListItem key={index}>
-                      <ListItemButton component="a" href={`/programmes/${getSlugFromContainerUrl('programs', result.id)}`}>
+                      <ListItemButton component="a" href={`/structures/${getSlugFromContainerUrl('organizations', result.id)}`}>
                         <ListItemAvatar>
                           <Avatar>
                             <WorkIcon />
                           </Avatar>
                         </ListItemAvatar>
                         <ListItemText 
-                          primary={result.id} 
-                          secondary={<>{result.hasGenders}<br />{result.hasDegreeLevel}</>}
+                          primary={result.label} 
+                          secondary={result.id}
                         />
                       </ListItemButton>
                     </ListItem>
