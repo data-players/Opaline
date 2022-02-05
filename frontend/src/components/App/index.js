@@ -1,17 +1,24 @@
 import React from 'react';
 import { BrowserRouter, Link, Route, Switch, useHistory } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core';
+
 import NotFound from '../NotFound';
+import Start from '../../containers/Start';
 import Search from '../../containers/Search';
 import Program from '../../containers/Program';
 import Structure from '../../containers/Structure';
 
-function About() {
-  return <h2>About</h2>;
-}
 
-function Users() {
-  return <h2>Users</h2>;
-}
+const useStyles = makeStyles(theme => ({
+  nav: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    '& li': {
+      listStyle: 'none'
+    }
+  },
+}))
 
 function GoBack() {
   const history = useHistory();
@@ -23,29 +30,30 @@ function GoBack() {
 }
 
 const App = ({ loading }) => {
+  const classes = useStyles();
+  console.log(loading);
   return (
     <BrowserRouter>
-        <GoBack/>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Accueil</Link>
-            </li>
-          </ul>
-        </nav>
-        {loading && (
-        <div>
+      <nav className={classes.nav}>
+        <ul>
+          <li><Link to="/">Accueil</Link></li>
+          <li><GoBack/></li>
+        </ul>
+      </nav>
+      { loading &&
+        <div className="loading">
           Chargement, veuillez patienter...
         </div>
-      )}
-      {!loading && (
+      }
+      { ! loading &&
         <Switch>
-          <Route exact path="/" component={Search} />
+          <Route exact path="/" component={Start} />
+          <Route exact path="/Recherche" component={Search} />
           <Route exact path="/programmes/:slug" component={Program} />
           <Route exact path="/structures/:slug" component={Structure} />
           <Route component={NotFound} />
         </Switch>
-      )}
+      }
     </BrowserRouter>
   );
 };

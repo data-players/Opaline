@@ -4,7 +4,7 @@ import App from '../components/App';
 
 // == Data / state
 const mapStateToProps = (state) => ({
-  loading: state.loading,
+  loading: state.loading
 });
 
 // == Actions / dispatch

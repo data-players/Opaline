@@ -1,11 +1,10 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-
 const Program = ({ program }) => {
   return (
     <>
-      { ! program &&
+      { ! program && 
         <Redirect to="/404" />
       }
       { program &&

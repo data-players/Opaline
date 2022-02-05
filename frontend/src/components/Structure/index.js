@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Avatar } from '@material-ui/core';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -23,8 +23,8 @@ const Structure = ({ structure, programs }) => {
           <div>Structure : {structure.label}</div>
           <List sx={{/* width: '100%', maxWidth: 360, bgcolor: 'background.paper' */}}>
             { programs.map((program, index) => (
-              <ListItem key={index}>
-                <ListItemButton component="a" href={`/programmes/${getSlugFromContainerUrl('programs', program.id)}`}>
+              <ListItem button key={index} component={Link} to={`/programmes/${getSlugFromContainerUrl('programs', program.id)}`}>
+                <ListItemButton>
                   <ListItemAvatar>
                     <Avatar>
                       <WorkIcon />

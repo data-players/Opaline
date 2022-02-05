@@ -9,7 +9,7 @@ const mapStateToProps = (state, ownProps) => {
   const structure = getResourceFromSlug(state.resourceValues['organizations'], slug);
   return {
     structure: structure,
-    programs: state.resourceValues['programs'].filter(program => program.programOfferedBy === structure.id),
+    programs: state.resourceValues['programs']?.filter(program => program.programOfferedBy === structure.id),
   };
 };
 

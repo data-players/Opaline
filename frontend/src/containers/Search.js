@@ -8,6 +8,7 @@ from '../actions';
 
 // state
 const mapStateToProps = (state) => ({
+  loading: state.loading,
   resourceValues: state.resourceValues,
   fieldValues: state.fieldValues
 });

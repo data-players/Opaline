@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Avatar, Box, Button, Chip, Container, TextField } from '@material-ui/core';
 import Checkbox from '@mui/material/Checkbox';
@@ -20,7 +21,9 @@ import searchConfig from './searchConfig.json';
 import DataFactory from '@rdfjs/data-model';
 const { literal, namedNode, quad, variable } = DataFactory;
 
-const Search = ({ 
+
+const Search = ({
+  loading,
   addBooleanField,
   fetchContainer,
   resourceValues,
@@ -28,8 +31,6 @@ const Search = ({
 }) => {
 
   const classes = useStyles();
-    
-  
   const getSearchStep = (step) => {
     return searchSteps.indexOf(step)
   }
@@ -305,300 +306,309 @@ const Search = ({
 
 
   return (
-    <Container className={classes.mainContainer} maxWidth="lg">
-      { selectedResource &&
-        <>
-          <h1>Rechercher {selectedResource.label}</h1>
-          <Box className={classes.stepsContainer}>
-            {
-              searchFields.map((field, index) => (
-                <Box className={classes.stepContainer} key={index}>
-                  <Box>
-                    <Button 
-                      variant="contained" 
-                      disabled={selectedField === field}
-                      onClick={()=>handleFieldClick(field)}
-                    >
-                      {field.label}
-                    </Button>
-                  </Box>
-                  { ( Object.keys(selectedValues).length !== 0 ||
-                      index !== (searchFields.length - 1) 
-                    ) &&
-                      <ChevronRightIcon className={classes.stepChevron}/>
-                  }
-                </Box>
-              ))
-            }
-            { Object.keys(selectedValues).length > 0 &&
-              <Box p={1}>
-                <Button 
-                  variant="contained" 
-                  disabled={searchStep === getSearchStep('results')}
-                  onClick={()=>handleResultsStepClick()}
-                >
-                  Résultats 
-                  { results &&
-                    <span>&nbsp;({results.length})</span>
-                  }
-                </Button>
-              </Box>
-            }
-          </Box>
-          { searchStep === getSearchStep('field') &&
-            <hr/>
-          }
-        </>
+    <>
+      { loading &&
+        <div className="loading">
+          Chargement, veuillez patienter...
+        </div>
       }
-      { searchStep === getSearchStep('results') &&
-        <>
-          { selectedValues.length === 0 &&
-            searchStep === getSearchStep('results') &&
-              <Box p={3}>
-                <p>Veuillez sélectionner au moins un critère de recherche.</p>
-              </Box>
-          }
-          { selectedValues.length > 0 &&
-            <Box pb={1} mt={-1} className={classes.selectedCriterias}>
-              {
-                selectedValues.map((selectedValue, index) => {
-                  
-                  if (selectedValue.field.type !== 'field-choice') {
-                    let label = '';
-                    switch (selectedValue.field.type) {
-                      case 'boolean':
-                        label = selectedValue.field.label + ' : ' + selectedValue.value.label
-                      break;
-                      case 'range':
-                        label = selectedValue.field.label + ' : ' + selectedValue.value.id
-                      break;
-                      default:
-                        if (! Array.isArray(selectedValue.value)) {
-                          label = selectedValue.value.label
-                        } else {
-                          selectedValue.value.forEach(v => {
-                          if (label !== '') { label += '/' }
-                            label = label + v.label;
-                          })
-                        }
-                    }
-                    return (
-                      selectedValue &&
-                        <Box pt={1} pl={2} key={index}>
-                          <Chip 
-                            label={label}
-                            onClick={()=>handleDeleteSelectedValueClick(selectedValue.field, selectedValue.value)}
-                            onDelete={()=>handleDeleteSelectedValueClick(selectedValue.field, selectedValue.value)}
-                          />
-                        </Box>
-                    )
-                  }
-                })
-              }
-            </Box>
-          }
-        </>
-      }
-      { searchStep !== getSearchStep('results') &&
-        <>
-          { searchStep !== getSearchStep('start') &&
-            <h2>Précisez votre recherche :</h2>
-          }
-          <Box pb={4} mt={-1} className={classes.criteriasContainer}>
-            { selectedResource &&
-              <Box className={classes.criteriaChevronContainer}>
-                { searchStep !== getSearchStep('start') &&
-                  <ChevronLeftIcon
-                    className={classes.criteriaChevron}
-                    onClick={() => handleClickLeftCriteriaChevron()}
-                  />
-                }
-              </Box>
-            }
-            { 
-              searchFields.filter(field => selectedField === field).map((field, index) => {
-
-                if (field.type === 'range') {
-                  
-                  return (
-                    <Box key={index} className={classes.criteriaContainer}>
+      { ! loading &&
+        <Container className={classes.mainContainer} maxWidth="lg">
+          { selectedResource &&
+            <>
+              <h1>Rechercher {selectedResource.label}</h1>
+              <Box className={classes.stepsContainer}>
+                {
+                  searchFields.map((field, index) => (
+                    <Box className={classes.stepContainer} key={index}>
                       <Box>
-                        <TextField 
-                          inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-                          onChange={handleTextFieldChange}
-                          defaultValue={textFieldValue}
-                        />
-                      </Box>
-                      <Box pt={3}>
                         <Button 
                           variant="contained" 
-                          color="default"
-                          className={classes.noChoiceButton}
-                          onClick={()=>handleValueClick(field, {id:textFieldValue})}
+                          disabled={selectedField === field}
+                          onClick={()=>handleFieldClick(field)}
                         >
-                          Suivant
+                          {field.label}
                         </Button>
                       </Box>
-                    </Box>
-                  )
-                  
-                } else {
-                
-                  const isChoice = field.type === 'field-choice';
-                  const fieldsArray = isChoice ? selectedField.fields : selectedFieldValues;
-                  const matchField = isChoice ? 'name' : 'id';
-                  const multiple = field.multiple;
-                  
-                  const handleToggle = (value) => () => {
-                    const currentIndex = checked.indexOf(value);
-                    const newChecked = [...checked];
-
-                    if (currentIndex === -1) {
-                      newChecked.push(value);
-                    } else {
-                      newChecked.splice(currentIndex, 1);
-                    }
-
-                    setChecked(newChecked);
-                  };
-                  
-                  return(
-                    <Box key={index} className={classes.criteriaContainer}>
-                      { ! multiple && fieldsArray &&
-                        <Box className={ (selectedFieldValues?.length > 6) ? classes.manyCriterias : null }>
-                          { 
-                            fieldsArray.map((value, index) => (
-                              <Box pt={2} key={index}>
-                                <Button 
-                                  variant="contained" 
-                                  color={selectedValues.find(sv => (sv.value[matchField] === value[matchField])) ? "primary" : "secondary"}
-                                  onClick={()=>handleValueClick(field, value)}
-                                >
-                                  {value.label}
-                                </Button>
-                              </Box>
-                            ))
-                          }
-                        </Box>
+                      { ( Object.keys(selectedValues).length !== 0 ||
+                          index !== (searchFields.length - 1) 
+                        ) &&
+                          <ChevronRightIcon className={classes.stepChevron}/>
                       }
-                      { multiple && fieldsArray &&
-                        <>
-                          <List sx={{ /*width: '100%', maxWidth: 360, bgcolor: 'background.paper'*/ }}>
-                            { fieldsArray.map((value, index) => {
-                              const labelId = `checkbox-list-label-${value}`;
-                              return (
-                                <ListItem
-                                  key={index}
-                                  disablePadding
-                                >
-                                  <ListItemButton role={undefined} onClick={handleToggle(value)} dense>
-                                    <ListItemIcon>
-                                      <Checkbox
-                                        edge="start"
-                                        checked={checked.indexOf(value) !== -1}
-                                        tabIndex={-1}
-                                        disableRipple
-                                        inputProps={{ 'aria-labelledby': labelId }}
-                                      />
-                                    </ListItemIcon>
-                                    <ListItemText id={labelId} primary={value.label} />
-                                  </ListItemButton>
-                                </ListItem>
-                              );
-                            })}
-                          </List>
+                    </Box>
+                  ))
+                }
+                { Object.keys(selectedValues).length > 0 &&
+                  <Box p={1}>
+                    <Button 
+                      variant="contained" 
+                      disabled={searchStep === getSearchStep('results')}
+                      onClick={()=>handleResultsStepClick()}
+                    >
+                      Résultats 
+                      { results &&
+                        <span>&nbsp;({results.length})</span>
+                      }
+                    </Button>
+                  </Box>
+                }
+              </Box>
+              { searchStep === getSearchStep('field') &&
+                <hr/>
+              }
+            </>
+          }
+          { searchStep === getSearchStep('results') &&
+            <>
+              { selectedValues.length === 0 &&
+                searchStep === getSearchStep('results') &&
+                  <Box p={3}>
+                    <p>Veuillez sélectionner au moins un critère de recherche.</p>
+                  </Box>
+              }
+              { selectedValues.length > 0 &&
+                <Box pb={1} mt={-1} className={classes.selectedCriterias}>
+                  {
+                    selectedValues.map((selectedValue, index) => {
+                      
+                      if (selectedValue.field.type !== 'field-choice') {
+                        let label = '';
+                        switch (selectedValue.field.type) {
+                          case 'boolean':
+                            label = selectedValue.field.label + ' : ' + selectedValue.value.label
+                          break;
+                          case 'range':
+                            label = selectedValue.field.label + ' : ' + selectedValue.value.id
+                          break;
+                          default:
+                            if (! Array.isArray(selectedValue.value)) {
+                              label = selectedValue.value.label
+                            } else {
+                              selectedValue.value.forEach(v => {
+                              if (label !== '') { label += '/' }
+                                label = label + v.label;
+                              })
+                            }
+                        }
+                        return (
+                          selectedValue &&
+                            <Box pt={1} pl={2} key={index}>
+                              <Chip 
+                                label={label}
+                                onClick={()=>handleDeleteSelectedValueClick(selectedValue.field, selectedValue.value)}
+                                onDelete={()=>handleDeleteSelectedValueClick(selectedValue.field, selectedValue.value)}
+                              />
+                            </Box>
+                        )
+                      }
+                    })
+                  }
+                </Box>
+              }
+            </>
+          }
+          { searchStep !== getSearchStep('results') &&
+            <>
+              { searchStep !== getSearchStep('start') &&
+                <h2>Précisez votre recherche :</h2>
+              }
+              <Box pb={4} mt={-1} className={classes.criteriasContainer}>
+                { selectedResource &&
+                  <Box className={classes.criteriaChevronContainer}>
+                    { searchStep !== getSearchStep('start') &&
+                      <ChevronLeftIcon
+                        className={classes.criteriaChevron}
+                        onClick={() => handleClickLeftCriteriaChevron()}
+                      />
+                    }
+                  </Box>
+                }
+                { 
+                  searchFields.filter(field => selectedField === field).map((field, index) => {
+
+                    if (field.type === 'range') {
+                      
+                      return (
+                        <Box key={index} className={classes.criteriaContainer}>
+                          <Box>
+                            <TextField 
+                              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+                              onChange={handleTextFieldChange}
+                              defaultValue={textFieldValue}
+                            />
+                          </Box>
                           <Box pt={3}>
                             <Button 
                               variant="contained" 
                               color="default"
                               className={classes.noChoiceButton}
-                              onClick={()=>handleValueClick(field, checked)}
+                              onClick={()=>handleValueClick(field, {id:textFieldValue})}
                             >
                               Suivant
                             </Button>
                           </Box>
-                        </>
-                      }
-                      { ! isChoice && ! multiple &&
-                        <Box pt={3}>
-                          <Button 
-                            variant="contained" 
-                            color="default"
-                            className={classes.noChoiceButton}
-                            onClick={()=>handleValueClick(field, null)}
-                          >
-                            Ignorer ce critère
-                          </Button>
                         </Box>
-                      }
-                    </Box>
-                  )
+                      )
+                      
+                    } else {
+                    
+                      const isChoice = field.type === 'field-choice';
+                      const fieldsArray = isChoice ? selectedField.fields : selectedFieldValues;
+                      const matchField = isChoice ? 'name' : 'id';
+                      const multiple = field.multiple;
+                      
+                      const handleToggle = (value) => () => {
+                        const currentIndex = checked.indexOf(value);
+                        const newChecked = [...checked];
+
+                        if (currentIndex === -1) {
+                          newChecked.push(value);
+                        } else {
+                          newChecked.splice(currentIndex, 1);
+                        }
+
+                        setChecked(newChecked);
+                      };
+                      
+                      return(
+                        <Box key={index} className={classes.criteriaContainer}>
+                          { ! multiple && fieldsArray &&
+                            <Box className={ (selectedFieldValues?.length > 6) ? classes.manyCriterias : null }>
+                              { 
+                                fieldsArray.map((value, index) => (
+                                  <Box pt={2} key={index}>
+                                    <Button 
+                                      variant="contained" 
+                                      color={selectedValues.find(sv => (sv.value[matchField] === value[matchField])) ? "primary" : "secondary"}
+                                      onClick={()=>handleValueClick(field, value)}
+                                    >
+                                      {value.label}
+                                    </Button>
+                                  </Box>
+                                ))
+                              }
+                            </Box>
+                          }
+                          { multiple && fieldsArray &&
+                            <>
+                              <List sx={{ /*width: '100%', maxWidth: 360, bgcolor: 'background.paper'*/ }}>
+                                { fieldsArray.map((value, index) => {
+                                  const labelId = `checkbox-list-label-${value}`;
+                                  return (
+                                    <ListItem
+                                      key={index}
+                                      disablePadding
+                                    >
+                                      <ListItemButton role={undefined} onClick={handleToggle(value)} dense>
+                                        <ListItemIcon>
+                                          <Checkbox
+                                            edge="start"
+                                            checked={checked.indexOf(value) !== -1}
+                                            tabIndex={-1}
+                                            disableRipple
+                                            inputProps={{ 'aria-labelledby': labelId }}
+                                          />
+                                        </ListItemIcon>
+                                        <ListItemText id={labelId} primary={value.label} />
+                                      </ListItemButton>
+                                    </ListItem>
+                                  );
+                                })}
+                              </List>
+                              <Box pt={3}>
+                                <Button 
+                                  variant="contained" 
+                                  color="default"
+                                  className={classes.noChoiceButton}
+                                  onClick={()=>handleValueClick(field, checked)}
+                                >
+                                  Suivant
+                                </Button>
+                              </Box>
+                            </>
+                          }
+                          { ! isChoice && ! multiple &&
+                            <Box pt={3}>
+                              <Button 
+                                variant="contained" 
+                                color="default"
+                                className={classes.noChoiceButton}
+                                onClick={()=>handleValueClick(field, null)}
+                              >
+                                Ignorer ce critère
+                              </Button>
+                            </Box>
+                          }
+                        </Box>
+                      )
+                    }
+                  })
                 }
-              })
-            }
-            { selectedResource &&
-              <Box className={classes.criteriaChevronContainer}>
-                <ChevronRightIcon
-                  className={classes.criteriaChevron} 
-                  onClick={() => handleClickRightCriteriaChevron()}
-                />
-              </Box>
-            }
-          </Box>
-        </>
-      }
-      <Box ref={resultsRef}>
-        { searchStep === getSearchStep('results') &&
-          <Box> 
-            { results && 
-              <Box>
-                <hr />
-                { results.length === 0 &&
-                  <Box p={3}>
-                    <p>Aucun résultat : Veuillez modifier vos critères de recherche.</p>
+                { selectedResource &&
+                  <Box className={classes.criteriaChevronContainer}>
+                    <ChevronRightIcon
+                      className={classes.criteriaChevron} 
+                      onClick={() => handleClickRightCriteriaChevron()}
+                    />
                   </Box>
                 }
-                { results.length > 0 &&
-                  <h2>Résultats ({results.length}) :</h2>
+              </Box>
+            </>
+          }
+          <Box ref={resultsRef}>
+            { searchStep === getSearchStep('results') &&
+              <Box> 
+                { results && 
+                  <Box>
+                    <hr />
+                    { results.length === 0 &&
+                      <Box p={3}>
+                        <p>Aucun résultat : Veuillez modifier vos critères de recherche.</p>
+                      </Box>
+                    }
+                    { results.length > 0 &&
+                      <h2>Résultats ({results.length}) :</h2>
+                    }
+                    <List sx={{/* width: '100%', maxWidth: 360, bgcolor: 'background.paper' */}}>
+                      { resultsByStructure.map((result, index) => (
+                        <ListItem button key={index} component={Link} to={`/structures/${getSlugFromContainerUrl('organizations', result.id)}`}>
+                          <ListItemButton>
+                            <ListItemAvatar>
+                              <Avatar>
+                                <WorkIcon />
+                              </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText 
+                              primary={result.label} 
+                              secondary={result.id}
+                            />
+                          </ListItemButton>
+                        </ListItem>
+                      )) }
+                    </List>
+                  </Box>
                 }
-                <List sx={{/* width: '100%', maxWidth: 360, bgcolor: 'background.paper' */}}>
-                  { resultsByStructure.map((result, index) => (
-                    <ListItem key={index}>
-                      <ListItemButton component="a" href={`/structures/${getSlugFromContainerUrl('organizations', result.id)}`}>
-                        <ListItemAvatar>
-                          <Avatar>
-                            <WorkIcon />
-                          </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText 
-                          primary={result.label} 
-                          secondary={result.id}
-                        />
-                      </ListItemButton>
-                    </ListItem>
-                  )) }
-                </List>
+              </Box>
+            }
+            { searchStep !== getSearchStep('start') &&
+              <Box pt={4}>
+                <hr />
+                <Box pt={3}>
+                  <Button 
+                    variant="contained" 
+                    color="default"
+                    className={classes.noChoiceButton}
+                    onClick={()=>handleNewSearchClick()}
+                  >
+                    Nouvelle recherche
+                  </Button>
+                </Box>
               </Box>
             }
           </Box>
-        }
-        { searchStep !== getSearchStep('start') &&
-          <Box pt={4}>
-            <hr />
-            <Box pt={3}>
-              <Button 
-                variant="contained" 
-                color="default"
-                className={classes.noChoiceButton}
-                onClick={()=>handleNewSearchClick()}
-              >
-                Nouvelle recherche
-              </Button>
-            </Box>
-          </Box>
-        }
-      </Box>
-    </Container>
+        </Container>
+      }
+    </>
   );
 };
 

@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-
 import Program from '../components/Program';
 import { getResourceFromSlug } from '../selectors/urls';
 
