@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { fetchContainer } from './actions';
 
 store.dispatch(fetchContainer({slug:'programs', 'root':true}));
+store.dispatch(fetchContainer({slug:'organizations', 'root':true}));
 
 ReactDOM.render(
   <React.StrictMode>

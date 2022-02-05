@@ -6,7 +6,7 @@ const Program = ({ program }) => {
   return (
     <>
       { ! program &&
-        <Redirect to="/" />
+        <Redirect to="/404" />
       }
       { program &&
         <div>programme : {program.label}</div>

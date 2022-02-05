@@ -6,7 +6,9 @@ import {
   from '../actions';
 
 const initialState = {
-  loading: true
+  loading: true,
+  resourceValues: {},
+  fieldValues: {}
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -32,13 +34,18 @@ const reducer = (state = initialState, action = {}) => {
         }
       };
     case GET_RESOURCE_VALUES:
+      const mandatoryResources = ['programs', 'organizations']
+      const resourcesArray = Object.keys(state.resourceValues).concat([action.container.slug]);
+      const loaded = mandatoryResources.every(element => {
+        return resourcesArray.includes(element);
+      });
       return {
         ...state,
         resourceValues: {
-          data: action.resourceValues,
-          container: action.container
+          ... state.resourceValues, 
+          [action.container.slug]: action.resourceValues
         },
-        loading: false
+        loading: ! loaded
       };
     default:
       return state;

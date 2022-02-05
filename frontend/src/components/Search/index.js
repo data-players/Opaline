@@ -48,6 +48,8 @@ const Search = ({
     selectedFieldValues = fieldValues[selectedField.name];
   }
   
+  const rootContainer = searchConfig[0];
+  
 
   console.log('>> selectedResource:', selectedResource);
   console.log('>> searchStep:', searchStep);
@@ -62,7 +64,6 @@ const Search = ({
 
   
   const handleNewSearchClick = () => {
-    const rootContainer = searchConfig[0];
     setSearchStep(getSearchStep('start'));
     setSelectedField(null);
     setSelectedValues([]);
@@ -213,7 +214,7 @@ const Search = ({
     if (!resourceValues) {
       return;
     }
-    let results = resourceValues.data;
+    let results = resourceValues[rootContainer.slug];
     selectedValues.forEach(sv => {
       if (sv.field.type !== 'field-choice') {
         switch (sv.field.type) {
@@ -290,7 +291,6 @@ const Search = ({
   }
   
   useEffect( () => { 
-    const rootContainer = searchConfig[0];
     getData(rootContainer.fields);
     handleNewSearchClick();
   }, []);

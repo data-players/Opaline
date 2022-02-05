@@ -3,6 +3,7 @@ import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 import NotFound from '../NotFound';
 import Search from '../../containers/Search';
 import Program from '../../containers/Program';
+import Structure from '../../containers/Structure';
 
 function About() {
   return <h2>About</h2>;
@@ -31,6 +32,7 @@ const App = ({ loading }) => {
         <Switch>
           <Route exact path="/" component={Search} />
           <Route exact path="/programmes/:slug" component={Program} />
+          <Route exact path="/structures/:slug" component={Structure} />
           <Route component={NotFound} />
         </Switch>
       )}

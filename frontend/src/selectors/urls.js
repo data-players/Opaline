@@ -13,11 +13,10 @@ export const getUrl = (prefix, string) => {
   return `/${prefix}/${getSlugFromString(string)}`;
 };
 
-export const getProgramFromSlug = (programs, slug) => {
-  return programs.find((program) => getSlugFromString(program.label) === slug);
+export const getResourceFromSlug = (resources, slug) => {
+  return resources.find((resource) => getSlugFromString(resource.label) === slug);
 };
 
 export const getSlugFromContainerUrl = (containerSlug, url) => {
-  console.log(process.env.REACT_APP_MIDDLEWARE_URL, containerSlug);
   return url.replace(process.env.REACT_APP_MIDDLEWARE_URL + containerSlug + '/', '');
 }
