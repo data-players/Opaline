@@ -6,27 +6,17 @@ const useStyles = makeStyles(theme => ({
   mainContainer: {
     border: '1px solid lightgrey',
     height: '100vh',
+    width: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    '& .MuiTypography-root': {
-      lineHeight: '80%',
-      [theme.breakpoints.up('sm')]: {
-        lineHeight: '100%',
-      },
-      '& span': {
-        fontSize: '80%',
-        [theme.breakpoints.up('sm')]: {
-          fontSize: '100%',
-        },
-      }
-    },
     '@media (orientation:portrait)': {
       maxWidth: 600
     }
   },
   innerContainer: {
     minHeight: '100vh',
+    width: '100%',
     maxHeight: 600,
     display: 'flex',
     flexDirection: 'column',
@@ -42,12 +32,14 @@ const useStyles = makeStyles(theme => ({
     height: '10%'
   },
   titleContainer: {
+    color: theme.primary,
     height: '30%'
   },
   subTitleContainer: {
     height: '50%'
   },
   buttonContainer: {
+    width: '100%',
     height: '10%',
     paddingBottom: '4%'
   }
@@ -59,16 +51,16 @@ const Start = () => {
     <Container className={classes.mainContainer} maxWidth="md">
       <Box className={classes.innerContainer}>
         <Box className={classes.logoContainer}>
-          <Typography component="p" variant="h4"><span>Collectif Emploi</span></Typography>
+          <Typography component="p" variant="h4">Collectif Emploi</Typography>
         </Box>
         <Box className={classes.titleContainer}>
-          <Typography component="h1" variant="h2"><span>Bienvenue sur Opaline</span></Typography>
+          <Typography component="h1" variant="h1">Bienvenue sur <br/> Opaline</Typography>
         </Box>
         <Box className={classes.subTitleContainer}>
-          <Typography component="h2" variant="h3"><span>Accélérer votre retour à l'emploi !</span></Typography>
+          <Typography component="h2" variant="h2">Accélérer votre retour <br/><strong>à l'emploi !</strong></Typography>
         </Box>
         <Box className={classes.buttonContainer}>
-          <Button variant="contained" href="/recherche" align="center">Commencer</Button>
+          <Button color="secondary" variant="contained" href="/recherche" align="center">Commencer</Button>
         </Box>
       </Box>
     </Container>
