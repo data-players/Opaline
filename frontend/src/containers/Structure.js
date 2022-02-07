@@ -7,9 +7,11 @@ import { getResourceFromSlug } from '../selectors/urls';
 const mapStateToProps = (state, ownProps) => {
   const { slug } = ownProps.match.params;
   const structure = getResourceFromSlug(state.resourceValues['organizations'], slug);
+  const programs = state.resourceValues['programs']?.filter(program => program.programOfferedBy === structure.id)
+  const filteredPrograms = programs.filter(program => state.results.find(result=>result.id === program.id))
   return {
     structure: structure,
-    programs: state.resourceValues['programs']?.filter(program => program.programOfferedBy === structure.id),
+    programs: filteredPrograms.length>0 ? filteredPrograms : programs,
   };
 };
 

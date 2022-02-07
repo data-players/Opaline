@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   mainContainer: {
-    marginTop: 48,
+    marginTop: theme.margin.header,
     padding: '1rem',
     [theme.breakpoints.up('sm')]: {
       padding: '1rem',
@@ -120,65 +120,6 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: 'transparent'
       }
     }
-  },
-  stepContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    whiteSpace: 'nowrap'
-  },
-  selectedCriterias: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center'
-  },
-  criteria: {
-    width: '90%',
-    maxWidth: 600,
-    display: 'flex',
-    alignItems: 'center',
-    margin: 'auto',
-    textAlign: 'left'
-  },
-  criteriaChevronContainer: {
-    margin: 'auto 0',
-    minWidth: 50,
-    [theme.breakpoints.up('sm')]: {
-      minWidth: 90
-    },
-  },
-  criteriaChevron: {
-    fontSize: 50,
-    [theme.breakpoints.up('sm')]: {
-      fontSize: 90
-    },
-    stroke: 'white',
-    cursor: 'pointer',
-    '&:hover': {
-      opacity: .8
-    }
-  },
-  resourceContainer: {
-    '& button': {
-      justifyContent: 'flex-start',
-      '& svg': {
-        transform: 'scale(2)',
-        margin: '0 8px',
-        [theme.breakpoints.up('sm')]: {
-          margin: '0 16px',
-        },
-      }
-    }
-  },
-  resultsContainer: {
-    width: '90%',
-    maxWidth: 600,
-    margin: '-16px auto'
-  },
-  resultItem: {
-    marginTop: 2,
-    listStyleType: 'disc',
   }
 }));
 

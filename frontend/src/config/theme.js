@@ -24,6 +24,10 @@ let theme = createTheme({
     tertiary: tertiary
   },
   
+  margin: {
+    header: 48
+  },
+  
   palette: {
     primary: {
       light:  lighten(primary,10),

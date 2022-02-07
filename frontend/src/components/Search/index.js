@@ -1,10 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Avatar, Box, Button, Chip, Container, TextField, Typography } from '@material-ui/core';
+import { Avatar, Box, Button, Container, TextField, Typography } from '@material-ui/core';
 import Checkbox from '@mui/material/Checkbox';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -24,9 +22,12 @@ const Search = ({
   fetchContainer,
   fieldValues,
   goToSearchField,
+  setResults,
   loading,
   resourceValues,
-  searchIndex
+  searchIndex,
+  results,
+  resultsByStructure
 }) => {
 
   const classes = useStyles();
@@ -39,8 +40,6 @@ const Search = ({
   const [searchFields, setSearchFields] = useState([]);
   const [selectedField, setSelectedField] = useState(null);
   const [selectedValues, setSelectedValues] = useState([]);
-  const [results, setResults] = useState();
-  const [resultsByStructure, setResultsByStructure] = useState();
   const [checked, setChecked] = useState([]);
   const [textFieldValue, setTextFieldValue] = useState('');
   
@@ -58,13 +57,12 @@ const Search = ({
   console.log('>> selectedField:', selectedField);
   console.log('>> selectedFieldValues:', selectedFieldValues);
   console.log('>> selectedValues:', [...selectedValues]);
-  console.log('>> results', results);
-  console.log('>> resultsByStructure', resultsByStructure);
   console.log('>> checked:', checked);
   console.log('>> textFieldValue:', textFieldValue);
   console.log('>+ resourceValues:', resourceValues);
   console.log('>+ fieldValues:', fieldValues);
   console.log('>+ searchIndex:', searchIndex);
+  console.log('>+ results', results);
 
   
   const handleNewSearchClick = () => {
@@ -72,7 +70,7 @@ const Search = ({
     setSearchStep(getSearchStep('start'));
     setSelectedField(null);
     setSelectedValues([]);
-    setResults(null);
+    setResults([]);
     setChecked([]);
     setTextFieldValue(null);
     setSelectedResource(rootContainer);
@@ -103,7 +101,6 @@ const Search = ({
     }
     if (value.type !== 'no-choice') {
       // add chosen-field
-      const rootContainer4 = {...rootContainer, fields: [... rootContainer.fields]}
       searchFields.splice(choiceFieldIndex+1 , 0, value);
     }
     setSearchFields([...searchFields]);
@@ -175,15 +172,10 @@ const Search = ({
     } else {
       setSelectedValues(selectedValues.filter(selectedValue => selectedValue.field.type !== field.type));
     }
-    setResults(null);
+    setResults([]);
     goToNextField(field);
   };
-  
-  const handleDeleteSelectedValueClick = (field, value) => {
-    setResults(null);
-    setSelectedValues(selectedValues.filter(selectedValue => selectedValue.value.id !== value.id));
-  }
-  
+
   const getResults = async () => {
     if (!resourceValues) {
       return;
@@ -229,12 +221,6 @@ const Search = ({
       }
     })
     setResults(results);
-    const resultsByStructure = 
-      results
-        .map(result => result.programOfferedBy)
-        .filter((value, index, self) => self.indexOf(value) === index)
-        .map(result => resourceValues['organizations'].find(resource => resource.id === result));
-    setResultsByStructure(resultsByStructure);
   }
   
   const FormatedTitle = ({title}) => {
@@ -394,7 +380,7 @@ const Search = ({
                           }
                           { field.multiple && fieldsArray &&
                             <Box key={index} className={classes.criteriaContainerMultiple}>
-                              <List sx={{ /*width: '100%', maxWidth: 360, bgcolor: 'background.paper'*/ }}>
+                              <List>
                                 { fieldsArray.map((value, index) => {
                                   const labelId = `checkbox-list-label-${value}`;
                                   return (
@@ -448,10 +434,7 @@ const Search = ({
                         <p>Aucun résultat : Veuillez modifier vos critères de recherche.</p>
                       </Box>
                     }
-                    { results.length > 0 &&
-                      <h2>Résultats ({results.length}) :</h2>
-                    }
-                    <List sx={{/* width: '100%', maxWidth: 360, bgcolor: 'background.paper' */}}>
+                    <List>
                       { resultsByStructure.map((result, index) => (
                         <ListItem button key={index} component={Link} to={`/structures/${getSlugFromContainerUrl('organizations', result.id)}`}>
                           <ListItemButton>

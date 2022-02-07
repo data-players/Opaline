@@ -2,7 +2,8 @@ import {
   ADD_BOOLEAN_FIELD,
   GO_TO_SEARCH_FIELD,
   GET_FIELD_VALUES,
-  GET_RESOURCE_VALUES
+  GET_RESOURCE_VALUES,
+  SET_RESULTS,
 }
   from '../actions';
 
@@ -10,7 +11,9 @@ const initialState = {
   searchIndex: -1,
   loading: true,
   resourceValues: {},
-  fieldValues: {}
+  fieldValues: {},
+  results: [],
+  resultsByStructure: [],
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -49,10 +52,21 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         resourceValues: {
-          ... state.resourceValues, 
+          ...state.resourceValues, 
           [action.container.slug]: action.resourceValues
         },
         loading: ! loaded
+      };
+    case SET_RESULTS:
+      const resultsByStructure = 
+        action.results
+          .map(result => result.programOfferedBy)
+          .filter((value, index, self) => self.indexOf(value) === index)
+          .map(result => state.resourceValues['organizations'].find(resource => resource.id === result));
+      return {
+        ...state,
+        results: action.results,
+        resultsByStructure: resultsByStructure
       };
     default:
       return state;

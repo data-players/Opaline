@@ -4,6 +4,7 @@ export const GO_TO_SEARCH_FIELD = 'GO_TO_SEARCH_FIELD';
 export const FETCH_CONTAINER = 'FETCH_CONTAINER';
 export const GET_FIELD_VALUES = 'GET_FIELD_VALUES';
 export const GET_RESOURCE_VALUES = 'GET_RESOURCE_VALUES';
+export const SET_RESULTS = 'SET_RESULTS';
 
 // == Action creators
 export const addBooleanField = (field) => ({
@@ -27,6 +28,10 @@ export const getResourceValues = (container, resourceValues) => ({
   type: GET_RESOURCE_VALUES,
   container,
   resourceValues
+});
+export const setResults = (results) => ({
+  type: SET_RESULTS,
+  results
 });
 
 

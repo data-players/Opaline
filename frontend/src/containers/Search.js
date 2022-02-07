@@ -3,7 +3,8 @@ import Search from '../components/Search';
 import { 
   addBooleanField,
   fetchContainer,
-  goToSearchField
+  goToSearchField,
+  setResults
  }
 from '../actions';
 
@@ -13,7 +14,9 @@ const mapStateToProps = (state) => ({
   searchIndex: state.searchIndex,
   loading: state.loading,
   resourceValues: state.resourceValues,
-  fieldValues: state.fieldValues
+  fieldValues: state.fieldValues,
+  results: state.results,
+  resultsByStructure: state.resultsByStructure
 });
 
 // actions
@@ -26,6 +29,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   goToSearchField: (searchIndex) => {
     dispatch(goToSearchField(searchIndex));
+  },
+  setResults: (results) => {
+    dispatch(setResults(results));
   },
 });
 
