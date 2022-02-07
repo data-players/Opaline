@@ -9,6 +9,7 @@
       {
         "type": "field-choice",
         "name": "goal",
+        "title": "Dîtes-nous en plus sur votre <strong>projet</strong>...",
         "fields": [
           {
             "type": "chosen-field",
@@ -16,58 +17,72 @@
             "slug": "business-creation-goals",
             "name": "hasBusinessCreationGoals",
             "label": "Création d'entreprise",
-            "required": true
+            "title": "Vous voulez <strong>créer une entreprise</strong>...<br>Où en êtes vous ?",
+            "required": true,
+            "icon": true
           },{
             "type": "chosen-field",
             "parent": "goal",
             "slug": "job-search-goals",
             "name": "hasJobSearchGoals",
             "label": "Recherche d'emploi",
+            "title": "De quoi avez-vous <strong>besoin</strong> ?",
             "multiple": 3,
-            "required": true
+            "required": true,
+            "icon": true
           },{
             "type": "chosen-field",
             "parent": "goal",
             "slug": "training-goals",
             "name": "hasTrainingGoals",
             "label": "Formation",
-            "required": true
+            "title": "Précisez vos besoins de <strong>formation</strong>...",
+            "required": true,
+            "icon": true
           },{
             "type": "chosen-field",
             "parent": "goal",
             "slug": "finding-help-goals",
             "name": "hasFindingHelpGoals",
             "label": "Accompagnement",
+            "title": "Dîtes nous en plus ?",
             "multiple": 999,
-            "required": true
+            "required": true,
+            "icon": true
           },{
             "type": "no-choice",
             "parent": "goal",
             "name": "noIdea",
-            "label": "Je suis un peu perdu(e)"
+            "label": "Je suis un peu perdu(e)",
+            "fullWidth": true
           }
         ]
       },{
         "type": "standard",
         "slug": "degree-levels",
         "name": "hasDegreeLevel",
-        "label": "Niveau de diplôme"
+        "label": "Niveau d'études",
+        "title": "Votre niveau <strong>d'études</strong> ?",
+        "fullWidth": true
       },{
         "type": "standard",
         "slug": "genders",
         "name": "hasGenders",
         "label": "Genre",
+        "title": "Vous <strong>êtes</strong>... ?",
         "multiple": true
       },{
         "type": "boolean",
         "name": "rqth",
-        "label": "RQTH"
+        "label": "RQTH",
+        "title": "Êtes-vous en situation de  <strong>handicap</strong> ?"
       },{
         "type": "range",
         "name": "age",
         "min": "opal:minimumAge",
         "max": "opal:maximumAge",
-        "label": "Votre âge"
+        "label": "Votre âge",
+        "title": "Quel <strong>âge</strong> avez-vous ?"
       }
     ]
   }

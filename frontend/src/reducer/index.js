@@ -1,18 +1,20 @@
 import {
   ADD_BOOLEAN_FIELD,
+  GO_TO_SEARCH_FIELD,
   GET_FIELD_VALUES,
   GET_RESOURCE_VALUES
 }
   from '../actions';
 
 const initialState = {
+  searchIndex: -1,
   loading: true,
   resourceValues: {},
   fieldValues: {}
 };
 
 const reducer = (state = initialState, action = {}) => {
-  console.log('** reducer', action);
+  console.log('** reducer', state, action);
   switch (action.type) {
     case ADD_BOOLEAN_FIELD:
       return {
@@ -25,6 +27,11 @@ const reducer = (state = initialState, action = {}) => {
           ]
         }
       };
+    case GO_TO_SEARCH_FIELD:
+      return {
+        ...state,
+        searchIndex: action.searchIndex
+      }
     case GET_FIELD_VALUES:
       return {
         ...state,
@@ -52,5 +59,4 @@ const reducer = (state = initialState, action = {}) => {
   }
 };
 
-// == Export
 export default reducer;

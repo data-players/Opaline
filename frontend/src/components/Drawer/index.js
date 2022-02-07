@@ -25,6 +25,9 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     top: 4,
     right: 4
+  },
+  menuIcon: {
+    transform: 'translateX(12px)'
   }
 }));
 
@@ -79,6 +82,7 @@ export default function Drawer() {
     <div>
       <React.Fragment>
           <IconButton
+            className={classes.menuIcon}
             size="large"
             edge="start"
             color="inherit"

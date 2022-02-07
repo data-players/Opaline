@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   mainContainer: {
-    border: '1px solid lightgrey',
     height: '100vh',
     width: '100%',
     display: 'flex',
@@ -48,7 +47,7 @@ const useStyles = makeStyles(theme => ({
 const Start = () => {
   const classes = useStyles();
   return (
-    <Container className={classes.mainContainer} maxWidth="md">
+    <Container className={classes.mainContainer} maxWidth="sm">
       <Box className={classes.innerContainer}>
         <Box className={classes.logoContainer}>
           <Typography component="p" variant="h4">Collectif Emploi</Typography>

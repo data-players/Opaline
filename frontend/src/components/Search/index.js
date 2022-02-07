@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Avatar, Box, Button, Chip, Container, TextField } from '@material-ui/core';
+import { Avatar, Box, Button, Chip, Container, TextField, Typography } from '@material-ui/core';
 import Checkbox from '@mui/material/Checkbox';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -16,15 +16,17 @@ import WorkIcon from '@mui/icons-material/Work';
 import { getSlugFromContainerUrl } from '../../selectors/urls';
 import useStyles from './useStyle'
 import searchConfig from './searchConfig.json';
-import AppBar from '../AppBar';
+import AppBar from '../../containers/AppBar';
 
 
 const Search = ({
-  loading,
   addBooleanField,
   fetchContainer,
+  fieldValues,
+  goToSearchField,
+  loading,
   resourceValues,
-  fieldValues
+  searchIndex
 }) => {
 
   const classes = useStyles();
@@ -40,15 +42,15 @@ const Search = ({
   const [results, setResults] = useState();
   const [resultsByStructure, setResultsByStructure] = useState();
   const [checked, setChecked] = useState([]);
-  const [textFieldValue, setTextFieldValue] = useState();
+  const [textFieldValue, setTextFieldValue] = useState('');
   
   let selectedFieldValues = null
     if (selectedField?.name) {
     selectedFieldValues = fieldValues[selectedField.name];
   }
-  
-  const rootContainer = searchConfig[0];
-  
+
+  // Clone nested object
+  const rootContainer = {...searchConfig[0], fields:[...searchConfig[0].fields]};
 
   console.log('>> selectedResource:', selectedResource);
   console.log('>> searchStep:', searchStep);
@@ -59,11 +61,14 @@ const Search = ({
   console.log('>> results', results);
   console.log('>> resultsByStructure', resultsByStructure);
   console.log('>> checked:', checked);
+  console.log('>> textFieldValue:', textFieldValue);
   console.log('>+ resourceValues:', resourceValues);
   console.log('>+ fieldValues:', fieldValues);
+  console.log('>+ searchIndex:', searchIndex);
 
   
   const handleNewSearchClick = () => {
+    console.log('----------START----------');
     setSearchStep(getSearchStep('start'));
     setSelectedField(null);
     setSelectedValues([]);
@@ -72,9 +77,11 @@ const Search = ({
     setTextFieldValue(null);
     setSelectedResource(rootContainer);
     setSearchFields(rootContainer.fields);
-    goToNextField(rootContainer, null);
+    // goToNextField(rootContainer, null);
+    goToSearchField(0);
+    displayField(0);
   }
-
+  /*
   const goToNextField = (resource, field, backward=false) => {
     const nextField = findNextField(resource, field, backward);
     if (nextField) {
@@ -82,7 +89,12 @@ const Search = ({
       return nextField;
     }
   }
-  
+  */
+ const goToNextField = (field, backward=false) => {
+    const newIndexField = searchFields.indexOf(field) + (backward ? -1 : 1);
+    goToSearchField(newIndexField);
+  }
+  /*
   const findNextField = (resource, selectedField, backward=false) => {
     if (! resource) {
       return; 
@@ -107,14 +119,15 @@ const Search = ({
       return Object.values(searchFields)[fieldIndex - 1];
     }
   }
-  
+  */
+ /*
   const handleClickLeftCriteriaChevron = () => {
     goToNextField(selectedResource, selectedField, true);
   }
   const handleClickRightCriteriaChevron = () => {
     goToNextField(selectedResource, selectedField);
   }
-  
+  */
   const setChosenField = (field, value, replace=false) => {
     const choiceFieldIndex = searchFields.indexOf(field);
     if (replace) {
@@ -122,20 +135,24 @@ const Search = ({
       if (currentChosenExist) {
         // delete current chosen-field
         searchFields.splice(choiceFieldIndex+1 , 1)
-        // delete old selected value
-        const valueIndex = selectedValues.findIndex(sv=>sv.field.parent===field.name);
-        selectedValues.splice(valueIndex, 1);
-        setSelectedValues([...selectedValues]);
+        // replace selected values
+        const newSelectedValues = selectedValues.filter(sv => 
+          sv.field.parent!==field.name && sv.field.name!==field.name
+        );
+        newSelectedValues.push({ field: field, value: value });
+        setSelectedValues(newSelectedValues);
       }
     }
     if (value.type !== 'no-choice') {
       // add chosen-field
-      searchFields.splice(choiceFieldIndex+1 , 0, value)
+      const rootContainer4 = {...rootContainer, fields: [... rootContainer.fields]}
+      searchFields.splice(choiceFieldIndex+1 , 0, value);
     }
     setSearchFields([...searchFields]);
   }
 
-  const handleFieldClick = (field) => {
+  const displayField = (searchIndex) => {
+    const field = searchFields[searchIndex];
     if (field !== selectedField) {
       setChecked([]);
       setTextFieldValue('');
@@ -145,7 +162,6 @@ const Search = ({
       } else {
         setSearchStep(getSearchStep('start'));
       }
-      //setSearchStep(getSearchStep('field'));
       const currentSelectedValue = selectedValues.find(sv => sv.field.name === field.name);
       if (currentSelectedValue) {
         if (field.multiple) {
@@ -168,7 +184,7 @@ const Search = ({
       if (! value.id) {
         value.id = value.name
       }
-      const currentValueForField = selectedValues.find(selectedValue => selectedValue.field === field);
+      const currentValueForField = selectedValues.find(selectedValue => selectedValue.field.name === field.name);
       if (! currentValueForField) {
         if (field.type !== 'chosen-field') {
           selectedValues.push({ field: field, value: value });
@@ -183,26 +199,26 @@ const Search = ({
         }
       } else {
         if (currentValueForField.value.id === value.id && ! Array.isArray(currentValueForField.value)) {
-          goToNextField(selectedResource, field);
+          goToNextField(field);
           return;
         } else {
           if (field.type === 'field-choice') {
-            setChosenField(field, value, /*replace=*/true)
+            setChosenField(field, value, /*replace=*/true);
+          } else {
+            setSelectedValues(selectedValues.map(selectedValue => {
+              if (selectedValue.field === field) {
+                selectedValue.value = value
+              }
+              return selectedValue
+            }))
           }
-          setSelectedValues(selectedValues.map(selectedValue => {
-            if (selectedValue.field === field) {
-              selectedValue.value = value
-            }
-            return selectedValue
-          }));
-          setSelectedValues([...selectedValues]);
         }
       }
     } else {
       setSelectedValues(selectedValues.filter(selectedValue => selectedValue.field.type !== field.type));
     }
     setResults(null);
-    goToNextField(selectedResource, field);
+    goToNextField(field);
   };
   
   const handleDeleteSelectedValueClick = (field, value) => {
@@ -263,6 +279,18 @@ const Search = ({
     setResultsByStructure(resultsByStructure);
   }
   
+  const FormatedTitle = ({title}) => {
+    const safeHTMLTags = ['HTML', 'HEAD', 'BODY', 'STRONG', 'BR']
+    const doc = new DOMParser().parseFromString(title, 'text/html');
+    const htmlTags = Array.prototype.slice.call(doc.getElementsByTagName("*")).map(tag => tag.nodeName);
+    const isSafeHtml = htmlTags.every((tag, index) => safeHTMLTags.includes(tag));
+    if (isSafeHtml) {
+      return <div dangerouslySetInnerHTML={{ __html: title }}></div>;
+    } else {
+      return <div>{title}</div>;
+    }
+  }
+  
   useEffect( () => { 
     if (selectedValues.length > 0) {
       getResults();
@@ -300,21 +328,33 @@ const Search = ({
     getData(rootContainer.fields);
     handleNewSearchClick();
   }, []);
-
+  
+  useEffect( () => { 
+    if(searchIndex < 0 ) {
+      goToSearchField(0);
+    } else if(searchIndex > searchFields.length-1 ) {
+      goToSearchField(searchFields.length);
+      handleResultsStepClick();
+    } else {
+      displayField(searchIndex);  
+    }
+  }, [searchIndex]);
 
   return (
     <>
-      <AppBar/>
+      <AppBar />
       { loading &&
         <div className="loading">
           Chargement, veuillez patienter...
         </div>
       }
       { ! loading &&
-        <Container className={classes.mainContainer} maxWidth="lg">
-          { selectedResource &&
+        <Container className={classes.mainContainer} maxWidth="sm">
+          {/* selectedResource &&
             <>
+              {
               <h1>Rechercher {selectedResource.label}</h1>
+              }
               <Box className={classes.stepsContainer}>
                 {
                   searchFields.map((field, index) => (
@@ -355,8 +395,8 @@ const Search = ({
                 <hr/>
               }
             </>
-          }
-          { searchStep === getSearchStep('results') &&
+          */}
+          {/* searchStep === getSearchStep('results') &&
             <>
               { selectedValues.length === 0 &&
                 searchStep === getSearchStep('results') &&
@@ -404,14 +444,14 @@ const Search = ({
                 </Box>
               }
             </>
-          }
+          */}
           { searchStep !== getSearchStep('results') &&
             <>
-              { searchStep !== getSearchStep('start') &&
-                <h2>Précisez votre recherche :</h2>
+              { selectedField &&
+                <Typography component="h2" variant="h2" className={classes.stepTitle}><FormatedTitle title={selectedField.title}/></Typography>
               }
               <Box pb={4} mt={-1} className={classes.criteriasContainer}>
-                { selectedResource &&
+                {/* selectedResource &&
                   <Box className={classes.criteriaChevronContainer}>
                     { searchStep !== getSearchStep('start') &&
                       <ChevronLeftIcon
@@ -420,26 +460,24 @@ const Search = ({
                       />
                     }
                   </Box>
-                }
+                */}
                 { 
                   searchFields.filter(field => selectedField === field).map((field, index) => {
-
+                    
                     if (field.type === 'range') {
                       
                       return (
-                        <Box key={index} className={classes.criteriaContainer}>
-                          <Box>
-                            <TextField 
-                              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-                              onChange={handleTextFieldChange}
-                              defaultValue={textFieldValue}
-                            />
-                          </Box>
-                          <Box pt={3}>
+                        <Box key={index} className={classes.criteriaContainerText}>
+                          <TextField 
+                            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+                            onChange={handleTextFieldChange}
+                            defaultValue={textFieldValue}
+                          />
+                          <Box className={classes.nextButtonContainer}>
                             <Button 
                               variant="contained" 
-                              color="default"
-                              className={classes.noChoiceButton}
+                              color="secondary"
+                              className={classes.nextButton}
                               onClick={()=>handleValueClick(field, {id:textFieldValue})}
                             >
                               Suivant
@@ -453,7 +491,6 @@ const Search = ({
                       const isChoice = field.type === 'field-choice';
                       const fieldsArray = isChoice ? selectedField.fields : selectedFieldValues;
                       const matchField = isChoice ? 'name' : 'id';
-                      const multiple = field.multiple;
                       
                       const handleToggle = (value) => () => {
                         const currentIndex = checked.indexOf(value);
@@ -469,26 +506,41 @@ const Search = ({
                       };
                       
                       return(
-                        <Box key={index} className={classes.criteriaContainer}>
-                          { ! multiple && fieldsArray &&
-                            <Box className={ (selectedFieldValues?.length > 6) ? classes.manyCriterias : null }>
+                        <Box key={index}>
+                          { ! field.multiple && fieldsArray && 
+                            <Box className={classes.criteriaContainer}>
                               { 
-                                fieldsArray.map((value, index) => (
-                                  <Box pt={2} key={index}>
-                                    <Button 
-                                      variant="contained" 
-                                      color={selectedValues.find(sv => (sv.value[matchField] === value[matchField])) ? "primary" : "secondary"}
-                                      onClick={()=>handleValueClick(field, value)}
-                                    >
-                                      {value.label}
-                                    </Button>
-                                  </Box>
-                                ))
+                                fieldsArray.map((value, index) => {
+                                  let className = classes.criteriaButtonContainer;
+                                  if (field.fullWidth || value.fullWidth) {
+                                    className = `${className} ${classes.fullWidth}`;
+                                  }
+                                  if (isChoice || field.type === 'chosen-field') {
+                                    className = `${className} ${classes.choiceButton}`;
+                                  }
+                                  if (field.type === 'boolean') {
+                                    className = `${className} ${classes.booleanButton}`;
+                                  }
+                                  if (value.icon) {
+                                    className = `${className} ${classes.iconButton}`;
+                                  }
+                                  return (
+                                    <Box pt={2} key={index} className={className}>
+                                      <Button 
+                                        variant="contained" 
+                                        color={selectedValues.find(sv => (sv.value[matchField] === value[matchField])) ? "primary" : "default"}
+                                        onClick={()=>handleValueClick(field, value)}
+                                      >
+                                        {value.label}
+                                      </Button>
+                                    </Box>
+                                  )
+                                })
                               }
                             </Box>
                           }
-                          { multiple && fieldsArray &&
-                            <>
+                          { field.multiple && fieldsArray &&
+                            <Box key={index} className={classes.criteriaContainerMultiple}>
                               <List sx={{ /*width: '100%', maxWidth: 360, bgcolor: 'background.paper'*/ }}>
                                 { fieldsArray.map((value, index) => {
                                   const labelId = `checkbox-list-label-${value}`;
@@ -513,19 +565,19 @@ const Search = ({
                                   );
                                 })}
                               </List>
-                              <Box pt={3}>
+                              <Box className={classes.nextButtonContainer}>
                                 <Button 
                                   variant="contained" 
-                                  color="default"
-                                  className={classes.noChoiceButton}
+                                  color="secondary"
+                                  className={classes.nextButton}
                                   onClick={()=>handleValueClick(field, checked)}
                                 >
                                   Suivant
                                 </Button>
                               </Box>
-                            </>
+                            </Box>
                           }
-                          { ! isChoice && ! multiple &&
+                          {/* field.ignore &&
                             <Box pt={3}>
                               <Button 
                                 variant="contained" 
@@ -536,20 +588,20 @@ const Search = ({
                                 Ignorer ce critère
                               </Button>
                             </Box>
-                          }
+                          */}
                         </Box>
                       )
                     }
                   })
                 }
-                { selectedResource &&
+                {/* selectedResource &&
                   <Box className={classes.criteriaChevronContainer}>
                     <ChevronRightIcon
                       className={classes.criteriaChevron} 
                       onClick={() => handleClickRightCriteriaChevron()}
                     />
                   </Box>
-                }
+                */}
               </Box>
             </>
           }
@@ -558,7 +610,6 @@ const Search = ({
               <Box> 
                 { results && 
                   <Box>
-                    <hr />
                     { results.length === 0 &&
                       <Box p={3}>
                         <p>Aucun résultat : Veuillez modifier vos critères de recherche.</p>
@@ -588,21 +639,21 @@ const Search = ({
                 }
               </Box>
             }
-            { searchStep !== getSearchStep('start') &&
+            {/* searchStep !== getSearchStep('start') &&
               <Box pt={4}>
                 <hr />
                 <Box pt={3}>
                   <Button 
                     variant="contained" 
                     color="default"
-                    className={classes.noChoiceButton}
+                    className={classes.newSearchButton}
                     onClick={()=>handleNewSearchClick()}
                   >
                     Nouvelle recherche
                   </Button>
                 </Box>
               </Box>
-            }
+            */}
           </Box>
         </Container>
       }

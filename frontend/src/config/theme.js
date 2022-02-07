@@ -9,12 +9,20 @@ const defaultTheme = createTheme();
 
 const white = '#FFFFFF';
 const black = '#000000';
-const primary = '#FD8A25';
-const secondary = '#1682FB';
-const tertiary = '#DE2430';
+const primary = '#FD8A25';    //orange
+const secondary = '#1682FB';  //blue
+const tertiary = '#DE2430';   //red
 const font1 = '"Roboto", "Open Sans", "sans-serif"';
 
 let theme = createTheme({
+  
+  color: {
+    white: white,
+    black: black,
+    primary: primary,
+    secondary: secondary,
+    tertiary: tertiary
+  },
   
   palette: {
     primary: {
@@ -33,7 +41,7 @@ let theme = createTheme({
       light: lighten(tertiary,10),
       main: tertiary,
       dark: darken(tertiary,10),
-      contrastText: white,
+      contrastText: black,
     },
     white: {
       main: white,
@@ -73,13 +81,6 @@ let theme = createTheme({
   },
   
   overrides: {
-    MuiTypography: {
-      root: {
-        '& strong': {
-          color: secondary
-        }
-      }
-    },
     MuiButton: {
       root: {
         width: '90%',
@@ -87,8 +88,18 @@ let theme = createTheme({
         borderRadius: '16px',
         textTransform: 'unset',
         fontWeight: 600
+      },
+      contained: {
+        backgroundColor: white
       }
-    }
+    },
+    MuiTypography: {
+      root: {
+        '& strong': {
+          color: secondary
+        }
+      }
+    },
   }
   
 });

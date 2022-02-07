@@ -2,12 +2,15 @@ import { connect } from 'react-redux';
 import Search from '../components/Search';
 import { 
   addBooleanField,
-  fetchContainer }
+  fetchContainer,
+  goToSearchField
+ }
 from '../actions';
 
 
 // state
 const mapStateToProps = (state) => ({
+  searchIndex: state.searchIndex,
   loading: state.loading,
   resourceValues: state.resourceValues,
   fieldValues: state.fieldValues
@@ -15,12 +18,15 @@ const mapStateToProps = (state) => ({
 
 // actions
 const mapDispatchToProps = (dispatch) => ({
+  addBooleanField: (field) => {
+    dispatch(addBooleanField(field));
+  },
   fetchContainer: (container, containerType) => {
     dispatch(fetchContainer(container, containerType));
   },
-  addBooleanField: (field) => {
-    dispatch(addBooleanField(field));
-  }
+  goToSearchField: (searchIndex) => {
+    dispatch(goToSearchField(searchIndex));
+  },
 });
 
 // export
