@@ -360,7 +360,7 @@ const Search = ({
                                   if (field.type === 'boolean') {
                                     className = `${className} ${classes.booleanButton}`;
                                   }
-                                  if (value.icon) {
+                                  if (field.icon || value.icon) {
                                     className = `${className} ${classes.iconButton}`;
                                   }
                                   return (

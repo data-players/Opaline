@@ -101,26 +101,6 @@ const useStyles = makeStyles(theme => ({
       }
     }
   },
-
-  
-  
-  stepsContainer: {
-    padding: '0 8px 16px',
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
-    '& Button': {
-      padding: '8px 16px',
-      backgroundColor: 'transparent',
-      color: '#203142 !important',
-      border: '1px solid transparent',
-      '&:hover': {
-        backgroundColor: 'transparent'
-      }
-    }
-  }
 }));
 
 export default useStyles;

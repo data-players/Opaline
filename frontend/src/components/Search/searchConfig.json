@@ -70,7 +70,7 @@
         "name": "hasGenders",
         "label": "Genre",
         "title": "Vous <strong>êtes</strong>... ?",
-        "multiple": true
+        "icon": true
       },{
         "type": "boolean",
         "name": "rqth",
