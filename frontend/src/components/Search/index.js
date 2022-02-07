@@ -77,57 +77,15 @@ const Search = ({
     setTextFieldValue(null);
     setSelectedResource(rootContainer);
     setSearchFields(rootContainer.fields);
-    // goToNextField(rootContainer, null);
     goToSearchField(0);
     displayField(0);
   }
-  /*
-  const goToNextField = (resource, field, backward=false) => {
-    const nextField = findNextField(resource, field, backward);
-    if (nextField) {
-      handleFieldClick(nextField);
-      return nextField;
-    }
-  }
-  */
+
  const goToNextField = (field, backward=false) => {
     const newIndexField = searchFields.indexOf(field) + (backward ? -1 : 1);
     goToSearchField(newIndexField);
   }
-  /*
-  const findNextField = (resource, selectedField, backward=false) => {
-    if (! resource) {
-      return; 
-    }
-    if (! selectedField) {
-      return Object.values(resource.fields)[0]; 
-    }
-    const fieldIndex = searchFields.findIndex(field => field.name === selectedField.name);
-    if (fieldIndex === -1) {
-      return; 
-    }
-    if (! backward ) {
-      if (fieldIndex >= (Object.keys(searchFields).length - 1)) {
-        handleResultsStepClick();
-        return; 
-      }
-      return Object.values(searchFields)[fieldIndex + 1];
-    } else {
-      if (fieldIndex === 0) {
-        return; 
-      }
-      return Object.values(searchFields)[fieldIndex - 1];
-    }
-  }
-  */
- /*
-  const handleClickLeftCriteriaChevron = () => {
-    goToNextField(selectedResource, selectedField, true);
-  }
-  const handleClickRightCriteriaChevron = () => {
-    goToNextField(selectedResource, selectedField);
-  }
-  */
+
   const setChosenField = (field, value, replace=false) => {
     const choiceFieldIndex = searchFields.indexOf(field);
     if (replace) {
@@ -350,117 +308,12 @@ const Search = ({
       }
       { ! loading &&
         <Container className={classes.mainContainer} maxWidth="sm">
-          {/* selectedResource &&
-            <>
-              {
-              <h1>Rechercher {selectedResource.label}</h1>
-              }
-              <Box className={classes.stepsContainer}>
-                {
-                  searchFields.map((field, index) => (
-                    <Box className={classes.stepContainer} key={index}>
-                      <Box>
-                        <Button 
-                          variant="contained" 
-                          disabled={selectedField === field}
-                          onClick={()=>handleFieldClick(field)}
-                        >
-                          {field.label}
-                        </Button>
-                      </Box>
-                      { ( Object.keys(selectedValues).length !== 0 ||
-                          index !== (searchFields.length - 1) 
-                        ) &&
-                          <ChevronRightIcon className={classes.stepChevron}/>
-                      }
-                    </Box>
-                  ))
-                }
-                { Object.keys(selectedValues).length > 0 &&
-                  <Box p={1}>
-                    <Button 
-                      variant="contained" 
-                      disabled={searchStep === getSearchStep('results')}
-                      onClick={()=>handleResultsStepClick()}
-                    >
-                      Résultats 
-                      { results &&
-                        <span>&nbsp;({results.length})</span>
-                      }
-                    </Button>
-                  </Box>
-                }
-              </Box>
-              { searchStep === getSearchStep('field') &&
-                <hr/>
-              }
-            </>
-          */}
-          {/* searchStep === getSearchStep('results') &&
-            <>
-              { selectedValues.length === 0 &&
-                searchStep === getSearchStep('results') &&
-                  <Box p={3}>
-                    <p>Veuillez sélectionner au moins un critère de recherche.</p>
-                  </Box>
-              }
-              { selectedValues.length > 0 &&
-                <Box pb={1} mt={-1} className={classes.selectedCriterias}>
-                  {
-                    selectedValues.map((selectedValue, index) => {
-                      
-                      if (selectedValue.field.type !== 'field-choice') {
-                        let label = '';
-                        switch (selectedValue.field.type) {
-                          case 'boolean':
-                            label = selectedValue.field.label + ' : ' + selectedValue.value.label
-                          break;
-                          case 'range':
-                            label = selectedValue.field.label + ' : ' + selectedValue.value.id
-                          break;
-                          default:
-                            if (! Array.isArray(selectedValue.value)) {
-                              label = selectedValue.value.label
-                            } else {
-                              selectedValue.value.forEach(v => {
-                              if (label !== '') { label += '/' }
-                                label = label + v.label;
-                              })
-                            }
-                        }
-                        return (
-                          selectedValue &&
-                            <Box pt={1} pl={2} key={index}>
-                              <Chip 
-                                label={label}
-                                onClick={()=>handleDeleteSelectedValueClick(selectedValue.field, selectedValue.value)}
-                                onDelete={()=>handleDeleteSelectedValueClick(selectedValue.field, selectedValue.value)}
-                              />
-                            </Box>
-                        )
-                      }
-                    })
-                  }
-                </Box>
-              }
-            </>
-          */}
           { searchStep !== getSearchStep('results') &&
             <>
               { selectedField &&
                 <Typography component="h2" variant="h2" className={classes.stepTitle}><FormatedTitle title={selectedField.title}/></Typography>
               }
               <Box pb={4} mt={-1} className={classes.criteriasContainer}>
-                {/* selectedResource &&
-                  <Box className={classes.criteriaChevronContainer}>
-                    { searchStep !== getSearchStep('start') &&
-                      <ChevronLeftIcon
-                        className={classes.criteriaChevron}
-                        onClick={() => handleClickLeftCriteriaChevron()}
-                      />
-                    }
-                  </Box>
-                */}
                 { 
                   searchFields.filter(field => selectedField === field).map((field, index) => {
                     
@@ -577,31 +430,11 @@ const Search = ({
                               </Box>
                             </Box>
                           }
-                          {/* field.ignore &&
-                            <Box pt={3}>
-                              <Button 
-                                variant="contained" 
-                                color="default"
-                                className={classes.noChoiceButton}
-                                onClick={()=>handleValueClick(field, null)}
-                              >
-                                Ignorer ce critère
-                              </Button>
-                            </Box>
-                          */}
                         </Box>
                       )
                     }
                   })
                 }
-                {/* selectedResource &&
-                  <Box className={classes.criteriaChevronContainer}>
-                    <ChevronRightIcon
-                      className={classes.criteriaChevron} 
-                      onClick={() => handleClickRightCriteriaChevron()}
-                    />
-                  </Box>
-                */}
               </Box>
             </>
           }
@@ -639,21 +472,6 @@ const Search = ({
                 }
               </Box>
             }
-            {/* searchStep !== getSearchStep('start') &&
-              <Box pt={4}>
-                <hr />
-                <Box pt={3}>
-                  <Button 
-                    variant="contained" 
-                    color="default"
-                    className={classes.newSearchButton}
-                    onClick={()=>handleNewSearchClick()}
-                  >
-                    Nouvelle recherche
-                  </Button>
-                </Box>
-              </Box>
-            */}
           </Box>
         </Container>
       }
