@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
 import Search from '../components/Search';
 import { 
-  addBooleanField,
-  fetchContainer,
   goToSearchField,
-  setResults
+  loadData,
+  setResults,
+  setSearchFields,
+  setSelectedValues
  }
 from '../actions';
 
@@ -16,22 +17,27 @@ const mapStateToProps = (state) => ({
   resourceValues: state.resourceValues,
   fieldValues: state.fieldValues,
   results: state.results,
-  resultsByStructure: state.resultsByStructure
+  resultsByStructure: state.resultsByStructure,
+  selectedValues: state.selectedValues,
+  searchFields: state.searchFields,
 });
 
 // actions
 const mapDispatchToProps = (dispatch) => ({
-  addBooleanField: (field) => {
-    dispatch(addBooleanField(field));
-  },
-  fetchContainer: (container, containerType) => {
-    dispatch(fetchContainer(container, containerType));
-  },
   goToSearchField: (searchIndex) => {
     dispatch(goToSearchField(searchIndex));
   },
+  loadData: () => {
+    dispatch(loadData());
+  },
   setResults: (results) => {
     dispatch(setResults(results));
+  },
+  setSearchFields: (searchFields) => {
+    dispatch(setSearchFields(searchFields));
+  },
+  setSelectedValues: (selectedValues) => {
+    dispatch(setSelectedValues(selectedValues));
   },
 });
 

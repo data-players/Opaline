@@ -5,12 +5,11 @@ import App from './containers/App';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
 import { Provider } from 'react-redux';
-import { fetchContainer } from './actions';
+import { loadData } from './actions';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from './config/theme'
 
-store.dispatch(fetchContainer({slug:'programs', 'root':true}));
-store.dispatch(fetchContainer({slug:'organizations', 'root':true}));
+store.dispatch(loadData());
 
 ReactDOM.render(
   <React.StrictMode>

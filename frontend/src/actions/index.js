@@ -1,10 +1,12 @@
 // == Action types
 export const ADD_BOOLEAN_FIELD = 'ADD_BOOLEAN_FIELD';
 export const GO_TO_SEARCH_FIELD = 'GO_TO_SEARCH_FIELD';
-export const FETCH_CONTAINER = 'FETCH_CONTAINER';
 export const GET_FIELD_VALUES = 'GET_FIELD_VALUES';
 export const GET_RESOURCE_VALUES = 'GET_RESOURCE_VALUES';
+export const LOAD_DATA = 'LOAD_DATA';
 export const SET_RESULTS = 'SET_RESULTS';
+export const SET_SEARCH_FIELDS = 'SET_SEARCH_FIELDS';
+export const SET_SELECTED_VALUES = 'SET_SELECTED_VALUES';
 
 // == Action creators
 export const addBooleanField = (field) => ({
@@ -14,10 +16,6 @@ export const addBooleanField = (field) => ({
 export const goToSearchField = (searchIndex) => ({
   type: GO_TO_SEARCH_FIELD,
   searchIndex
-});
-export const fetchContainer = (container) => ({
-  type: FETCH_CONTAINER,
-  container
 });
 export const getFieldValues = (container, fieldValues) => ({
   type: GET_FIELD_VALUES,
@@ -29,10 +27,22 @@ export const getResourceValues = (container, resourceValues) => ({
   container,
   resourceValues
 });
+export const loadData = () => ({
+  type: LOAD_DATA,
+});
 export const setResults = (results) => ({
   type: SET_RESULTS,
   results
 });
+export const setSearchFields = (searchFields) => ({
+  type: SET_SEARCH_FIELDS,
+  searchFields
+});
+export const setSelectedValues = (selectedValues) => ({
+  type: SET_SELECTED_VALUES,
+  selectedValues
+});
+
 
 
 

@@ -1,11 +1,15 @@
+import searchConfig from '../config/searchConfig.json';
 import {
   ADD_BOOLEAN_FIELD,
   GO_TO_SEARCH_FIELD,
   GET_FIELD_VALUES,
   GET_RESOURCE_VALUES,
   SET_RESULTS,
+  SET_SEARCH_FIELDS,
+  SET_SELECTED_VALUES,
 }
   from '../actions';
+  
 
 const initialState = {
   searchIndex: -1,
@@ -14,7 +18,18 @@ const initialState = {
   fieldValues: {},
   results: [],
   resultsByStructure: [],
+  searchFields: [],
+  selectedValues: []
 };
+
+const checkForDataLoaded = (state, resources, fields) => {
+  const mandatoryResources = ['programs', 'organizations'];
+  const resourcesLoaded = mandatoryResources.every(element => {
+    return resources.includes(element);
+  })
+  const fieldsLoaded = Object.keys(fields).length >= searchConfig[0].fields.length;
+  return resourcesLoaded && fieldsLoaded;
+}
 
 const reducer = (state = initialState, action = {}) => {
   console.log('** reducer', state, action);
@@ -41,21 +56,23 @@ const reducer = (state = initialState, action = {}) => {
         fieldValues: {
           ...state.fieldValues,
           [action.container.name]: action.fieldValues
-        }
+        },
+        loading: ! checkForDataLoaded(state,
+          Object.keys(state.resourceValues),
+          Object.keys(state.fieldValues).concat([action.container.name])
+        )
       };
     case GET_RESOURCE_VALUES:
-      const mandatoryResources = ['programs', 'organizations']
-      const resourcesArray = Object.keys(state.resourceValues).concat([action.container.slug]);
-      const loaded = mandatoryResources.every(element => {
-        return resourcesArray.includes(element);
-      });
       return {
         ...state,
         resourceValues: {
           ...state.resourceValues, 
           [action.container.slug]: action.resourceValues
         },
-        loading: ! loaded
+        loading: ! checkForDataLoaded(state,
+          Object.keys(state.resourceValues).concat([action.container.slug]),
+          Object.keys(state.fieldValues)
+        )
       };
     case SET_RESULTS:
       const resultsByStructure = 
@@ -67,6 +84,21 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         results: action.results,
         resultsByStructure: resultsByStructure
+      };
+    case SET_SEARCH_FIELDS:
+      // Clone nested object
+      const rootContainer = {...searchConfig[0], fields:[...searchConfig[0].fields]}
+      if (action.searchFields.length === 0) {
+        action.searchFields = rootContainer.fields;
+      }
+      return {
+        ...state,
+        searchFields: action.searchFields
+      };
+    case SET_SELECTED_VALUES:
+      return {
+        ...state,
+        selectedValues: action.selectedValues
       };
     default:
       return state;

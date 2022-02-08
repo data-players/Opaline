@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Avatar, Box, Button, Container, TextField, Typography } from '@material-ui/core';
@@ -13,33 +13,27 @@ import WorkIcon from '@mui/icons-material/Work';
 
 import { getSlugFromContainerUrl } from '../../selectors/urls';
 import useStyles from './useStyle'
-import searchConfig from './searchConfig.json';
 import AppBar from '../../containers/AppBar';
 
 
 const Search = ({
-  addBooleanField,
-  fetchContainer,
   fieldValues,
   goToSearchField,
   setResults,
+  setSearchFields,
+  setSelectedValues,
   loading,
   resourceValues,
   searchIndex,
   results,
-  resultsByStructure
+  resultsByStructure,
+  searchFields,
+  selectedValues
 }) => {
 
   const classes = useStyles();
-  const getSearchStep = (step) => {
-    return searchSteps.indexOf(step)
-  }
-  const searchSteps = ['start', 'field', 'results'];
-  const [searchStep, setSearchStep] = useState(getSearchStep('start'));
-  const [selectedResource, setSelectedResource] = useState();
-  const [searchFields, setSearchFields] = useState([]);
+
   const [selectedField, setSelectedField] = useState(null);
-  const [selectedValues, setSelectedValues] = useState([]);
   const [checked, setChecked] = useState([]);
   const [textFieldValue, setTextFieldValue] = useState('');
   
@@ -47,34 +41,28 @@ const Search = ({
     if (selectedField?.name) {
     selectedFieldValues = fieldValues[selectedField.name];
   }
+  
+  const isResultsStep = searchIndex === searchFields.length
 
-  // Clone nested object
-  const rootContainer = {...searchConfig[0], fields:[...searchConfig[0].fields]};
-
-  console.log('>> selectedResource:', selectedResource);
-  console.log('>> searchStep:', searchStep);
-  console.log('>> searchFields:', searchFields);
   console.log('>> selectedField:', selectedField);
   console.log('>> selectedFieldValues:', selectedFieldValues);
-  console.log('>> selectedValues:', [...selectedValues]);
   console.log('>> checked:', checked);
   console.log('>> textFieldValue:', textFieldValue);
   console.log('>+ resourceValues:', resourceValues);
   console.log('>+ fieldValues:', fieldValues);
   console.log('>+ searchIndex:', searchIndex);
+  console.log('>+ searchFields:', searchFields);
+  console.log('>+ selectedValues:', [...selectedValues]);
   console.log('>+ results', results);
-
   
   const handleNewSearchClick = () => {
     console.log('----------START----------');
-    setSearchStep(getSearchStep('start'));
     setSelectedField(null);
     setSelectedValues([]);
     setResults([]);
     setChecked([]);
     setTextFieldValue(null);
-    setSelectedResource(rootContainer);
-    setSearchFields(rootContainer.fields);
+    setSearchFields([]);
     goToSearchField(0);
     displayField(0);
   }
@@ -112,11 +100,6 @@ const Search = ({
       setChecked([]);
       setTextFieldValue('');
       setSelectedField(field);
-      if (searchFields.findIndex(sf => sf.name === field.name) > 0) {
-        setSearchStep(getSearchStep('field'));
-      } else {
-        setSearchStep(getSearchStep('start'));
-      }
       const currentSelectedValue = selectedValues.find(sv => sv.field.name === field.name);
       if (currentSelectedValue) {
         if (field.multiple) {
@@ -176,11 +159,11 @@ const Search = ({
     goToNextField(field);
   };
 
-  const getResults = async () => {
+  const findResults = async () => {
     if (!resourceValues) {
       return;
     }
-    let results = resourceValues[rootContainer.slug];
+    let results = resourceValues['programs'];
     selectedValues.forEach(sv => {
       if (sv.field.type !== 'field-choice') {
         switch (sv.field.type) {
@@ -237,50 +220,26 @@ const Search = ({
   
   useEffect( () => { 
     if (selectedValues.length > 0) {
-      getResults();
+      findResults();
     }
   }, [selectedValues])
   
-  const resultsRef = useRef(null);
-  const handleResultsStepClick = () => {
-    setSearchStep(getSearchStep('results'));
-    setSelectedField(null);
-    resultsRef.current.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-      inline: "start"
-    });
-  }
-
-  //== Get all data
-  const getData = (data) => {
-    data.forEach(field => {
-      switch (field.type) {
-        case 'field-choice':
-        getData(field.fields);
-        break;
-        case 'boolean':
-        addBooleanField(field);
-        break;
-        default:
-        fetchContainer(field);
+  useEffect( () => { 
+    if (!loading && results.length === 0) {
+      handleNewSearchClick();
+    }
+  }, [loading]);
+  
+  useEffect( () => { 
+    if ( searchFields.length > 0) {
+      if(searchIndex < 0 ) {
+        goToSearchField(0);
+      } else if(searchIndex > searchFields.length-1 ) {
+        goToSearchField(searchFields.length);
+        setSelectedField(null);
+      } else {
+        displayField(searchIndex);  
       }
-    })
-  }
-  
-  useEffect( () => { 
-    getData(rootContainer.fields);
-    handleNewSearchClick();
-  }, []);
-  
-  useEffect( () => { 
-    if(searchIndex < 0 ) {
-      goToSearchField(0);
-    } else if(searchIndex > searchFields.length-1 ) {
-      goToSearchField(searchFields.length);
-      handleResultsStepClick();
-    } else {
-      displayField(searchIndex);  
     }
   }, [searchIndex]);
 
@@ -292,12 +251,14 @@ const Search = ({
           Chargement, veuillez patienter...
         </div>
       }
-      { ! loading &&
+      { ! loading && searchFields.length > 0 &&
         <Container className={classes.mainContainer} maxWidth="sm">
-          { searchStep !== getSearchStep('results') &&
+          { ! isResultsStep &&
             <>
               { selectedField &&
-                <Typography component="h2" variant="h2" className={classes.stepTitle}><FormatedTitle title={selectedField.title}/></Typography>
+                <Typography component="h2" variant="h2" className={classes.stepTitle}>
+                  <FormatedTitle title={selectedField.title}/>
+                </Typography>
               }
               <Box pb={4} mt={-1} className={classes.criteriasContainer}>
                 { 
@@ -424,8 +385,8 @@ const Search = ({
               </Box>
             </>
           }
-          <Box ref={resultsRef}>
-            { searchStep === getSearchStep('results') &&
+          <Box>
+            { isResultsStep &&
               <Box> 
                 { results && 
                   <Box>
