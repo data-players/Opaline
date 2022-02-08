@@ -14,6 +14,8 @@ import WorkIcon from '@mui/icons-material/Work';
 import { getSlugFromContainerUrl } from '../../selectors/urls';
 import useStyles from './useStyle'
 import AppBar from '../../containers/AppBar';
+import ResultCard from './components/ResultCard';
+import ResultStepTitle from './components/ResultStepTitle';
 
 
 const Search = ({
@@ -395,20 +397,25 @@ const Search = ({
                         <p>Aucun résultat : Veuillez modifier vos critères de recherche.</p>
                       </Box>
                     }
+                    <Box p={3}>
+                      <ResultStepTitle
+                        length={resultsByStructure.length}
+                        titleClassName={classes.stepTitle}
+                        subTitleClassName={classes.stepSubtitle}
+                      />
+                    </Box>
                     <List>
                       { resultsByStructure.map((result, index) => (
-                        <ListItem button key={index} component={Link} to={`/structures/${getSlugFromContainerUrl('organizations', result.id)}`}>
-                          <ListItemButton>
-                            <ListItemAvatar>
-                              <Avatar>
-                                <WorkIcon />
-                              </Avatar>
-                            </ListItemAvatar>
-                            <ListItemText 
-                              primary={result.label} 
-                              secondary={result.id}
-                            />
-                          </ListItemButton>
+                        <ListItem
+                          button key={index}
+                          component={Link}
+                          to={`/structures/${getSlugFromContainerUrl('organizations', result.id)}`}
+                          className={classes.resultListItem}
+                        >
+                          <ResultCard
+                            label={result.label}
+                            id={result.id}
+                          />
                         </ListItem>
                       )) }
                     </List>

@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
   appBar: {
     backgroundColor: 'transparent !important',
-    color: theme.color.black + ' !important',
+    color: theme.color.secondary + ' !important',
     boxShadow: 'none !important',
   },
   goBackButton: {

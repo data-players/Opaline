@@ -94,7 +94,13 @@ let theme = createTheme({
         fontWeight: 600
       },
       contained: {
-        backgroundColor: white
+        backgroundColor: white + '! important'
+      },
+      containedPrimary: {
+        backgroundColor: primary + '! important'
+      },
+      containedSecondary: {
+        backgroundColor: secondary + '! important'
       }
     },
     MuiTypography: {

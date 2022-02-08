@@ -12,6 +12,9 @@ const useStyles = makeStyles(theme => ({
     marginBottom: '2rem',
     textAlign: 'left'
   },
+  stepSubtitle: {
+    fontSize: '75%'
+  },
   criteriaContainer: {
     width: '100%',
     display: 'flex',
@@ -101,6 +104,9 @@ const useStyles = makeStyles(theme => ({
       }
     }
   },
+  resultListItem: {
+    paddingBottom: '2rem !important'
+  }
 }));
 
 export default useStyles;
