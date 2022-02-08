@@ -1,21 +1,75 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { Avatar, Container, makeStyles } from '@material-ui/core';
+import {  Box, Container, Typography, makeStyles } from '@material-ui/core';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import WorkIcon from '@mui/icons-material/Work';
 
 import AppBar from '../AppBar';
 import { getSlugFromContainerUrl } from '../../selectors/urls';
 
 const useStyles = makeStyles(theme => ({
   mainContainer: {
-    marginTop: theme.margin.header
+    marginTop: theme.margin.header,
+    paddingTop: 24
   },
+  listItem: {
+    padding: '8px 0px 16px !important',
+  },
+  imageContainer: {
+    zIndex: 9999,
+    height: theme.margin.header,
+    position: 'absolute',
+    top: 0,
+    left: '50%',
+    transform: 'translateX(-50%)',
+    '& img': {
+      height: '100%'
+    }
+  },
+  cardContainer: {
+    width: '100%',
+    borderRadius: '20px !important',
+    '& .MuiCardContent-root': {
+      padding: '16px !important'
+    }
+  },
+  title: {
+    fontSize: 32,
+    lineHeight: '125%',
+    [theme.breakpoints.up('sm')]: {
+      fontSize: 40
+    },
+  },
+  subtitle: {
+    paddingTop: '4rem',
+    fontSize: 14,
+    fontWeight: 600,
+    textTransform: 'uppercase',
+    [theme.breakpoints.up('sm')]: {
+      fontSize: 18
+    },
+  },
+  programTitle: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    height: '100%',
+    color: theme.color.primary,
+    fontSize: '16px !important',
+    fontWeight: '600 !important',
+    textAlign: 'left',
+    textTransform: 'uppercase'
+  },
+  infos: {
+    color: theme.color.black75,
+    fontSize: '12px !important'
+  }
 }))
 
 const Structure = ({ structure, programs }) => {
@@ -28,22 +82,43 @@ const Structure = ({ structure, programs }) => {
       { structure &&
         <>
           <AppBar/>
-          <Container className={classes.mainContainer}>
-            <div>Structure : {structure.label}</div>
+          <Container className={classes.mainContainer} maxWidth="sm">
+            <Box className={classes.imageContainer}>
+              <img src={`${process.env.PUBLIC_URL}/logo192.png`} alt={`logo ${structure.label}`} />
+            </Box>
+            <Typography component="h1" className={classes.title}>
+              {structure.label}
+            </Typography>
+            <Typography component="h2" className={classes.subtitle}>
+              Les programmes d'accompagnement
+            </Typography>
             <List sx={{/* width: '100%', maxWidth: 360, bgcolor: 'background.paper' */}}>
               { programs.map((program, index) => (
-                <ListItem button key={index} component={Link} to={`/programmes/${getSlugFromContainerUrl('programs', program.id)}`}>
-                  <ListItemButton>
-                    <ListItemAvatar>
-                      <Avatar>
-                        <WorkIcon />
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText 
-                      primary={program.label} 
-                      secondary={program.id}
-                    />
-                  </ListItemButton>
+                <ListItem 
+                  button key={index} 
+                  component={Link} 
+                  to={`/programmes/${getSlugFromContainerUrl('programs', program.id)}`}
+                  className={classes.listItem}
+                >
+                  <Card sx={{ minWidth: 275 }} className={classes.cardContainer}>
+                    <CardContent>
+                      <Grid container spacing={1}>
+                        <Grid item xs={10}>
+                          <Typography component="h3" className={classes.programTitle}>
+                            {program.label}
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <Box className={classes.infosContainer}>
+                            <Typography component="p" className={classes.infos}>
+                              <Box>Test</Box>
+                              <Box>mois</Box>
+                            </Typography>
+                          </Box>
+                        </Grid>
+                      </Grid>
+                    </CardContent>
+                  </Card>
                 </ListItem>
               ))}
             </List>

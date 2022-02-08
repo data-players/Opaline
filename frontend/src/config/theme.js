@@ -19,6 +19,7 @@ let theme = createTheme({
   color: {
     white: white,
     black: black,
+    black75: lighten(black, 25),
     primary: primary,
     secondary: secondary,
     tertiary: tertiary
