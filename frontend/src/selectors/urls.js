@@ -14,7 +14,7 @@ export const getUrl = (prefix, string) => {
 };
 
 export const getResourceFromSlug = (resources, slug) => {
-  return resources.find((resource) => getSlugFromString(resource.label) === slug);
+  return resources.find((resource) => getSlugFromString(resource.id.substring(resource.id.lastIndexOf('/') + 1)) === slug);
 };
 
 export const getSlugFromContainerUrl = (containerSlug, url) => {
