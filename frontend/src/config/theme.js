@@ -9,10 +9,10 @@ const defaultTheme = createTheme();
 
 const white = '#FFFFFF';
 const black = '#000000';
-const primary = '#FD8A25';    //orange
-const secondary = '#1682FB';  //blue
+const primary = '#f9b233';    //orange
+const secondary = '#2b3089';  //blue
 const tertiary = '#DE2430';   //red
-const font1 = '"Roboto", "Open Sans", "sans-serif"';
+const font1 = '"Red Hat Display", "Open Sans", "sans-serif"';
 
 let theme = createTheme({
   
