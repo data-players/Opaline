@@ -15,7 +15,7 @@ const ResultStepTitle = ({ length, titleClassName, subTitleClassName }) => (
         Voici la structure <EndResultSubtitle subTitleClassName={subTitleClassName}/>
       </>
     }
-    { length !== 1 &&
+    { length > 1 &&
       <>
         Voici les {length} structures <EndResultSubtitle subTitleClassName={subTitleClassName}/>
       </>

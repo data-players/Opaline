@@ -47,6 +47,7 @@ const Search = ({
   
   const isResultsStep = searchIndex === searchFields.length
 
+  /*
   console.log('>> selectedField:', selectedField);
   console.log('>> selectedFieldValues:', selectedFieldValues);
   console.log('>> checked:', checked);
@@ -58,6 +59,7 @@ const Search = ({
   console.log('>+ selectedValues:', [...selectedValues]);
   console.log('>+ results', results);
   console.log('>+ resultsByStructure', resultsByStructure);
+  */
   
   const handleNewSearchClick = () => {
     console.log('----------START----------');
@@ -100,7 +102,7 @@ const Search = ({
 
   const displayField = (searchIndex) => {
     const field = searchFields[searchIndex];
-    if (field !== selectedField) {
+    if (! field || ! selectedField || field.name !== selectedField.name) {
       setChecked([]);
       setTextFieldValue('');
       setSelectedField(field);
@@ -120,10 +122,9 @@ const Search = ({
     setTextFieldValue(evt.target.value);
   }
   
-  const handleValueClick = (field, value) => {
+  const handleClickValue = (field, value) => {
     if (value) {
-      // id filling
-      if (! value.id) {
+      if (field.type === 'field-choice') {
         value.id = value.name
       }
       const currentValueForField = selectedValues.find(selectedValue => selectedValue.field.name === field.name);
@@ -148,7 +149,7 @@ const Search = ({
             setChosenField(field, value, /*replace=*/true);
           } else {
             setSelectedValues(selectedValues.map(selectedValue => {
-              if (selectedValue.field === field) {
+              if (selectedValue.field.name === field.name) {
                 selectedValue.value = value
               }
               return selectedValue
@@ -286,7 +287,7 @@ const Search = ({
                               variant="contained" 
                               color="secondary"
                               className={classes.nextButton}
-                              onClick={()=>handleValueClick(field, {id:textFieldValue})}
+                              onClick={()=>handleClickValue(field, {id:textFieldValue})}
                             >
                               Suivant
                             </Button>
@@ -301,14 +302,18 @@ const Search = ({
                       const matchField = isChoice ? 'name' : 'id';
                       
                       const handleToggle = (value) => () => {
-                        const currentIndex = checked.indexOf(value);
+                        const currentIndex = checked.findIndex(c => c.id === value.id);
+                        console.log('handleToggle-0', value, currentIndex, [...checked]);
                         const newChecked = [...checked];
+                        
+                        console.log('handleToggle-av', [...newChecked]);
 
                         if (currentIndex === -1) {
                           newChecked.push(value);
                         } else {
                           newChecked.splice(currentIndex, 1);
                         }
+                        console.log('handleToggle-ap', [...newChecked]);
 
                         setChecked(newChecked);
                       };
@@ -336,8 +341,10 @@ const Search = ({
                                     <Box pt={2} key={index} className={className}>
                                       <Button 
                                         variant="contained" 
-                                        color={selectedValues.find(sv => (sv.value[matchField] === value[matchField])) ? "primary" : "default"}
-                                        onClick={()=>handleValueClick(field, value)}
+                                        color={selectedValues.find(sv =>(sv.value[matchField] === value[matchField])) !== undefined
+                                          ? "primary"
+                                          : "default"}
+                                        onClick={()=>handleClickValue(field, value)}
                                       >
                                         {value.label}
                                       </Button>
@@ -351,7 +358,8 @@ const Search = ({
                             <Box key={index} className={classes.criteriaContainerMultiple}>
                               <List>
                                 { fieldsArray.map((value, index) => {
-                                  const labelId = `checkbox-list-label-${value}`;
+                                  const labelId = `checkbox-list-label-${value.id.substring(value.id.lastIndexOf('/')+1)}`;
+                                  // console.log('labelId', value, labelId);
                                   return (
                                     <ListItem
                                       key={index}
@@ -361,10 +369,9 @@ const Search = ({
                                         <ListItemIcon>
                                           <Checkbox
                                             edge="start"
-                                            checked={checked.indexOf(value) !== -1}
+                                            checked={checked.find(c => c.id === value.id) !== undefined}
                                             tabIndex={-1}
                                             disableRipple
-                                            inputProps={{ 'aria-labelledby': labelId }}
                                           />
                                         </ListItemIcon>
                                         <ListItemText id={labelId} primary={value.label} />
@@ -378,7 +385,7 @@ const Search = ({
                                   variant="contained" 
                                   color="secondary"
                                   className={classes.nextButton}
-                                  onClick={()=>handleValueClick(field, checked)}
+                                  onClick={()=>handleClickValue(field, checked)}
                                 >
                                   Suivant
                                 </Button>
