@@ -37,12 +37,15 @@ export default {
       fields: {
         'opal:programOfferedBy': 'Proposé par', /*Organization*/
         'pair:label': 'Nom',
+        'pair:description': 'Description',
         'opal:minimumAge' : 'Age minimum',
         'opal:maximumAge' : 'Age maximum',
         'opal:hasDegreeLevel': 'Niveau de diplôme',
         'opal:hasGenders': 'Genres',
         'opal:rqth': 'Reconnaissance de la qualité de travailleur handicapé',
         'opal:poleEmploi': 'Inscrit à Pôle Emploi',
+        'opal:duration': 'Durée',
+        'opal:financialParticipation': 'Participation financière',
         'opal:hasBusinessCreationGoals': 'Création d\'entreprise',
         'opal:hasJobSearchGoals': 'Recherche d\'emploi',
         'opal:hasTrainingGoals': 'Se former',
