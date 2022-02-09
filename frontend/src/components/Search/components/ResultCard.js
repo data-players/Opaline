@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function ResultCard( {label, id}) {
+export default function ResultCard( {id, label, depictedBy}) {
   const classes = useStyles();
   return (
     <Card sx={{ minWidth: 275 }} className={classes.mainContainer}>
@@ -50,7 +50,7 @@ export default function ResultCard( {label, id}) {
         <Grid container spacing={1}>
           <Grid item xs={4} container={true} className={classes.flexCenter}>
             <Box className={classes.imageContainer}>
-              <img src={`${process.env.PUBLIC_URL}/logo192.png`} alt={`logo ${label}`} />
+              <img src={depictedBy} alt={`logo ${label}`} />
             </Box>
           </Grid>
           <Grid item xs={8}>

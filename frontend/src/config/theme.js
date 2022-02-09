@@ -19,7 +19,10 @@ let theme = createTheme({
   color: {
     white: white,
     black: black,
-    black75: lighten(black, 25),
+    grey10: darken(white, 10),
+    grey25: darken(white, 25),
+    grey50: darken(white, 50),
+    grey75: darken(white, 75),
     primary: primary,
     secondary: secondary,
     tertiary: tertiary
@@ -31,30 +34,24 @@ let theme = createTheme({
   
   palette: {
     primary: {
-      light:  lighten(primary,10),
-      main: primary,
-      dark: darken(primary,10),
-      contrastText: white,
+      main: primary + ' !important',
+      contrastText: white + ' !important',
     },
     secondary: {
-      light: lighten(secondary,10),
-      main: secondary,
-      dark: darken(secondary,10),
-      contrastText: white,
+      main: secondary + ' !important',
+      contrastText: white + ' !important',
     },
     tertiary: {
-      light: lighten(tertiary,10),
-      main: tertiary,
-      dark: darken(tertiary,10),
-      contrastText: black,
+      main: tertiary + ' !important',
+      contrastText: black + ' !important',
     },
     white: {
-      main: white,
-      contrastText: lighten(black,50),
+      main: white + ' !important',
+      contrastText: lighten(black,50) + ' !important',
     },
     black: {
-      main: black,
-      contrastText: lighten(black,50),
+      main: black + ' !important',
+      contrastText: lighten(black,50) + ' !important',
     },
   },
   
@@ -94,22 +91,6 @@ let theme = createTheme({
         textTransform: 'unset',
         fontWeight: 600
       },
-      contained: {
-        backgroundColor: white + '! important'
-      },
-      containedPrimary: {
-        backgroundColor: primary + '! important'
-      },
-      containedSecondary: {
-        backgroundColor: secondary + '! important'
-      }
-    },
-    MuiTypography: {
-      root: {
-        '& strong': {
-          color: secondary
-        }
-      }
     },
   }
   

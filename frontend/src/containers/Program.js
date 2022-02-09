@@ -5,8 +5,10 @@ import { getResourceFromSlug } from '../selectors/urls';
 // state
 const mapStateToProps = (state, ownProps) => {
   const { slug } = ownProps.match.params;
+  const program = getResourceFromSlug(state.resourceValues['programs'], slug)
   return {
-    program: getResourceFromSlug(state.resourceValues['programs'], slug),
+    program: program,
+    structure: state.resourceValues['organizations'].find(structure => structure.id = program.programOfferedBy)
   };
 };
 

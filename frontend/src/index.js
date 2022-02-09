@@ -7,7 +7,7 @@ import store from './store';
 import { Provider } from 'react-redux';
 import { loadData } from './actions';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import theme from './config/theme'
+import theme from './config/theme';
 
 store.dispatch(loadData());
 

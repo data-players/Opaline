@@ -95,7 +95,7 @@ const middleware = (store) => (next) => (action) => {
             id: d['@id'],
             type: d['@type']
           }));
-          // console.log('middleware-LOAD_DATA DATA', action.container, formatedData);
+          // console.log('middleware-LOAD_DATA DATA', container, formatedData);
           if (type === 'resource') {
             store.dispatch(getResourceValues(container, formatedData));
           } else {

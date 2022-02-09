@@ -6,9 +6,6 @@ import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 
 import AppBar from '../AppBar';
 import { getSlugFromContainerUrl } from '../../selectors/urls';
@@ -67,7 +64,8 @@ const useStyles = makeStyles(theme => ({
     textTransform: 'uppercase'
   },
   infos: {
-    color: theme.color.black75,
+    marginTop: -16,
+    color: theme.color.grey75,
     fontSize: '12px !important'
   }
 }))
@@ -84,7 +82,7 @@ const Structure = ({ structure, programs }) => {
           <AppBar/>
           <Container className={classes.mainContainer} maxWidth="sm">
             <Box className={classes.imageContainer}>
-              <img src={`${process.env.PUBLIC_URL}/logo192.png`} alt={`logo ${structure.label}`} />
+              <img src={structure.depictedBy} alt={`logo ${structure.label}`} />
             </Box>
             <Typography component="h1" className={classes.title}>
               {structure.label}
@@ -92,7 +90,7 @@ const Structure = ({ structure, programs }) => {
             <Typography component="h2" className={classes.subtitle}>
               Les programmes d'accompagnement
             </Typography>
-            <List sx={{/* width: '100%', maxWidth: 360, bgcolor: 'background.paper' */}}>
+            <List>
               { programs.map((program, index) => (
                 <ListItem 
                   button key={index} 
@@ -110,9 +108,9 @@ const Structure = ({ structure, programs }) => {
                         </Grid>
                         <Grid item xs={2}>
                           <Box className={classes.infosContainer}>
-                            <Typography component="p" className={classes.infos}>
-                              <Box>Test</Box>
-                              <Box>mois</Box>
+                            <Typography component="div" className={classes.infos}>
+                              <Box>{program['opal:financialParticipation'] ? "Payant" : "Gratuit"}</Box>
+                              <Box>{program.duration}</Box>
                             </Typography>
                           </Box>
                         </Grid>

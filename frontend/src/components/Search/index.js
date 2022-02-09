@@ -56,6 +56,7 @@ const Search = ({
   console.log('>+ searchFields:', searchFields);
   console.log('>+ selectedValues:', [...selectedValues]);
   console.log('>+ results', results);
+  console.log('>+ resultsByStructure', resultsByStructure);
   
   const handleNewSearchClick = () => {
     console.log('----------START----------');
@@ -413,8 +414,9 @@ const Search = ({
                           className={classes.resultListItem}
                         >
                           <ResultCard
-                            label={result.label}
                             id={result.id}
+                            label={result.label}
+                            depictedBy={result.depictedBy}
                           />
                         </ListItem>
                       )) }
