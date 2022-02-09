@@ -5,11 +5,8 @@ import App from './containers/App';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
 import { Provider } from 'react-redux';
-import { loadData } from './actions';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from './config/theme';
-
-store.dispatch(loadData());
 
 ReactDOM.render(
   <React.StrictMode>

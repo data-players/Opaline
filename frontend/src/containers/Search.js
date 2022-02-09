@@ -13,7 +13,7 @@ from '../actions';
 // state
 const mapStateToProps = (state) => ({
   searchIndex: state.searchIndex,
-  loading: state.loading,
+  loading: state.loading.search,
   resourceValues: state.resourceValues,
   fieldValues: state.fieldValues,
   results: state.results,

@@ -47,6 +47,12 @@ module.exports = [
     newResourcesPermissions: writePermissionsToCreator
   },
   {
+    path: '/faq',
+    acceptedTypes: ['opal:FAQ'],
+    newResourcesPermissions: writePermissionsToCreator
+  },
+
+  {
     path: '/genders',
     acceptedTypes: ['opal:Gender'],
     newResourcesPermissions: writePermissionsToCreator

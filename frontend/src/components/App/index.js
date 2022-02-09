@@ -1,12 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import FAQ from '../../components/FAQ';
+import FAQ from '../../containers/FAQ';
 import NotFound from '../NotFound';
 import Start from '../../containers/Start';
 import Search from '../../containers/Search';
 import Program from '../../containers/Program';
 import Structure from '../../containers/Structure';
+
 
 const App = ({ loading }) => {
   return (

@@ -4,6 +4,8 @@ export const GO_TO_SEARCH_FIELD = 'GO_TO_SEARCH_FIELD';
 export const GET_FIELD_VALUES = 'GET_FIELD_VALUES';
 export const GET_RESOURCE_VALUES = 'GET_RESOURCE_VALUES';
 export const LOAD_DATA = 'LOAD_DATA';
+export const LOAD_FAQ = 'LOAD_FAQ';
+export const NEW_SEARCH = 'NEW_SEARCH';
 export const SET_RESULTS = 'SET_RESULTS';
 export const SET_SEARCH_FIELDS = 'SET_SEARCH_FIELDS';
 export const SET_SELECTED_VALUES = 'SET_SELECTED_VALUES';
@@ -29,6 +31,12 @@ export const getResourceValues = (container, resourceValues) => ({
 });
 export const loadData = () => ({
   type: LOAD_DATA,
+});
+export const loadFAQ = () => ({
+  type: LOAD_FAQ,
+});
+export const newSearch = () => ({
+  type: NEW_SEARCH,
 });
 export const setResults = (results) => ({
   type: SET_RESULTS,

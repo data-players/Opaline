@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Box, Button, Container, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 
@@ -44,7 +45,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Start = () => {
+const Start = ({ newSearch }) => {
   const classes = useStyles();
   return (
     <Container className={classes.mainContainer} maxWidth="sm">
@@ -59,7 +60,15 @@ const Start = () => {
           <Typography component="h2" variant="h2">Accélérer votre retour <br/><strong>à l'emploi !</strong></Typography>
         </Box>
         <Box className={classes.buttonContainer}>
-          <Button color="secondary" variant="contained" href="/recherche" align="center">Commencer</Button>
+          <Button
+            color="secondary"
+            variant="contained"
+            component={Link}
+            to={"/recherche"}
+            align="center"
+            onClick={newSearch}>
+            Commencer
+          </Button>
         </Box>
       </Box>
     </Container>

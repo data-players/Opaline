@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { 
   Box,
@@ -104,8 +104,12 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Program = ({ program, structure }) => {
+const Program = ({ loading, program, structure, loadData }) => {
   const classes = useStyles();
+  
+  useEffect( () => { 
+    loadData();
+  }, [])
   
   const [phoneDialogOpen, setPhoneDialogOpen] = React.useState(false);
   const handlePhoneDialogClickOpen = () => {
@@ -117,57 +121,66 @@ const Program = ({ program, structure }) => {
   
   return (
     <>
-      { ! program && 
-        <Redirect to="/404" />
+      { loading &&
+        <div className="loading">
+          Chargement, veuillez patienter...
+        </div>
       }
-      { program &&
+      { ! loading &&
         <>
-          <AppBar/>
-          <Container className={classes.mainContainer} maxWidth="sm">
-            <Box className={classes.imageContainer}>
-              <img src={structure.depictedBy} alt={`logo ${structure.label}`} />
-            </Box>
-            <Typography component="h1" className={classes.title}>
-              {program.label}
-            </Typography>
-            <Typography component="div" className={classes.description}>
-              <ReactMarkdown children={program.description} />
-            </Typography>
-            <Container className={classes.contactContainer} maxWidth="sm">
-              <Typography component="h2" className={classes.contactTitle}>
-                prendre contact
-              </Typography>
-              <Stack direction="row" justifyContent="space-between" spacing={{ xs: 1, sm: 2 }} className={classes.contactStack}>
-                <Button 
-                  variant="contained" 
-                  color="primary" 
-                  aria-label="phone" 
-                  className={classes.iconButton}  
-                  onClick={handlePhoneDialogClickOpen}
-                >
-                  <PhoneIcon />
-                </Button>
-                <Button variant="contained" color="primary" aria-label="e-mail" className={classes.iconButton}>
-                  <MailOutlineIcon />
-                </Button>
-                <Button 
-                  variant="contained"
-                  color="primary"
-                  className={classes.webSiteButton}
-                  href={structure.webPage}
-                  target="_blank"
-                >
-                  site web
-                </Button>
-                <Button variant="contained" color="primary" className={classes.addressButton}>voir l'adresse</Button>
-              </Stack>
-            </Container>
-            <PhoneDialog
-              phone={structure.phone}
-              open={phoneDialogOpen}
-              handleClose={handlePhoneDialogClose}
-            />
-          </Container>
+          { ! program && 
+            <Redirect to="/404" />
+          }
+          { program &&
+            <>
+              <AppBar/>
+              <Container className={classes.mainContainer} maxWidth="sm">
+                <Box className={classes.imageContainer}>
+                  <img src={structure.depictedBy} alt={`logo ${structure.label}`} />
+                </Box>
+                <Typography component="h1" className={classes.title}>
+                  {program.label}
+                </Typography>
+                <Typography component="div" className={classes.description}>
+                  <ReactMarkdown children={program.description} />
+                </Typography>
+                <Container className={classes.contactContainer} maxWidth="sm">
+                  <Typography component="h2" className={classes.contactTitle}>
+                    prendre contact
+                  </Typography>
+                  <Stack direction="row" justifyContent="space-between" spacing={{ xs: 1, sm: 2 }} className={classes.contactStack}>
+                    <Button 
+                      variant="contained" 
+                      color="primary" 
+                      aria-label="phone" 
+                      className={classes.iconButton}  
+                      onClick={handlePhoneDialogClickOpen}
+                    >
+                      <PhoneIcon />
+                    </Button>
+                    <Button variant="contained" color="primary" aria-label="e-mail" className={classes.iconButton}>
+                      <MailOutlineIcon />
+                    </Button>
+                    <Button 
+                      variant="contained"
+                      color="primary"
+                      className={classes.webSiteButton}
+                      href={structure.webPage}
+                      target="_blank"
+                    >
+                      site web
+                    </Button>
+                    <Button variant="contained" color="primary" className={classes.addressButton}>voir l'adresse</Button>
+                  </Stack>
+                </Container>
+                <PhoneDialog
+                  phone={structure.phone}
+                  open={phoneDialogOpen}
+                  handleClose={handlePhoneDialogClose}
+                />
+              </Container>
+            </>
+          }
         </>
       }
     </>

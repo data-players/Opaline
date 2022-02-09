@@ -9,6 +9,7 @@ const dataServers = {
       av: {
         'opal:BusinessCreationGoal': ['/business-creation-goals'],
         'opal:DegreeLevel': ['/degree-levels'],
+        'opal:FAQ': ['/faq'],
         'opal:FindingHelpGoal': ['/finding-help-goals'],
         'opal:Gender': ['/genders'],
         'opal:JobSearchGoal': ['/job-search-goals'],

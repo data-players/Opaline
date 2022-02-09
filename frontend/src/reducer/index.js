@@ -4,6 +4,7 @@ import {
   GO_TO_SEARCH_FIELD,
   GET_FIELD_VALUES,
   GET_RESOURCE_VALUES,
+  NEW_SEARCH,
   SET_RESULTS,
   SET_SEARCH_FIELDS,
   SET_SELECTED_VALUES,
@@ -13,7 +14,10 @@ import {
 
 const initialState = {
   searchIndex: -1,
-  loading: true,
+  loading: {
+    search: true,
+    faq: true
+  },
   resourceValues: {},
   fieldValues: {},
   results: [],
@@ -57,10 +61,13 @@ const reducer = (state = initialState, action = {}) => {
           ...state.fieldValues,
           [action.container.name]: action.fieldValues
         },
-        loading: ! checkForDataLoaded(state,
-          Object.keys(state.resourceValues),
-          Object.keys(state.fieldValues).concat([action.container.name])
-        )
+        loading: {
+          ...state.loading,
+          search: ! checkForDataLoaded(state,
+            Object.keys(state.resourceValues),
+            Object.keys(state.fieldValues).concat([action.container.name])
+          )
+        }
       };
     case GET_RESOURCE_VALUES:
       return {
@@ -69,10 +76,21 @@ const reducer = (state = initialState, action = {}) => {
           ...state.resourceValues, 
           [action.container.slug]: action.resourceValues
         },
-        loading: ! checkForDataLoaded(state,
-          Object.keys(state.resourceValues).concat([action.container.slug]),
-          Object.keys(state.fieldValues)
-        )
+        loading: {
+          faq: ! Object.keys(state.resourceValues).concat([action.container.slug]).includes('faq'),
+          search: ! checkForDataLoaded(state,
+            Object.keys(state.resourceValues).concat([action.container.slug]),
+            Object.keys(state.fieldValues)
+          )
+        }
+      };
+    case NEW_SEARCH:
+      return {
+        ...state,
+        searchIndex: -1,
+        results: [],
+        resultsByStructure: [],
+        selectedValues: []
       };
     case SET_RESULTS:
       const resultsByStructure = 

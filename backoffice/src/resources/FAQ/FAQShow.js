@@ -3,10 +3,10 @@ import { Show } from "@semapps/archipelago-layout";
 import { MarkdownField } from '@semapps/markdown-components'
 import Title from "../commons/Title";
 
-const PersonShow = props => (
+const FAQShow = props => (
   <Show title={<Title />} {...props}>
     <MarkdownField source="pair:description"/>
   </Show>
 );
 
-export default PersonShow;
+export default FAQShow;

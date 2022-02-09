@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import App from '../components/App';
 
 // == Data / state
-const mapStateToProps = (state) => ({
-  loading: state.loading
-});
+const mapStateToProps = (state) => ({});
 
 // == Actions / dispatch
 const mapDispatchToProps = {};

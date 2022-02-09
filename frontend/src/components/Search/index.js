@@ -24,6 +24,7 @@ const Search = ({
   setResults,
   setSearchFields,
   setSelectedValues,
+  loadData,
   loading,
   resourceValues,
   searchIndex,
@@ -34,7 +35,7 @@ const Search = ({
 }) => {
 
   const classes = useStyles();
-
+  
   const [selectedField, setSelectedField] = useState(null);
   const [checked, setChecked] = useState([]);
   const [textFieldValue, setTextFieldValue] = useState('');
@@ -222,13 +223,17 @@ const Search = ({
   }
   
   useEffect( () => { 
+    loadData();
+  }, [])
+  
+  useEffect( () => { 
     if (selectedValues.length > 0) {
       findResults();
     }
   }, [selectedValues])
   
   useEffect( () => { 
-    if (!loading && results.length === 0) {
+    if (! loading && results.length === 0) {
       handleNewSearchClick();
     }
   }, [loading]);

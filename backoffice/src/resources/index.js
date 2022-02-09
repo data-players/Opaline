@@ -1,4 +1,5 @@
 export { default as Organization } from "./Organization";
+export { default as FAQ } from "./FAQ";
 export { default as Person } from "./Person";
 export { default as Program } from "./Program";
 
