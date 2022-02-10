@@ -18,15 +18,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const programFilterSidebar = () => {
+const ProgramFilterSidebar = () => {
   const classes = useStyles();
   return (
     <Card className={classes.card}>
       <CardContent className={classes.cardContent}>
         <ReferenceFilter
-          reference="Sector"
+          reference="Organization"
           source="opal:programOfferedBy"
-          // inverseSource="petr:sectorOf"
+          // inverseSource=""
           sort={{ field: 'pair:label', order: 'DESC' }}
           limit={100}
         />
@@ -35,4 +35,4 @@ const programFilterSidebar = () => {
   );
 };
 
-export default programFilterSidebar;
+export default ProgramFilterSidebar;

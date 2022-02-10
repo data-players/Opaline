@@ -1,4 +1,3 @@
-import { PairResourceCreate } from '../../pair';
 import FAQCreate from './FAQCreate';
 import FAQEdit from './FAQEdit';
 import FAQList from './FAQList';
