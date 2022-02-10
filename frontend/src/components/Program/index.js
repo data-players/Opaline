@@ -7,10 +7,11 @@ import {
   Typography,
   makeStyles } from '@material-ui/core';
 import Stack from '@mui/material/Stack';
-import AppBar from '../AppBar';
-import ReactMarkdown from 'react-markdown';
 import PhoneIcon from '@mui/icons-material/Phone';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import ReactMarkdown from 'react-markdown';
+import AppBar from '../AppBar';
+import Loading from '../Loading';
 import PhoneDialog from './components/PhoneDialog';
 
 const useStyles = makeStyles(theme => ({
@@ -122,9 +123,7 @@ const Program = ({ loading, program, structure, loadData }) => {
   return (
     <>
       { loading &&
-        <div className="loading">
-          Chargement, veuillez patienter...
-        </div>
+        <Loading message={"Chargement..."} />
       }
       { ! loading &&
         <>

@@ -9,6 +9,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ReactMarkdown from 'react-markdown';
 import AppBar from '../AppBar';
+import Loading from '../Loading';
 
 const useStyles = makeStyles(theme => ({
   mainContainer: {
@@ -37,9 +38,7 @@ const FAQ = ( { faq, loading, loadFAQ } ) => {
   return (
     <>
       { loading &&
-        <div className="loading">
-          Chargement, veuillez patienter...
-        </div>
+        <Loading message={"Chargement..."} />
       }
       { ! loading &&
         <>

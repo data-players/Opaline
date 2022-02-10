@@ -14,7 +14,7 @@ import { getSlugFromContainerUrl } from '../../selectors/urls';
 import SanitizedHTML from '../SanitizedHTML';
 import useStyles from './useStyle'
 import AppBar from '../../containers/AppBar';
-import Loading from '../../components/Loading';
+import Loading from '../Loading';
 import NextButton from './components/NextButton';
 import ResultCard from './components/ResultCard';
 import ResultStepTitle from './components/ResultStepTitle';

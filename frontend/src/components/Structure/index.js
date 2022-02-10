@@ -8,6 +8,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 
 import AppBar from '../AppBar';
+import Loading from '../Loading';
 import { getSlugFromContainerUrl } from '../../selectors/urls';
 
 const useStyles = makeStyles(theme => ({
@@ -80,9 +81,7 @@ const Structure = ({ loading, programs, structure, loadData }) => {
   return (
     <>
       { loading &&
-        <div className="loading">
-          Chargement, veuillez patienter...
-        </div>
+        <Loading message={"Chargement..."} />
       }
       { ! loading &&
         <>
