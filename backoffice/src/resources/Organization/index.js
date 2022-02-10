@@ -19,7 +19,10 @@ export default {
     types: ['pair:Organization'],
     list: {
       dereference: ['pair:hasLocation/pair:hasPostalAddress'],
-      forceArray: [],
+      forceArray: [
+        'pair:e-mail',
+        'opal:socialNetworks',
+      ],
     },
     fieldsMapping: {
       title: 'pair:label'
@@ -36,6 +39,7 @@ export default {
         'pair:phone': 'Téléphone',
         'pair:e-mail': 'E-mail',
         'pair:webPage': 'Site internet',
+        'opal:socialNetworks': 'Réseaux sociaux'
       }
     }
   }

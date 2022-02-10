@@ -126,6 +126,12 @@
 #    Data properties
 #################################################################
 
+###  http://localhost:5000/ontology#socialNetworks
+:socialNetworks rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
+        rdfs:range xsd:string .
+        
 ###  http://localhost:5000/ontology#minimumAge
 :minimumAge rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
