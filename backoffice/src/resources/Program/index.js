@@ -44,6 +44,7 @@ export default {
         'opal:hasGenders': 'Genres',
         'opal:rqth': 'Reconnaissance de la qualité de travailleur handicapé',
         'opal:poleEmploi': 'Inscrit à Pôle Emploi',
+        'opal:otherInfos': 'Autres',
         'opal:duration': 'Durée',
         'opal:financialParticipation': 'Participation financière',
         'opal:hasBusinessCreationGoals': 'Création d\'entreprise',

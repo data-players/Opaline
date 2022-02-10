@@ -150,6 +150,12 @@
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:boolean .
 
+###  http://localhost:5000/ontology#otherInfos
+:otherInfos rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
+        rdfs:range xsd:string .
+        
 ###  http://localhost:5000/ontology#poleEmploi
 :poleEmploi rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
