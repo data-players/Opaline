@@ -72,22 +72,6 @@ const useStyles = makeStyles(theme => ({
       marginBottom: 100,
     },
   },
-  nextButtonContainer: {
-    position: 'fixed',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 8,
-    paddingBottom: 16,
-    backgroundColor: theme.color.white,
-    '@media(min-height:600px)': {
-      paddingTop: 16,
-      paddingBottom: 32,
-    },
-  },
   criteriaContainerText: {
     borderRadius: 20,
     overflow: 'hidden',

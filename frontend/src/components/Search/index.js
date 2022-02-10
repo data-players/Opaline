@@ -14,6 +14,7 @@ import WorkIcon from '@mui/icons-material/Work';
 import { getSlugFromContainerUrl } from '../../selectors/urls';
 import useStyles from './useStyle'
 import AppBar from '../../containers/AppBar';
+import NextButton from './components/NextButton';
 import ResultCard from './components/ResultCard';
 import ResultStepTitle from './components/ResultStepTitle';
 
@@ -52,6 +53,7 @@ const Search = ({
   console.log('>> selectedFieldValues:', selectedFieldValues);
   console.log('>> checked:', checked);
   console.log('>> textFieldValue:', textFieldValue);
+  */
   console.log('>+ resourceValues:', resourceValues);
   console.log('>+ fieldValues:', fieldValues);
   console.log('>+ searchIndex:', searchIndex);
@@ -59,7 +61,7 @@ const Search = ({
   console.log('>+ selectedValues:', [...selectedValues]);
   console.log('>+ results', results);
   console.log('>+ resultsByStructure', resultsByStructure);
-  */
+  
   
   const handleNewSearchClick = () => {
     console.log('----------START----------');
@@ -282,16 +284,11 @@ const Search = ({
                             onChange={handleTextFieldChange}
                             defaultValue={textFieldValue}
                           />
-                          <Box className={classes.nextButtonContainer}>
-                            <Button 
-                              variant="contained" 
-                              color="secondary"
-                              className={classes.nextButton}
-                              onClick={()=>handleClickValue(field, {id:textFieldValue})}
-                            >
-                              Suivant
-                            </Button>
-                          </Box>
+                          <NextButton 
+                            field={field}
+                            value={(isNaN(Number(textFieldValue)) || Number(textFieldValue) === 0) ? null : {id: textFieldValue}}
+                            onClick={handleClickValue}
+                          />
                         </Box>
                       )
                       
@@ -299,21 +296,20 @@ const Search = ({
                     
                       const isChoice = field.type === 'field-choice';
                       const fieldsArray = isChoice ? selectedField.fields : selectedFieldValues;
+                      const isMultiple = field.multiple && fieldsArray;
                       const matchField = isChoice ? 'name' : 'id';
+                      const currentSelectedValue = selectedValues.find(sv => sv.field.name === field.name);
+                      const currentSelectedValueExist = currentSelectedValue !== undefined;
                       
                       const handleToggle = (value) => () => {
                         const currentIndex = checked.findIndex(c => c.id === value.id);
-                        console.log('handleToggle-0', value, currentIndex, [...checked]);
                         const newChecked = [...checked];
                         
-                        console.log('handleToggle-av', [...newChecked]);
-
                         if (currentIndex === -1) {
                           newChecked.push(value);
                         } else {
                           newChecked.splice(currentIndex, 1);
                         }
-                        console.log('handleToggle-ap', [...newChecked]);
 
                         setChecked(newChecked);
                       };
@@ -354,12 +350,11 @@ const Search = ({
                               }
                             </Box>
                           }
-                          { field.multiple && fieldsArray &&
+                          { isMultiple &&
                             <Box key={index} className={classes.criteriaContainerMultiple}>
                               <List>
                                 { fieldsArray.map((value, index) => {
                                   const labelId = `checkbox-list-label-${value.id.substring(value.id.lastIndexOf('/')+1)}`;
-                                  // console.log('labelId', value, labelId);
                                   return (
                                     <ListItem
                                       key={index}
@@ -380,17 +375,20 @@ const Search = ({
                                   );
                                 })}
                               </List>
-                              <Box className={classes.nextButtonContainer}>
-                                <Button 
-                                  variant="contained" 
-                                  color="secondary"
-                                  className={classes.nextButton}
-                                  onClick={()=>handleClickValue(field, checked)}
-                                >
-                                  Suivant
-                                </Button>
-                              </Box>
                             </Box>
+                          }
+                          { ( isMultiple || currentSelectedValueExist || ! field.required ) &&
+                            <NextButton 
+                              field= {field}
+                              value= {
+                                isMultiple
+                                  ? checked
+                                  : currentSelectedValueExist
+                                    ? currentSelectedValue.value
+                                    : null
+                              }
+                              onClick={handleClickValue}
+                            />
                           }
                         </Box>
                       )
