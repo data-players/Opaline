@@ -5,6 +5,7 @@ import {
   GET_FIELD_VALUES,
   GET_RESOURCE_VALUES,
   NEW_SEARCH,
+  SET_MINIMAL_DELAY,
   SET_RESULTS,
   SET_SEARCH_FIELDS,
   SET_SELECTED_VALUES,
@@ -18,6 +19,7 @@ const initialState = {
     search: true,
     faq: true
   },
+  startOfLoading: 0,
   resourceValues: {},
   fieldValues: {},
   results: [],
@@ -91,6 +93,11 @@ const reducer = (state = initialState, action = {}) => {
         results: [],
         resultsByStructure: [],
         selectedValues: []
+      };
+    case SET_MINIMAL_DELAY:
+      return {
+        ...state,
+        startOfLoading: action.startOfLoading
       };
     case SET_RESULTS:
       const resultsByStructure = 

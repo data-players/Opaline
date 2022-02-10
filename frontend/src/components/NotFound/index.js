@@ -43,7 +43,7 @@ const NotFound = () => {
               color="secondary"
               variant="contained"
               component={Link}
-              to={"/recherche"}
+              href={"/"}
               align="center"
             >
               Retour à l'accueil

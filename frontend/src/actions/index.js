@@ -6,6 +6,7 @@ export const GET_RESOURCE_VALUES = 'GET_RESOURCE_VALUES';
 export const LOAD_DATA = 'LOAD_DATA';
 export const LOAD_FAQ = 'LOAD_FAQ';
 export const NEW_SEARCH = 'NEW_SEARCH';
+export const SET_MINIMAL_DELAY = 'SET_MINIMAL_DELAY';
 export const SET_RESULTS = 'SET_RESULTS';
 export const SET_SEARCH_FIELDS = 'SET_SEARCH_FIELDS';
 export const SET_SELECTED_VALUES = 'SET_SELECTED_VALUES';
@@ -41,6 +42,10 @@ export const newSearch = () => ({
 export const setResults = (results) => ({
   type: SET_RESULTS,
   results
+});
+export const setMinimalDelay = (startOfLoading) => ({
+  type: SET_MINIMAL_DELAY,
+  startOfLoading
 });
 export const setSearchFields = (searchFields) => ({
   type: SET_SEARCH_FIELDS,

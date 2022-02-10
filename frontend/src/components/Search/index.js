@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Avatar, Box, Button, Container, TextField, Typography } from '@material-ui/core';
+import { Box, Button, Container, TextField, Typography } from '@material-ui/core';
 import Checkbox from '@mui/material/Checkbox';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
 import WorkIcon from '@mui/icons-material/Work';
 
 import { getSlugFromContainerUrl } from '../../selectors/urls';
+import SanitizedHTML from '../SanitizedHTML';
 import useStyles from './useStyle'
 import AppBar from '../../containers/AppBar';
+import Loading from '../../components/Loading';
 import NextButton from './components/NextButton';
 import ResultCard from './components/ResultCard';
 import ResultStepTitle from './components/ResultStepTitle';
@@ -23,20 +24,23 @@ const Search = ({
   fieldValues,
   goToSearchField,
   setResults,
+  setMinimalDelay,
   setSearchFields,
   setSelectedValues,
   loadData,
   loading,
   resourceValues,
-  searchIndex,
   results,
   resultsByStructure,
   searchFields,
-  selectedValues
+  searchIndex,
+  selectedValues,
+  startOfLoading
 }) => {
 
   const classes = useStyles();
   
+  const [isReady, setIsReady] = useState(false);
   const [selectedField, setSelectedField] = useState(null);
   const [checked, setChecked] = useState([]);
   const [textFieldValue, setTextFieldValue] = useState('');
@@ -49,11 +53,6 @@ const Search = ({
   const isResultsStep = searchIndex === searchFields.length
 
   /*
-  console.log('>> selectedField:', selectedField);
-  console.log('>> selectedFieldValues:', selectedFieldValues);
-  console.log('>> checked:', checked);
-  console.log('>> textFieldValue:', textFieldValue);
-  */
   console.log('>+ resourceValues:', resourceValues);
   console.log('>+ fieldValues:', fieldValues);
   console.log('>+ searchIndex:', searchIndex);
@@ -61,7 +60,7 @@ const Search = ({
   console.log('>+ selectedValues:', [...selectedValues]);
   console.log('>+ results', results);
   console.log('>+ resultsByStructure', resultsByStructure);
-  
+  */
   
   const handleNewSearchClick = () => {
     console.log('----------START----------');
@@ -213,19 +212,8 @@ const Search = ({
     setResults(results);
   }
   
-  const FormatedTitle = ({title}) => {
-    const safeHTMLTags = ['HTML', 'HEAD', 'BODY', 'STRONG', 'BR']
-    const doc = new DOMParser().parseFromString(title, 'text/html');
-    const htmlTags = Array.prototype.slice.call(doc.getElementsByTagName("*")).map(tag => tag.nodeName);
-    const isSafeHtml = htmlTags.every((tag, index) => safeHTMLTags.includes(tag));
-    if (isSafeHtml) {
-      return <div dangerouslySetInnerHTML={{ __html: title }}></div>;
-    } else {
-      return <div>{title}</div>;
-    }
-  }
-  
   useEffect( () => { 
+    setMinimalDelay(Date.now());
     loadData();
   }, [])
   
@@ -238,6 +226,18 @@ const Search = ({
   useEffect( () => { 
     if (! loading && results.length === 0) {
       handleNewSearchClick();
+    }
+    if (! loading) {
+      // Minimal delay
+      let delay = 3000
+      if (startOfLoading) {
+        delay = delay - (Date.now() - startOfLoading);
+        delay = delay < 0 ? 0 : delay;
+      }
+      setMinimalDelay(null);
+      setTimeout(() => { 
+        setIsReady(true); 
+      }, delay);
     }
   }, [loading]);
   
@@ -256,19 +256,19 @@ const Search = ({
 
   return (
     <>
-      <AppBar />
-      { loading &&
-        <div className="loading">
-          Chargement, veuillez patienter...
-        </div>
+      { ! isReady &&
+        <Loading message={"Tout d'abord, <br/> faisons connaissance..."} />
       }
-      { ! loading && searchFields.length > 0 &&
+      { isReady &&
+        <AppBar />
+      }
+      { isReady &&
         <Container className={classes.mainContainer} maxWidth="sm">
           { ! isResultsStep &&
             <>
               { selectedField &&
                 <Typography component="h2" variant="h2" className={classes.stepTitle}>
-                  <FormatedTitle title={selectedField.title}/>
+                  <SanitizedHTML text={selectedField.title} />
                 </Typography>
               }
               <Box pb={4} mt={-1} className={classes.criteriasContainer}>

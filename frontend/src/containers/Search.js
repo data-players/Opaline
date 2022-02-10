@@ -4,6 +4,7 @@ import {
   goToSearchField,
   loadData,
   setResults,
+  setMinimalDelay,
   setSearchFields,
   setSelectedValues
  }
@@ -14,6 +15,7 @@ from '../actions';
 const mapStateToProps = (state) => ({
   searchIndex: state.searchIndex,
   loading: state.loading.search,
+  startOfLoading: state.startOfLoading,
   resourceValues: state.resourceValues,
   fieldValues: state.fieldValues,
   results: state.results,
@@ -29,6 +31,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   loadData: () => {
     dispatch(loadData());
+  },
+  setMinimalDelay: (startOfLoading) => {
+    dispatch(setMinimalDelay(startOfLoading));
   },
   setResults: (results) => {
     dispatch(setResults(results));
