@@ -50,6 +50,7 @@ const Search = ({
     selectedFieldValues = fieldValues[selectedField.name];
   }
   
+  const isNewSearch = searchIndex === -1
   const isResultsStep = searchIndex === searchFields.length
 
   /*
@@ -228,16 +229,20 @@ const Search = ({
       handleNewSearchClick();
     }
     if (! loading) {
-      // Minimal delay
-      let delay = 3000
-      if (startOfLoading) {
-        delay = delay - (Date.now() - startOfLoading);
-        delay = delay < 0 ? 0 : delay;
-      }
-      setMinimalDelay(null);
-      setTimeout(() => { 
+      if (isNewSearch) {
+        // Minimal delay
+        let delay = 3000
+        if (startOfLoading) {
+          delay = delay - (Date.now() - startOfLoading);
+          delay = delay < 0 ? 0 : delay;
+        }
+        setMinimalDelay(null);
+        setTimeout(() => { 
+          setIsReady(true); 
+        }, delay);
+      } else {
         setIsReady(true); 
-      }, delay);
+      }
     }
   }, [loading]);
   
