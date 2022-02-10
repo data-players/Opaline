@@ -66,7 +66,8 @@ const Start = ({ newSearch }) => {
             component={Link}
             to={"/recherche"}
             align="center"
-            onClick={newSearch}>
+            onClick={newSearch}
+          >
             Commencer
           </Button>
         </Box>

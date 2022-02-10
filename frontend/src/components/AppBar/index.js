@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.color.secondary + ' !important',
     boxShadow: 'none !important',
   },
-  goBackButton: {
+  goBackButtonContainer: {
     paddingLeft: '0px !important',
     justifyContent: 'flex-start !important'
   }
@@ -43,14 +43,14 @@ function GoBack({searchIndex, goToSearchField}) {
   }
   return (
     <BrowserRouter>
-      <Button color="inherit" className={classes.goBackButton} onClick={handleGoBackClick}>
+      <Button color="inherit" onClick={handleGoBackClick}>
         <ArrowBackIcon/>
       </Button>
     </BrowserRouter>
   );
 }
 
-export default function AppBar({logo, searchIndex, goToSearchField}) {
+export default function AppBar({hasBackButton=true, searchIndex, goToSearchField}) {
   const classes = useStyles();
   return (
     <Container maxWidth="sm" className={classes.appBarContainer}>
@@ -61,14 +61,15 @@ export default function AppBar({logo, searchIndex, goToSearchField}) {
           alignItems="center"
           spacing={0}
         >
-          <Box>
-            <GoBack searchIndex={searchIndex} goToSearchField={goToSearchField} />
+          <Box className={classes.goBackButtonContainer}>
+            { hasBackButton &&
+              <GoBack 
+                className={classes.goBackButtonContainer}
+                searchIndex={searchIndex}
+                goToSearchField={goToSearchField}
+              />
+            }
           </Box>
-          { logo &&
-            <Typography variant="h6" component="div">
-              Logo
-            </Typography>
-          }
           <Drawer/>
         </Stack>
       </MuiAppBar>
