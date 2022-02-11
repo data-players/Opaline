@@ -50,7 +50,9 @@ export default function ResultCard( {id, label, depictedBy}) {
         <Grid container spacing={1}>
           <Grid item xs={4} container={true} className={classes.flexCenter}>
             <Box className={classes.imageContainer}>
-              <img src={depictedBy} alt={`logo ${label}`} />
+              { depictedBy &&
+                <img src={depictedBy} alt={`logo ${label}`} />
+              }
             </Box>
           </Grid>
           <Grid item xs={8}>

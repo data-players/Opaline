@@ -4,6 +4,7 @@ export const GO_TO_SEARCH_FIELD = 'GO_TO_SEARCH_FIELD';
 export const GET_FIELD_VALUES = 'GET_FIELD_VALUES';
 export const GET_RESOURCE_VALUES = 'GET_RESOURCE_VALUES';
 export const LOAD_DATA = 'LOAD_DATA';
+export const LOAD_FIELDS = 'LOAD_FIELDS';
 export const LOAD_FAQ = 'LOAD_FAQ';
 export const NEW_SEARCH = 'NEW_SEARCH';
 export const SET_MINIMAL_DELAY = 'SET_MINIMAL_DELAY';
@@ -30,8 +31,12 @@ export const getResourceValues = (container, resourceValues) => ({
   container,
   resourceValues
 });
-export const loadData = () => ({
+export const loadData = (container) => ({
   type: LOAD_DATA,
+  container
+});
+export const loadFields = () => ({
+  type: LOAD_FIELDS,
 });
 export const loadFAQ = () => ({
   type: LOAD_FAQ,

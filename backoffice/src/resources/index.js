@@ -2,6 +2,7 @@ export { default as Organization } from "./Organization";
 export { default as FAQ } from "./FAQ";
 export { default as Person } from "./Person";
 export { default as Program } from "./Program";
+export { default as Configuration } from "./Configuration";
 
 // Concepts
 export { default as Concept } from './Concept';

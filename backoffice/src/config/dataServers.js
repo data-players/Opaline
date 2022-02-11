@@ -8,6 +8,7 @@ const dataServers = {
     containers: {
       av: {
         'opal:BusinessCreationGoal': ['/business-creation-goals'],
+        'opal:Configuration': ['/configuration'],
         'opal:DegreeLevel': ['/degree-levels'],
         'opal:FAQ': ['/faq'],
         'opal:FindingHelpGoal': ['/finding-help-goals'],

@@ -75,7 +75,9 @@ const Structure = ({ loading, programs, structure, loadData }) => {
   const classes = useStyles();
   
   useEffect( () => { 
-    loadData();
+    loadData('configuration');
+    loadData('programs');
+    loadData('structures');
   }, [])
   
   return (
@@ -93,7 +95,9 @@ const Structure = ({ loading, programs, structure, loadData }) => {
               <AppBar/>
               <Container className={classes.mainContainer} maxWidth="sm">
                 <Box className={classes.imageContainer}>
-                  <img src={structure.depictedBy} alt={`logo ${structure.label}`} />
+                  { structure.depictedBy &&
+                    <img src={structure.depictedBy} alt={`logo ${structure.label}`} />
+                  }
                 </Box>
                 <Typography component="h1" className={classes.title}>
                   {structure.label}

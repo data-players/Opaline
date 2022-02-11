@@ -1,4 +1,3 @@
-import searchConfig from '../config/searchConfig.json';
 import {
   ADD_BOOLEAN_FIELD,
   GO_TO_SEARCH_FIELD,
@@ -8,7 +7,7 @@ import {
   SET_MINIMAL_DELAY,
   SET_RESULTS,
   SET_SEARCH_FIELDS,
-  SET_SELECTED_VALUES,
+  SET_SELECTED_VALUES
 }
   from '../actions';
   
@@ -16,7 +15,10 @@ import {
 const initialState = {
   searchIndex: -1,
   loading: {
-    search: true,
+    configuration: true,
+    fields: true,
+    programs: true,
+    structures: true,
     faq: true
   },
   startOfLoading: 0,
@@ -27,15 +29,6 @@ const initialState = {
   searchFields: [],
   selectedValues: []
 };
-
-const checkForDataLoaded = (state, resources, fields) => {
-  const mandatoryResources = ['programs', 'organizations'];
-  const resourcesLoaded = mandatoryResources.every(element => {
-    return resources.includes(element);
-  })
-  const fieldsLoaded = Object.keys(fields).length >= searchConfig[0].fields.length;
-  return resourcesLoaded && fieldsLoaded;
-}
 
 const reducer = (state = initialState, action = {}) => {
   // console.log('** reducer', state, action);
@@ -57,6 +50,16 @@ const reducer = (state = initialState, action = {}) => {
         searchIndex: action.searchIndex
       }
     case GET_FIELD_VALUES:
+      // Check if at least standard fields are loaded
+      let loaded = false;
+      if ( state.fieldValues ) {
+        const searchConfigFields = state.resourceValues['configuration'][0].json[0].fields;
+        if (searchConfigFields) {
+          const searchConfigStandardFields = searchConfigFields.filter(field => field.type === 'standard');
+          const loadedStandardFields = Object.keys(state.fieldValues).concat([action.container.name]);
+          loaded =  loadedStandardFields.length >= searchConfigStandardFields.length
+        }
+      }
       return {
         ...state,
         fieldValues: {
@@ -65,25 +68,24 @@ const reducer = (state = initialState, action = {}) => {
         },
         loading: {
           ...state.loading,
-          search: ! checkForDataLoaded(state,
-            Object.keys(state.resourceValues),
-            Object.keys(state.fieldValues).concat([action.container.name])
-          )
+          fields: ! loaded
         }
       };
     case GET_RESOURCE_VALUES:
+      if ( action.container.slug === 'configuration' ) {
+        action.resourceValues.map(resource => {
+          resource.json = JSON.parse(resource.json);
+        })
+      }
       return {
         ...state,
         resourceValues: {
-          ...state.resourceValues, 
-          [action.container.slug]: action.resourceValues
+          ...state.resourceValues,
+          [action.container.name]: action.resourceValues
         },
         loading: {
-          faq: ! Object.keys(state.resourceValues).concat([action.container.slug]).includes('faq'),
-          search: ! checkForDataLoaded(state,
-            Object.keys(state.resourceValues).concat([action.container.slug]),
-            Object.keys(state.fieldValues)
-          )
+          ...state.loading,
+          [action.container.name]: false
         }
       };
     case NEW_SEARCH:
@@ -104,15 +106,16 @@ const reducer = (state = initialState, action = {}) => {
         action.results
           .map(result => result.programOfferedBy)
           .filter((value, index, self) => self.indexOf(value) === index)
-          .map(result => state.resourceValues['organizations'].find(resource => resource.id === result));
+          .map(result => state.resourceValues['structures'].find(resource => resource.id === result));
       return {
         ...state,
         results: action.results,
         resultsByStructure: resultsByStructure
       };
     case SET_SEARCH_FIELDS:
+      const searchConfigRoot = state.resourceValues['configuration'][0].json[0];
       // Clone nested object
-      const rootContainer = {...searchConfig[0], fields:[...searchConfig[0].fields]}
+      const rootContainer = {...searchConfigRoot, fields:[...searchConfigRoot.fields]}
       if (action.searchFields.length === 0) {
         action.searchFields = rootContainer.fields;
       }

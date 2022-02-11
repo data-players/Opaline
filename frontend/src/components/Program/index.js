@@ -109,7 +109,8 @@ const Program = ({ loading, program, structure, loadData }) => {
   const classes = useStyles();
   
   useEffect( () => { 
-    loadData();
+    loadData('programs');
+    loadData('structures');
   }, [])
   
   const [phoneDialogOpen, setPhoneDialogOpen] = React.useState(false);
@@ -135,7 +136,9 @@ const Program = ({ loading, program, structure, loadData }) => {
               <AppBar/>
               <Container className={classes.mainContainer} maxWidth="sm">
                 <Box className={classes.imageContainer}>
-                  <img src={structure.depictedBy} alt={`logo ${structure.label}`} />
+                  { structure.depictedBy &&
+                    <img src={structure.depictedBy} alt={`logo ${structure.label}`} />
+                  }
                 </Box>
                 <Typography component="h1" className={classes.title}>
                   {program.label}

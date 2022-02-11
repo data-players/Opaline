@@ -6,15 +6,15 @@ import { loadData } from '../actions';
 // state
 const mapStateToProps = (state, ownProps) => {
   const { slug } = ownProps.match.params;
-  const structure = state.loading.search 
+  const structure = state.loading.structures
     ? null
-    : getResourceFromSlug(state.resourceValues['organizations'], slug);
-  const programs = (state.loading.search || ! structure )
+    : getResourceFromSlug(state.resourceValues['structures'], slug);
+  const programs = (state.loading.programs || ! structure )
     ? []
     : state.resourceValues['programs']?.filter(program => program.programOfferedBy === structure.id)
   const filteredPrograms = programs.filter(program => state.results.find(result=>result.id === program.id))
   return {
-    loading: state.loading.search,
+    loading: state.loading.programs || state.loading.structures,
     programs: filteredPrograms.length>0 ? filteredPrograms : programs,
     structure: structure,
   };
@@ -22,8 +22,8 @@ const mapStateToProps = (state, ownProps) => {
 
 // actions
 const mapDispatchToProps = (dispatch) => ({
-  loadData: () => {
-    dispatch(loadData());
+  loadData: (container) => {
+    dispatch(loadData(container));
   },
 });
 

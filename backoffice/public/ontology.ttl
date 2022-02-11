@@ -179,6 +179,12 @@
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:boolean .
+
+###  http://localhost:5000/ontology#json
+:json rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
+        rdfs:range xsd:boolean .
         
 #################################################################
 #    Classes
@@ -188,6 +194,10 @@
 :Program rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Resource> .
 
+###  http://localhost:5000/ontology#Configuration
+:Configuration rdf:type owl:Class ;
+           rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Resource> .
+           
 ###  http://localhost:5000/ontology#FAQ
 :Program rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Resource> .

@@ -1,5 +1,6 @@
 import {
   LOAD_DATA,
+  LOAD_FIELDS,
   LOAD_FAQ,
   addBooleanField,
   getFieldValues,
@@ -7,7 +8,6 @@ import {
 } from '../actions';
 
 import ontologies from '../config/ontologies.json';
-import searchConfig from '../config/searchConfig.json';
 
 import DataFactory from '@rdfjs/data-model';
 const { literal, namedNode, quad, variable } = DataFactory;
@@ -16,7 +16,12 @@ const { literal, namedNode, quad, variable } = DataFactory;
 // == Api Middleware
 const middleware = (store) => (next) => (action) => {
   
+  const state = store.getState();
+  
   const fetchResourceContainer = (container) => {
+    if (container.slug === 'structures') {
+      container.slug = 'organizations'
+    }
     return fetchContainer(container, 'resource')
   }
   const fetchFieldContainer = (container) => {
@@ -88,16 +93,25 @@ const middleware = (store) => (next) => (action) => {
     })
     .then((json) => {
       const data = json['@graph'] ? json['@graph'] : [json];
-      const formatedData = data.map(d => ({ 
-        ...d,
-        id: d['@id'],
-        type: d['@type']
-      }));
-      // console.log('middleware-LOAD_DATA DATA', container, formatedData);
-      if (type === 'resource') {
-        store.dispatch(getResourceValues(container, formatedData));
+      
+      if (data.find(d => d['@id']) === undefined) {
+        console.log('error: data not found', container);
+        
       } else {
-        store.dispatch(getFieldValues(container, formatedData));
+        
+        const formatedData = data.map(d => ({ 
+          ...d,
+          id: d['@id'],
+          type: d['@type']
+        }))
+        
+        // console.log('middleware-LOAD_DATA DATA', container, formatedData);
+      
+        if (type === 'resource') {
+          store.dispatch(getResourceValues(container, formatedData));
+        } else {
+          store.dispatch(getFieldValues(container, formatedData));
+        }
       }
     })
     .catch((error) => {
@@ -108,25 +122,31 @@ const middleware = (store) => (next) => (action) => {
   switch (action.type) {
     
     case LOAD_DATA:
-      // Resources data
-      ['organizations', 'programs'].forEach(containerSlug=> fetchResourceContainer({name: containerSlug, slug: containerSlug}));
-      
-      // Fields data
+      if (!state.resourceValues[action.container]) {
+        fetchResourceContainer({name: action.container, slug: action.container})
+      }
+    break;
+    
+    case LOAD_FIELDS:
       const getFieldData = (data) => {
         data.forEach(field => {
-          switch (field.type) {
-            case 'field-choice': getFieldData(field.fields); break;
-            case 'boolean': store.dispatch(addBooleanField(field)); break;
-            default: fetchFieldContainer(field);
+          if (! state.fieldValues[field.name]) {
+            switch (field.type) {
+              case 'field-choice': getFieldData(field.fields); break;
+              case 'boolean': store.dispatch(addBooleanField(field)); break;
+              case 'standard': fetchFieldContainer(field); break;
+              case 'chosen-field': fetchFieldContainer(field); break;
+            }
           }
         })
       }
-      const rootContainer = {...searchConfig[0], fields:[...searchConfig[0].fields]};
-      getFieldData(rootContainer.fields);
+      getFieldData(state.resourceValues['configuration'][0].json[0].fields);
     break;
     
     case LOAD_FAQ:
-      fetchResourceContainer({name: 'faq', slug: 'faq'});
+      if (!state.resourceValues['faq']) {
+        fetchResourceContainer({name: 'faq', slug: 'faq'})
+      }
     break;
 
     default:

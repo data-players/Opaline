@@ -3,6 +3,7 @@ import Search from '../components/Search';
 import { 
   goToSearchField,
   loadData,
+  loadFields,
   setResults,
   setMinimalDelay,
   setSearchFields,
@@ -14,7 +15,7 @@ from '../actions';
 // state
 const mapStateToProps = (state) => ({
   searchIndex: state.searchIndex,
-  loading: state.loading.search,
+  loading: state.loading.programs || state.loading.containers || state.loading.configuration || state.loading.fields,
   startOfLoading: state.startOfLoading,
   resourceValues: state.resourceValues,
   fieldValues: state.fieldValues,
@@ -29,8 +30,11 @@ const mapDispatchToProps = (dispatch) => ({
   goToSearchField: (searchIndex) => {
     dispatch(goToSearchField(searchIndex));
   },
-  loadData: () => {
-    dispatch(loadData());
+  loadData: (container) => {
+    dispatch(loadData(container));
+  },
+  loadFields: () => {
+    dispatch(loadFields());
   },
   setMinimalDelay: (startOfLoading) => {
     dispatch(setMinimalDelay(startOfLoading));

@@ -56,13 +56,13 @@
     "opal:hasJobSearchGoal": {
       "@type": "@id"
     },
-    "opal:JobSearchGoal": {
+    "opal:JobSearchGoalOf": {
       "@type": "@id"
     },
     "opal:hasTrainingGoal": {
       "@type": "@id"
     },
-    "opal:TrainingGoal": {
+    "opal:TrainingGoalOf": {
       "@type": "@id"
     },
     

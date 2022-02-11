@@ -18,6 +18,7 @@ import Loading from '../Loading';
 import NextButton from './components/NextButton';
 import ResultCard from './components/ResultCard';
 import ResultStepTitle from './components/ResultStepTitle';
+import { loadFields } from '../../actions';
 
 
 const Search = ({
@@ -28,6 +29,7 @@ const Search = ({
   setSearchFields,
   setSelectedValues,
   loadData,
+  loadFields,
   loading,
   resourceValues,
   results,
@@ -215,8 +217,16 @@ const Search = ({
   
   useEffect( () => { 
     setMinimalDelay(Date.now());
-    loadData();
+    loadData('configuration');
+    loadData('structures');
+    loadData('programs');
   }, [])
+  
+  useEffect( () => { 
+    if (resourceValues['configuration'] && loading) {
+      loadFields()
+    }
+  }, [resourceValues])
   
   useEffect( () => { 
     if (selectedValues.length > 0) {
@@ -425,7 +435,7 @@ const Search = ({
                         <ListItem
                           button key={index}
                           component={Link}
-                          to={`/structures/${getSlugFromContainerUrl('organizations', result.id)}`}
+                          to={`/structures/${getSlugFromContainerUrl('structures', result.id)}`}
                           className={classes.resultListItem}
                         >
                           <ResultCard
