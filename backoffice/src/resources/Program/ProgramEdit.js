@@ -33,13 +33,13 @@ export const programEdit = props => (
         <MarkdownInput source="pair:description" multiline fullWidth />
         <NumberInput source="opal:minimumAge" fullWidth />
         <NumberInput source="opal:maximumAge" fullWidth />
-        <ReferenceInput
+        <ReferenceArrayInput
           source="opal:hasDegreeLevel"
           reference="DegreeLevel"
           fullWidth
         >
-          <SelectInput optionText="pair:label" />
-        </ReferenceInput>
+          <SelectArrayInput optionText="pair:label" />
+        </ReferenceArrayInput>
         <ReferenceArrayInput 
           source="opal:hasGenders" 
           reference="Gender"
