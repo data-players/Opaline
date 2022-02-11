@@ -140,7 +140,7 @@ const middleware = (store) => (next) => (action) => {
           }
         })
       }
-      getFieldData(state.resourceValues['configuration'][0].json[0].fields);
+      getFieldData(state.resourceValues['configurations'][0].json.fields);
     break;
     
     case LOAD_FAQ:

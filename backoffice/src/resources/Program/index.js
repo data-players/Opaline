@@ -2,7 +2,7 @@ import { PairResourceCreate } from '../../pair';
 import ProgramEdit from './ProgramEdit';
 import ProgramList from './ProgramList';
 import ProgramShow from './ProgramShow';
-import HomeIcon from '@material-ui/icons/Build';
+import ProgramIcon from '@material-ui/icons/AccountTree';
 
 export default {
   config: {
@@ -10,7 +10,7 @@ export default {
       show: ProgramShow,
       create: PairResourceCreate,
       edit: ProgramEdit,
-      icon: HomeIcon,
+      icon: ProgramIcon,
       options: {
         label: 'Programmes'
       },

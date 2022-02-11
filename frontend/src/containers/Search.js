@@ -15,7 +15,7 @@ from '../actions';
 // state
 const mapStateToProps = (state) => ({
   searchIndex: state.searchIndex,
-  loading: state.loading.programs || state.loading.containers || state.loading.configuration || state.loading.fields,
+  loading: state.loading.programs || state.loading.containers || state.loading.configurations || state.loading.fields,
   startOfLoading: state.startOfLoading,
   resourceValues: state.resourceValues,
   fieldValues: state.fieldValues,

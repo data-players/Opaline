@@ -217,13 +217,13 @@ const Search = ({
   
   useEffect( () => { 
     setMinimalDelay(Date.now());
-    loadData('configuration');
+    loadData('configurations');
     loadData('structures');
     loadData('programs');
   }, [])
   
   useEffect( () => { 
-    if (resourceValues['configuration'] && loading) {
+    if (resourceValues['configurations'] && loading) {
       loadFields()
     }
   }, [resourceValues])

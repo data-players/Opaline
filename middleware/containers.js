@@ -37,7 +37,7 @@ module.exports = [
     newResourcesPermissions: writePermissionsToCreator
   },
   {
-    path: '/configuration',
+    path: '/configurations',
     acceptedTypes: ['opal:Configuration'],
     newResourcesPermissions: writePermissionsToCreator
   },

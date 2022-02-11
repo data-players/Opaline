@@ -2,7 +2,7 @@ import { PairResourceCreate } from '../../pair';
 import OrganizationEdit from './OrganizationEdit';
 import OrganizationList from './OrganizationList';
 import OrganizationShow from './OrganizationShow';
-import HomeIcon from '@material-ui/icons/Build';
+import HomeIcon from '@material-ui/icons/Home';
 
 export default {
   config: {

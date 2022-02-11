@@ -15,7 +15,7 @@ import {
 const initialState = {
   searchIndex: -1,
   loading: {
-    configuration: true,
+    configurations: true,
     fields: true,
     programs: true,
     structures: true,
@@ -53,7 +53,7 @@ const reducer = (state = initialState, action = {}) => {
       // Check if at least standard fields are loaded
       let loaded = false;
       if ( state.fieldValues ) {
-        const searchConfigFields = state.resourceValues['configuration'][0].json[0].fields;
+        const searchConfigFields = state.resourceValues['configurations'][0].json.fields;
         if (searchConfigFields) {
           const searchConfigStandardFields = searchConfigFields.filter(field => field.type === 'standard');
           const loadedStandardFields = Object.keys(state.fieldValues).concat([action.container.name]);
@@ -72,7 +72,7 @@ const reducer = (state = initialState, action = {}) => {
         }
       };
     case GET_RESOURCE_VALUES:
-      if ( action.container.slug === 'configuration' ) {
+      if ( action.container.slug === 'configurations' ) {
         action.resourceValues.map(resource => {
           resource.json = JSON.parse(resource.json);
         })
@@ -113,7 +113,7 @@ const reducer = (state = initialState, action = {}) => {
         resultsByStructure: resultsByStructure
       };
     case SET_SEARCH_FIELDS:
-      const searchConfigRoot = state.resourceValues['configuration'][0].json[0];
+      const searchConfigRoot = state.resourceValues['configurations'][0].json;
       // Clone nested object
       const rootContainer = {...searchConfigRoot, fields:[...searchConfigRoot.fields]}
       if (action.searchFields.length === 0) {

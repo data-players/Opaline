@@ -75,7 +75,7 @@ const Structure = ({ loading, programs, structure, loadData }) => {
   const classes = useStyles();
   
   useEffect( () => { 
-    loadData('configuration');
+    loadData('configurations');
     loadData('programs');
     loadData('structures');
   }, [])

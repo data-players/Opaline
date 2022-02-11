@@ -18,5 +18,9 @@ export const getResourceFromSlug = (resources, slug) => {
 };
 
 export const getSlugFromContainerUrl = (containerSlug, url) => {
+  if (containerSlug === 'structures') {
+    containerSlug = 'organizations'
+  }
+  console.log(process.env.REACT_APP_MIDDLEWARE_URL, containerSlug, url);
   return url.replace(process.env.REACT_APP_MIDDLEWARE_URL + containerSlug + '/', '');
 }
