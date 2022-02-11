@@ -29,7 +29,10 @@ const useStyles = makeStyles(theme => ({
   },
   logoContainer: {
     paddingTop: '4%',
-    height: '10%'
+    height: '10%',
+    '& img': {
+      height: 100
+    }
   },
   titleContainer: {
     color: theme.primary,
@@ -51,7 +54,9 @@ const Start = ({ newSearch }) => {
     <Container className={classes.mainContainer} maxWidth="sm">
       <Box className={classes.innerContainer}>
         <Box className={classes.logoContainer}>
-          <Typography component="p" variant="h4">Collectif Emploi</Typography>
+          <Typography component="p" variant="h4">
+            <img src={process.env.PUBLIC_URL + "collectif-emploi.png"} alt="Logo collectif emploi" />
+          </Typography>
         </Box>
         <Box className={classes.titleContainer}>
           <Typography component="h1" variant="h1">Bienvenue sur <br/> Opaline</Typography>
