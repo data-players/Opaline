@@ -4,6 +4,7 @@ import {
   GET_FIELD_VALUES,
   GET_RESOURCE_VALUES,
   NEW_SEARCH,
+  SET_MESSAGE,
   SET_MINIMAL_DELAY,
   SET_RESULTS,
   SET_SEARCH_FIELDS,
@@ -27,7 +28,8 @@ const initialState = {
   results: [],
   resultsByStructure: [],
   searchFields: [],
-  selectedValues: []
+  selectedValues: [],
+  message: ''
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -95,6 +97,11 @@ const reducer = (state = initialState, action = {}) => {
         results: [],
         resultsByStructure: [],
         selectedValues: []
+      };
+    case SET_MESSAGE:
+      return {
+        ...state,
+        message: action.message
       };
     case SET_MINIMAL_DELAY:
       return {

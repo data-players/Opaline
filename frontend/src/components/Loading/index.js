@@ -41,13 +41,13 @@ const Loading = ({ message }) => {
   const classes = useStyles();
   return (
     
-    <Container className={classes.mainContainer}>
+    <Box className={classes.mainContainer}>
       <Slide className={classes.slide} in={true} timeout={500} mountOnEnter direction="up">
         <Box>
           <SanitizedHTML text={message} />
         </Box>
       </Slide>
-    </Container>
+    </Box>
   )
 }
 

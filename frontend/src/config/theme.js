@@ -64,7 +64,7 @@ let theme = createTheme({
       lineHeight: '150%',
       [defaultTheme.breakpoints.up('sm')]: {
         fontSize: '2.8rem',
-      },
+      }
     },
     h2: {
       fontSize: '1.2rem',
@@ -73,6 +73,9 @@ let theme = createTheme({
       [defaultTheme.breakpoints.up('sm')]: {
         fontSize: '1.4rem',
       },
+      '& strong': {
+        color: secondary
+      }
     },
     body1: {
       color: black

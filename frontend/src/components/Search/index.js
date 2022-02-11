@@ -31,12 +31,14 @@ const Search = ({
   loadData,
   loadFields,
   loading,
+  message,
   resourceValues,
   results,
   resultsByStructure,
   searchFields,
   searchIndex,
   selectedValues,
+  setMessage,
   startOfLoading
 }) => {
 
@@ -75,6 +77,7 @@ const Search = ({
     setSearchFields([]);
     goToSearchField(0);
     displayField(0);
+    setMessage('');
   }
 
  const goToNextField = (field, backward=false) => {
@@ -127,6 +130,7 @@ const Search = ({
   }
   
   const handleClickValue = (field, value) => {
+    setMessage('');
     if (value) {
       if (field.type === 'field-choice') {
         value.id = value.name
@@ -282,9 +286,21 @@ const Search = ({
           { ! isResultsStep &&
             <>
               { selectedField &&
-                <Typography component="h2" variant="h2" className={classes.stepTitle}>
-                  <SanitizedHTML text={selectedField.title} />
-                </Typography>
+                <>
+                  <Typography component="h2" variant="h2" className={classes.stepTitle}>
+                    <SanitizedHTML text={selectedField.title} />
+                  </Typography>
+                  { selectedField.multiple && selectedField.multiple < 99 &&
+                    <Typography component="div" className={classes.instructions}>
+                      Vous pouvez cocher jusque {selectedField.multiple} cases
+                    </Typography>
+                  }
+                  { message &&
+                    <Typography component="div" className={classes.message}>
+                      {message}
+                    </Typography>
+                  }
+                </>
               }
               <Box pb={4} mt={-1} className={classes.criteriasContainer}>
                 { 
@@ -321,8 +337,14 @@ const Search = ({
                         const newChecked = [...checked];
                         
                         if (currentIndex === -1) {
-                          newChecked.push(value);
+                          if (field.multiple && field.multiple === newChecked.length) {
+                            setMessage('Vous avez atteint le nombre de choix maximum.');
+                            return;
+                          } else {
+                            newChecked.push(value);
+                          }
                         } else {
+                          setMessage('');
                           newChecked.splice(currentIndex, 1);
                         }
 

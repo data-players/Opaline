@@ -7,6 +7,7 @@ export const LOAD_DATA = 'LOAD_DATA';
 export const LOAD_FIELDS = 'LOAD_FIELDS';
 export const LOAD_FAQ = 'LOAD_FAQ';
 export const NEW_SEARCH = 'NEW_SEARCH';
+export const SET_MESSAGE = 'SET_MESSAGE';
 export const SET_MINIMAL_DELAY = 'SET_MINIMAL_DELAY';
 export const SET_RESULTS = 'SET_RESULTS';
 export const SET_SEARCH_FIELDS = 'SET_SEARCH_FIELDS';
@@ -47,6 +48,10 @@ export const newSearch = () => ({
 export const setResults = (results) => ({
   type: SET_RESULTS,
   results
+});
+export const setMessage = (message) => ({
+  type: SET_MESSAGE,
+  message
 });
 export const setMinimalDelay = (startOfLoading) => ({
   type: SET_MINIMAL_DELAY,

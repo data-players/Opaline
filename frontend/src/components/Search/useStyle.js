@@ -12,6 +12,33 @@ const useStyles = makeStyles(theme => ({
     marginBottom: '2rem',
     textAlign: 'left'
   },
+  instructions: {
+    marginTop: '-1.8rem',
+    marginBottom: '1.8rem',
+    fontSize: '85%'
+  },
+  '@keyframes slide_up': {
+    'from': { 
+      marginTop: 0,
+      marginBottom: 0,
+      opacity: 0,
+      maxHeight: 0,
+    },
+    'to': {
+      marginTop: '-1.8rem',
+      marginBottom: '1.8rem',
+      opacity: 1,
+      maxHeight: '1.8rem',
+    }
+  },
+  message: {
+    marginTop: '-1.8rem',
+    marginBottom: '1.8rem',
+    fontSize: '85%',
+    color: theme.color.secondary,
+    fontWeight: 600,
+    animation: '$slide_up 1s ease'
+  },
   stepSubtitle: {
     fontSize: '75%'
   },
@@ -71,6 +98,9 @@ const useStyles = makeStyles(theme => ({
     '@media(min-height:600px)': {
       marginBottom: 100,
     },
+    '& ul': {
+      padding: 0
+    }
   },
   criteriaContainerText: {
     borderRadius: 20,

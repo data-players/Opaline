@@ -50,10 +50,20 @@ function GoBack({searchIndex, goToSearchField}) {
   );
 }
 
-export default function AppBar({hasBackButton=true, searchIndex, goToSearchField}) {
+export default function AppBar({
+  hasBackButton=true,
+  message,
+  searchIndex,
+  goToSearchField,
+  setMessage
+}) {
   const classes = useStyles();
   return (
-    <Container maxWidth="sm" className={classes.appBarContainer}>
+    <Container
+      maxWidth="sm"
+      className={classes.appBarContainer}
+      onClick={()=>{setMessage('')}}
+    >
       <MuiAppBar position="static" className={classes.appBar}>
         <Stack  
           direction="row"
