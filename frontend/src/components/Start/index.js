@@ -36,7 +36,13 @@ const useStyles = makeStyles(theme => ({
   },
   titleContainer: {
     color: theme.primary,
-    height: '30%'
+    height: '30%',
+    '& .MuiTypography-root': {
+      lineHeight: '100%',
+      '@media (min-height:600px)': {
+        lineHeight: '125%',
+      }
+    },
   },
   subTitleContainer: {
     height: '50%'

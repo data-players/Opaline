@@ -16,15 +16,26 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    height: '100%'
+    height: '100%',
+    backgroundColor: theme.color.primary,
+    '& .MuiListItemText-root .MuiTypography-root': {
+      fontWeight: 600,
+      color: theme.color.white
+    }
   },
   titleContainer: {
-    padding: '64px 16px'
+    padding: '92px 16px 32px',
+    textTransform: 'uppercase',
+    '& .MuiTypography-root': {
+      fontWeight: 600,
+      color: theme.color.white
+    }
   },
   closeIcon: {
     position: 'absolute',
     top: 4,
-    right: 4
+    right: 4,
+    color: theme.color.white
   },
   menuIcon: {
     transform: 'translateX(12px)'

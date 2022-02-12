@@ -9,7 +9,10 @@ const useStyles = makeStyles(theme => ({
     }
   },
   stepTitle: {
-    marginBottom: '2rem',
+    marginBottom: '1rem',
+    '@media(min-height:500px)': {
+      marginBottom: '2rem'
+    },
     textAlign: 'left'
   },
   instructions: {
@@ -47,22 +50,32 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    '@media(min-height:500px)': {
+      justifyContent: 'space-between',
+    },
     alignItems: 'center'
   },
   criteriaButtonContainer: {
-    width: 'calc(50% - .5rem)',
+    width: 'calc(25% - 1rem)',
     margin: '.5rem',
     padding: 0,
-    [theme.breakpoints.up('sm')]: {
-      width: 'calc(50% - 1rem)',
-      margin: '1rem',
+    '@media(min-height:500px)': {
+      width: 'calc(50% - .5rem)',
+      [theme.breakpoints.up('sm')]: {
+        width: 'calc(50% - 1rem)',
+        margin: '1rem',
+      }
     },
     '&:nth-child(2n+0)': {
-      marginRight: 0,
+      '@media(min-height:500px)': {
+        marginRight: 0
+      }
     },
     '&:nth-child(2n+1)': {
-      marginLeft: 0,
+      '@media(min-height:500px)': {
+        marginLeft: 0
+      }
     },
     '& button': {
       width: '100%',
@@ -91,18 +104,28 @@ const useStyles = makeStyles(theme => ({
   },
   booleanButton: {
     '& button': {
-      height: 180
+      height: 120,
+      '@media(min-height:660px)': {
+        height: 160
+      },
     }
   },
   iconButton: {
     '& button': {
-      height: 180,
+      height: 120,
+      '@media(min-height:660px)': {
+        height: 160
+      },
       '& .MuiButton-label': {
         display: 'flex',
         flexDirection: 'column',
         '& .MuiSvgIcon-root': {
-          height: 64,
-          width: 64
+          height: 32,
+          width: 32,
+          '@media(min-height:660px)': {
+            height: 64,
+            width: 64
+          },
         }
       }
     }

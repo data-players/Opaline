@@ -369,7 +369,9 @@ const Search = ({
                                   }
                                   let iconName = undefined;
                                   if (field.icons) {
-                                    className = `${className} ${classes.iconButton}`;
+                                    if (value.type !== 'no-choice') {
+                                      className = `${className} ${classes.iconButton}`;
+                                    }
                                     if (field.type === 'field-choice') {
                                       iconName = field.icons[value.slug];
                                     } else {

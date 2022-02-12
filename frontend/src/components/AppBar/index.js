@@ -8,7 +8,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Drawer from '../Drawer';
+import Drawer from './components/Drawer';
 
 const useStyles = makeStyles(theme => ({
   appBarContainer: {
@@ -83,7 +83,7 @@ export default function AppBar({
               />
             }
           </Box>
-          <Drawer/>
+          <Drawer />
         </Stack>
       </MuiAppBar>
     </Container>
