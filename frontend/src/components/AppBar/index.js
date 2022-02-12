@@ -58,11 +58,14 @@ export default function AppBar({
   setMessage
 }) {
   const classes = useStyles();
+  const handleClick = () => {
+    setMessage('')
+  }
   return (
     <Container
       maxWidth="sm"
       className={classes.appBarContainer}
-      onClick={()=>{setMessage('')}}
+      onClick={handleClick}
     >
       <MuiAppBar position="static" className={classes.appBar}>
         <Stack  
