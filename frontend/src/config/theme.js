@@ -95,6 +95,11 @@ let theme = createTheme({
         fontWeight: 600
       },
     },
+    MuiTypography: {
+      root: {
+        fontFamily: font1 + ' !important'
+      }
+    }
   }
   
 });

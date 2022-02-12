@@ -18,6 +18,9 @@ export const getResourceFromSlug = (resources, slug) => {
 };
 
 export const getSlugFromContainerUrl = (containerSlug, url) => {
+  if (! containerSlug || ! url) {
+    return false;
+  }
   if (containerSlug === 'structures') {
     containerSlug = 'organizations'
   }

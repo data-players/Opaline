@@ -8,13 +8,13 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import WorkIcon from '@mui/icons-material/Work';
 
 import { getSlugFromContainerUrl } from '../../selectors/urls';
 import SanitizedHTML from '../SanitizedHTML';
 import useStyles from './useStyle'
 import AppBar from '../../containers/AppBar';
 import Loading from '../Loading';
+import Icon from './components/Icon';
 import NextButton from './components/NextButton';
 import ResultCard from './components/ResultCard';
 import ResultStepTitle from './components/ResultStepTitle';
@@ -367,19 +367,27 @@ const Search = ({
                                   if (field.type === 'boolean') {
                                     className = `${className} ${classes.booleanButton}`;
                                   }
-                                  if (field.icon || value.icon) {
+                                  let iconName = undefined;
+                                  if (field.icons) {
                                     className = `${className} ${classes.iconButton}`;
+                                    if (field.type === 'field-choice') {
+                                      iconName = field.icons[value.slug];
+                                    } else {
+                                      iconName = field.icons[getSlugFromContainerUrl(field.slug, value.id)];
+                                    }
                                   }
                                   return (
                                     <Box pt={2} key={index} className={className}>
                                       <Button 
                                         variant="contained" 
+                                        
                                         color={selectedValues.find(sv =>(sv.value[matchField] === value[matchField])) !== undefined
                                           ? "primary"
                                           : "default"}
                                         onClick={()=>handleClickValue(field, value)}
                                       >
-                                        {value.label}
+                                        <Icon name={iconName} />
+                                        <span className={classes.labelButton}>{value.label}</span>
                                       </Button>
                                     </Box>
                                   )

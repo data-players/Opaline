@@ -90,7 +90,15 @@ const useStyles = makeStyles(theme => ({
   },
   iconButton: {
     '& button': {
-      height: 180
+      height: 180,
+      '& .MuiButton-label': {
+        display: 'flex',
+        flexDirection: 'column',
+        '& .MuiSvgIcon-root': {
+          height: 64,
+          width: 64
+        }
+      }
     }
   },
   criteriaContainerMultiple: {
@@ -99,7 +107,14 @@ const useStyles = makeStyles(theme => ({
       marginBottom: 100,
     },
     '& ul': {
-      padding: 0
+      padding: 0,
+      '& .MuiListItemIcon-root': {
+        minWidth: 32
+      },
+      '& .MuiTypography-root': {
+        fontSize: 16,
+        fontWeight: 600
+      }
     }
   },
   criteriaContainerText: {

@@ -9,6 +9,12 @@
       "type": "field-choice",
       "name": "goal",
       "title": "Dîtes-nous en plus sur votre <strong>projet</strong>...",
+      "icons": {
+        "business-creation-goals":"construction",
+        "job-search-goals":"search",
+        "training-goals":"school",
+        "finding-help-goals":"accessibility-new"
+      },
       "fields": [
         {
           "type": "chosen-field",
@@ -17,8 +23,7 @@
           "name": "hasBusinessCreationGoals",
           "label": "Création d'entreprise",
           "title": "Vous voulez <strong>créer une entreprise</strong>...<br>Où en êtes vous ?",
-          "required": true,
-          "icon": true
+          "required": true
         },{
           "type": "chosen-field",
           "parent": "goal",
@@ -27,8 +32,7 @@
           "label": "Recherche d'emploi",
           "title": "De quoi avez-vous <strong>besoin</strong> ?",
           "multiple": 3,
-          "required": true,
-          "icon": true
+          "required": true
         },{
           "type": "chosen-field",
           "parent": "goal",
@@ -36,8 +40,7 @@
           "name": "hasTrainingGoals",
           "label": "Formation",
           "title": "Précisez vos besoins de <strong>formation</strong>...",
-          "required": true,
-          "icon": true
+          "required": true
         },{
           "type": "chosen-field",
           "parent": "goal",
@@ -46,8 +49,7 @@
           "label": "Accompagnement",
           "title": "Dîtes nous en plus ?",
           "multiple": 999,
-          "required": true,
-          "icon": true
+          "required": true
         },{
           "type": "no-choice",
           "parent": "goal",
@@ -69,7 +71,10 @@
       "name": "hasGenders",
       "label": "Genre",
       "title": "Vous <strong>êtes</strong>... ?",
-      "icon": true
+      "icons": {
+        "femme":"woman",
+        "homme":"man"
+      }
     },{
       "type": "boolean",
       "name": "rqth",
