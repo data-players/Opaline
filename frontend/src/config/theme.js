@@ -25,6 +25,7 @@ let theme = createTheme({
     grey75: darken(white, 75),
     primary: primary,
     secondary: secondary,
+    secondaryLight: lighten(secondary, 50),
     tertiary: tertiary
   },
   

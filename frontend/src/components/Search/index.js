@@ -376,16 +376,12 @@ const Search = ({
                                       iconName = field.icons[getSlugFromContainerUrl(field.slug, value.id)];
                                     }
                                   }
+                                  if (selectedValues.find(sv =>(sv.value[matchField] === value[matchField])) !== undefined) {
+                                    className = `${className} ${classes.selectedValue}`;
+                                  }
                                   return (
                                     <Box pt={2} key={index} className={className}>
-                                      <Button 
-                                        variant="contained" 
-                                        
-                                        color={selectedValues.find(sv =>(sv.value[matchField] === value[matchField])) !== undefined
-                                          ? "primary"
-                                          : "default"}
-                                        onClick={()=>handleClickValue(field, value)}
-                                      >
+                                      <Button onClick={()=>handleClickValue(field, value)}>
                                         <Icon name={iconName} />
                                         <span className={classes.labelButton}>{value.label}</span>
                                       </Button>

@@ -68,10 +68,16 @@ const useStyles = makeStyles(theme => ({
       width: '100%',
       maxWidth: 'unset',
       height: 50,
-      boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+      boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
       wordBreak: 'break-word',
       lineHeight: '125%'
-    },
+    }
+  },
+  selectedValue: {
+    '& button': {
+      backgroundColor: theme.color.secondaryLight,
+      boxShadow: 'inset rgba(0, 0, 0, 0.24) 0px 3px 8px',
+    }
   },
   fullWidth: {
     width: '100%',
