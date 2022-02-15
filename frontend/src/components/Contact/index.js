@@ -12,6 +12,7 @@ import {
   Typography,
   makeStyles } from '@material-ui/core';
 import AppBar from '../AppBar';
+import Loading from '../Loading';
 
 const useStyles = makeStyles(theme => ({
   mainContainer: {
@@ -28,21 +29,30 @@ const useStyles = makeStyles(theme => ({
     },
     '& .MuiOutlinedInput-multiline': {
       padding: 0
+    },
+    ' & .MuiFormLabel-root': {
+      position: 'static',
+      transform: 'none',
+      paddingBottom: 8,
+      paddingLeft: 16,
+      fontWeight: 600,
+      fontSize: 16
     }
   },
   innerContainer: {
   },
   title: {
     textTransform: 'uppercase',
-    fontWeight: 600,
-    padding: '2rem 0'
+    fontWeight: 800,
+    padding: '2rem 1rem',
   },
   buttonContainer: {
     display: 'flex',
     justifyContent: 'space-between',
     margin: '16px 0',
     '& button': {
-      width: '49%'
+      width: '48%',
+      textTransform: 'uppercase'
     }
   }
 }))
@@ -50,13 +60,18 @@ const useStyles = makeStyles(theme => ({
 const ContactForm = ({contact}) => {
   const classes = useStyles();
   const history = useHistory();
+  const [emailSent, setEmailSent] = React.useState(false);
   
-  const handleSubmit = () => {
-    console.log('submit');    
+  const handleSubmit = (evt) => {
+    evt.preventDefault();    
+    setEmailSent(true);
+    setTimeout(()=>{
+      history.push('/')
+    },3000);
   }
   
   const handleCancel = () => {
-    history.goBack();    
+    history.goBack();
   }
   
   return (
@@ -64,12 +79,15 @@ const ContactForm = ({contact}) => {
       { ! contact.emails && 
         <Redirect to="/" />
       }
-      { contact &&
+      { emailSent &&
+       <Loading message={'Mail envoyé !'} />
+      }
+      { contact && ! emailSent &&
         <>
           <Container className={classes.mainContainer} maxWidth="sm">
             <Box className={classes.innerContainer}>
               <Typography component="h1" className={classes.title}>Contacter {contact.label}</Typography>
-              <form>
+              <form onSubmit={handleSubmit}>
                 <TextField id="name" label="Votre nom (obligatoire)" variant="outlined" required fullWidth />
                 <TextField id="email" label="Votre email (obligatoire)" variant="outlined" required fullWidth />
                 <TextField id="subject" label="Sujet" variant="outlined" fullWidth />
