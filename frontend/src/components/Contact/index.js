@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { 
   Box,
   Button,
@@ -61,35 +61,42 @@ const ContactForm = ({contact}) => {
   
   return (
     <>
-      <Container className={classes.mainContainer} maxWidth="sm">
-        <Box className={classes.innerContainer}>
-          <Typography component="h1" className={classes.title}>Contacter {contact.label}</Typography>
-          <form>
-            <TextField id="name" label="Votre nom (obligatoire)" variant="outlined" required fullWidth />
-            <TextField id="email" label="Votre email (obligatoire)" variant="outlined" required fullWidth />
-            <TextField id="subject" label="Sujet" variant="outlined" fullWidth />
-            <TextField id="message" variant="outlined" multiline rows={4} fullWidth />
-            <Box className={classes.buttonContainer}>
-              <Button
-                color="default"
-                variant="contained"
-                align="center"
-                onClick={handleCancel}
-              >
-                Annuler
-              </Button>
-              <Button
-                color="secondary"
-                variant="contained"
-                align="center"
-                type="submit"
-              >
-                Envoyer
-              </Button>
+      { ! contact.emails && 
+        <Redirect to="/" />
+      }
+      { contact &&
+        <>
+          <Container className={classes.mainContainer} maxWidth="sm">
+            <Box className={classes.innerContainer}>
+              <Typography component="h1" className={classes.title}>Contacter {contact.label}</Typography>
+              <form>
+                <TextField id="name" label="Votre nom (obligatoire)" variant="outlined" required fullWidth />
+                <TextField id="email" label="Votre email (obligatoire)" variant="outlined" required fullWidth />
+                <TextField id="subject" label="Sujet" variant="outlined" fullWidth />
+                <TextField id="message" variant="outlined" multiline rows={4} fullWidth />
+                <Box className={classes.buttonContainer}>
+                  <Button
+                    color="default"
+                    variant="contained"
+                    align="center"
+                    onClick={handleCancel}
+                  >
+                    Annuler
+                  </Button>
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    align="center"
+                    type="submit"
+                  >
+                    Envoyer
+                  </Button>
+                </Box>
+              </form>
             </Box>
-          </form>
-        </Box>
-      </Container>
+          </Container>
+        </>
+      }
     </>
   );
 }

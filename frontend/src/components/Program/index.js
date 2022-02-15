@@ -172,7 +172,7 @@ const Program = ({ loading, program, structure, loadData, openContactForm }) => 
                       to={'/Contact'}
                       onClick={() => handleEmailClick({
                         label: structure.label,
-                        email: structure["e-mail"]
+                        emails: structure["e-mail"]
                       })}
                     >
                       <MailOutlineIcon />
