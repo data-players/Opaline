@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BrowserRouter, useHistory } from 'react-router-dom';
+import { BrowserRouter, useHistory, useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core';
 import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -33,9 +33,10 @@ const useStyles = makeStyles(theme => ({
 
 function GoBack({searchIndex, goToSearchField}) {
   const history = useHistory();
+  const location = useLocation();
   const classes = useStyles();
   const handleGoBackClick = () => {
-    if ( ! searchIndex || searchIndex === 0 ) {
+    if ( ! searchIndex || searchIndex <= 0 || ! location.pathname.startsWith('/recherche')) {
       history.goBack()
     } else {
       goToSearchField(searchIndex - 1)

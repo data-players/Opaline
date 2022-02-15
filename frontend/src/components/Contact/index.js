@@ -11,7 +11,7 @@ import {
   TextField,
   Typography,
   makeStyles } from '@material-ui/core';
-import AppBar from '../AppBar';
+import AppBar from '../../containers/AppBar';
 import Loading from '../Loading';
 
 const useStyles = makeStyles(theme => ({

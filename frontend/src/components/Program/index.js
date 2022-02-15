@@ -10,7 +10,7 @@ import Stack from '@mui/material/Stack';
 import PhoneIcon from '@mui/icons-material/Phone';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import ReactMarkdown from 'react-markdown';
-import AppBar from '../AppBar';
+import AppBar from '../../containers/AppBar';
 import Loading from '../Loading';
 import PhoneDialog from './components/PhoneDialog';
 

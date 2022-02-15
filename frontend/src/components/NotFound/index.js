@@ -6,7 +6,7 @@ import {
   Link,
   Typography,
   makeStyles } from '@material-ui/core';
-import AppBar from '../AppBar';
+  import AppBar from '../../containers/AppBar';
 
 const useStyles = makeStyles(theme => ({
   mainContainer: {

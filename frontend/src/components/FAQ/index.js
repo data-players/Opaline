@@ -8,7 +8,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ReactMarkdown from 'react-markdown';
-import AppBar from '../AppBar';
+import AppBar from '../../containers/AppBar';
 import Loading from '../Loading';
 
 const useStyles = makeStyles(theme => ({
