@@ -7,6 +7,8 @@ module.exports = {
     superAdmins: [
       'http://localhost:3000/persons/v.farcy72',
       'http://localhost:3000/persons/simon.louvet.zen',
-      'http://localhost:3000/persons/simon.louvet.zen']
+      'http://localhost:3000/persons/simon.louvet.zen',
+      'https://data.opaline.data-players.com/persons/pierre'
+    ]
   }
 };
