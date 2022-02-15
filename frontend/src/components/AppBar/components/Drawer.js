@@ -35,7 +35,8 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     top: 4,
     right: 4,
-    color: theme.color.white
+    color: theme.color.white,
+    cursor: 'pointer'
   },
   menuIcon: {
     transform: 'translateX(12px)'

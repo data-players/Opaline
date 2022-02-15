@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Program from '../components/Program';
 import { getResourceFromSlug } from '../selectors/urls';
-import { loadData } from '../actions';
+import { loadData, openContactForm } from '../actions';
 
 // state
 const mapStateToProps = (state, ownProps) => {
@@ -23,6 +23,9 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => ({
   loadData: (container) => {
     dispatch(loadData(container));
+  },
+  openContactForm: (contact) => {
+    dispatch(openContactForm(contact));
   },
 });
 

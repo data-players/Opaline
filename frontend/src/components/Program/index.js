@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { 
   Box,
   Button,
@@ -105,7 +105,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Program = ({ loading, program, structure, loadData }) => {
+const Program = ({ loading, program, structure, loadData, openContactForm }) => {
   const classes = useStyles();
   
   useEffect( () => { 
@@ -114,11 +114,14 @@ const Program = ({ loading, program, structure, loadData }) => {
   }, [])
   
   const [phoneDialogOpen, setPhoneDialogOpen] = React.useState(false);
-  const handlePhoneDialogClickOpen = () => {
+  const handlePhoneClick = () => {
     setPhoneDialogOpen(true);
   };
   const handlePhoneDialogClose = (value) => {
     setPhoneDialogOpen(false);
+  };
+  const handleEmailClick = (contact) => {
+    openContactForm(contact);
   };
   
   return (
@@ -148,7 +151,7 @@ const Program = ({ loading, program, structure, loadData }) => {
                 </Typography>
                 <Container className={classes.contactContainer} maxWidth="sm">
                   <Typography component="h2" className={classes.contactTitle}>
-                    prendre contact
+                    Prendre contact
                   </Typography>
                   <Stack direction="row" justifyContent="space-between" spacing={{ xs: 1, sm: 2 }} className={classes.contactStack}>
                     <Button 
@@ -156,11 +159,22 @@ const Program = ({ loading, program, structure, loadData }) => {
                       color="primary" 
                       aria-label="phone" 
                       className={classes.iconButton}  
-                      onClick={handlePhoneDialogClickOpen}
+                      onClick={handlePhoneClick}
                     >
                       <PhoneIcon />
                     </Button>
-                    <Button variant="contained" color="primary" aria-label="e-mail" className={classes.iconButton}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      aria-label="e-mail"
+                      className={classes.iconButton}
+                      component={Link}
+                      to={'/Contact'}
+                      onClick={() => handleEmailClick({
+                        label: structure.label,
+                        email: structure["e-mail"]
+                      })}
+                    >
                       <MailOutlineIcon />
                     </Button>
                     <Button 

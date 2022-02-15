@@ -6,6 +6,7 @@ export const GET_RESOURCE_VALUES = 'GET_RESOURCE_VALUES';
 export const LOAD_DATA = 'LOAD_DATA';
 export const LOAD_FIELDS = 'LOAD_FIELDS';
 export const LOAD_FAQ = 'LOAD_FAQ';
+export const OPEN_CONTACT_FORM = 'OPEN_CONTACT_FORM';
 export const NEW_SEARCH = 'NEW_SEARCH';
 export const SET_MESSAGE = 'SET_MESSAGE';
 export const SET_MINIMAL_DELAY = 'SET_MINIMAL_DELAY';
@@ -44,6 +45,10 @@ export const loadFAQ = () => ({
 });
 export const newSearch = () => ({
   type: NEW_SEARCH,
+});
+export const openContactForm = (contact) => ({
+  type: OPEN_CONTACT_FORM,
+  contact
 });
 export const setResults = (results) => ({
   type: SET_RESULTS,

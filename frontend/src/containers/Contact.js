@@ -2,7 +2,9 @@ import { connect } from 'react-redux';
 import Contact from '../components/Contact';
 
 // state
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  contact: state.contact
+});
 
 // actions
 const mapDispatchToProps = (dispatch) => ({});

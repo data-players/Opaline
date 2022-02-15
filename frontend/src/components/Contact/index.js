@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { 
   Box,
   Button,
@@ -34,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   title: {
     textTransform: 'uppercase',
     fontWeight: 600,
-    padding: '1rem 0'
+    padding: '2rem 0'
   },
   buttonContainer: {
     display: 'flex',
@@ -46,22 +47,23 @@ const useStyles = makeStyles(theme => ({
   }
 }))
   
-const ContactForm = () => {
+const ContactForm = ({contact}) => {
   const classes = useStyles();
+  const history = useHistory();
   
   const handleSubmit = () => {
     console.log('submit');    
   }
   
   const handleCancel = () => {
-    console.log('cancel');    
+    history.goBack();    
   }
   
   return (
     <>
       <Container className={classes.mainContainer} maxWidth="sm">
         <Box className={classes.innerContainer}>
-          <Typography component="h1" className={classes.title}>Contacter</Typography>
+          <Typography component="h1" className={classes.title}>Contacter {contact.label}</Typography>
           <form>
             <TextField id="name" label="Votre nom (obligatoire)" variant="outlined" required fullWidth />
             <TextField id="email" label="Votre email (obligatoire)" variant="outlined" required fullWidth />
@@ -82,7 +84,7 @@ const ContactForm = () => {
                 align="center"
                 type="submit"
               >
-                Valider
+                Envoyer
               </Button>
             </Box>
           </form>
