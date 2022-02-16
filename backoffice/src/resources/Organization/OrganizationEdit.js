@@ -38,11 +38,7 @@ export const OrganizationEdit = props => (
         <ImageField source="src" />
       </ImageInput>
       <TextInput source="pair:phone" fullWidth />
-      <ArrayInput source="pair:e-mail">
-        <SimpleFormIterator>
-          <TextInput type="email" label="e-mail" />
-        </SimpleFormIterator>
-      </ArrayInput>
+      <TextInput source="pair:e-mail" fullWidth />
       <ArrayInput source="opal:socialNetworks">
         <SimpleFormIterator>
           <TextInput type="url" label="url"/>

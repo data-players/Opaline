@@ -66,6 +66,11 @@ const useStyles = makeStyles(theme => ({
       height: 54,
       [theme.breakpoints.up(400)]: {
         height: 64
+      },
+      '&.Mui-disabled': {
+        color: 'rgba(0, 0, 0, 0.26) !important',
+        boxShadow: 'none',
+        backgroundColor: 'rgba(0, 0, 0, 0.12) !important'
       }
     }
   },
@@ -160,6 +165,7 @@ const Program = ({ loading, program, structure, loadData, openContactForm }) => 
                       aria-label="phone" 
                       className={classes.iconButton}  
                       onClick={handlePhoneClick}
+                      disabled={structure["pair:phone"] ? false : true}
                     >
                       <PhoneIcon />
                     </Button>
@@ -174,6 +180,7 @@ const Program = ({ loading, program, structure, loadData, openContactForm }) => 
                         label: structure.label,
                         emails: structure["e-mail"]
                       })}
+                      disabled={structure["pair:e-mail"] ? false : true}
                     >
                       <MailOutlineIcon />
                     </Button>
@@ -183,17 +190,20 @@ const Program = ({ loading, program, structure, loadData, openContactForm }) => 
                       className={classes.webSiteButton}
                       href={structure["pair:webPage"]}
                       target="_blank"
+                      disabled={structure["pair:webPage"] ? false : true}
                     >
                       site web
                     </Button>
                     <Button variant="contained" color="primary" className={classes.addressButton}>voir l'adresse</Button>
                   </Stack>
                 </Container>
-                <PhoneDialog
-                  phone={structure["pair:phone"]}
-                  open={phoneDialogOpen}
-                  handleClose={handlePhoneDialogClose}
-                />
+                { structure["pair:phone"] &&
+                  <PhoneDialog
+                    phone={structure["pair:phone"]}
+                    open={phoneDialogOpen}
+                    handleClose={handlePhoneDialogClose}
+                  />
+                }
               </Container>
             </>
           }
