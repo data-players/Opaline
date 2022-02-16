@@ -9,7 +9,8 @@ module.exports = {
       'http://localhost:3000/persons/simon.louvet.zen',
       'http://localhost:3000/persons/simon.louvet.zen',
       'https://data.opaline.data-players.com/persons/pierre',
-      'https://data.opaline.data-players.com/persons/simon.louvet.zen'
+      'https://data.opaline.data-players.com/persons/simon.louvet.zen',
+      'https://data.opaline.data-players.com/persons/v.farcy72'
     ]
   }
 };
