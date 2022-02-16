@@ -37,6 +37,7 @@ export const programEdit = props => (
           source="opal:hasDegreeLevel"
           reference="DegreeLevel"
           fullWidth
+          helperText="Sélectionner tous les éléments éligibles au programme"
         >
           <SelectArrayInput optionText="pair:label" />
         </ReferenceArrayInput>
@@ -48,6 +49,7 @@ export const programEdit = props => (
             process.env.REACT_APP_MIDDLEWARE_URL+'genders/homme',
             process.env.REACT_APP_MIDDLEWARE_URL+'genders/femme'
           ]}
+          helperText="Sélectionner tous les éléments éligibles au programme"
         >
           <SelectArrayInput optionText="pair:label" />
         </ReferenceArrayInput>
