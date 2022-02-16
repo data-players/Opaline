@@ -50,7 +50,7 @@ const FAQ = ( { faq, loading, loadFAQ } ) => {
                 <ListItem key={index} className={classes.listItem}>
                   <Typography component="h2" className={classes.itemTitle}>{question.label}</Typography>
                   <Typography component="div" className={classes.description}>
-                    <ReactMarkdown children={question.description} />
+                    <ReactMarkdown children={question["pair:description"]} />
                   </Typography>
                 </ListItem>
               ))}

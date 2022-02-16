@@ -18,7 +18,6 @@ import Icon from './components/Icon';
 import NextButton from './components/NextButton';
 import ResultCard from './components/ResultCard';
 import ResultStepTitle from './components/ResultStepTitle';
-import { loadFields } from '../../actions';
 
 
 const Search = ({
@@ -49,26 +48,15 @@ const Search = ({
   const [checked, setChecked] = useState([]);
   const [textFieldValue, setTextFieldValue] = useState('');
   
-  let selectedFieldValues = null
-    if (selectedField?.name) {
+  let selectedFieldValues = null;
+  if (selectedField?.name) {
     selectedFieldValues = fieldValues[selectedField.name];
   }
   
   const isNewSearch = searchIndex === -1
   const isResultsStep = searchIndex === searchFields.length
 
-  /*
-  console.log('>+ resourceValues:', resourceValues);
-  console.log('>+ fieldValues:', fieldValues);
-  console.log('>+ searchIndex:', searchIndex);
-  console.log('>+ searchFields:', searchFields);
-  console.log('>+ selectedValues:', [...selectedValues]);
-  console.log('>+ results', results);
-  console.log('>+ resultsByStructure', resultsByStructure);
-  */
-  
   const handleNewSearchClick = () => {
-    console.log('----------START----------');
     setSelectedField(null);
     setSelectedValues([]);
     setResults([]);
@@ -165,10 +153,7 @@ const Search = ({
           }
         }
       }
-    } else {
-      setSelectedValues(selectedValues.filter(selectedValue => selectedValue.field.type !== field.type));
     }
-    setResults([]);
     goToNextField(field);
   };
 
@@ -233,12 +218,6 @@ const Search = ({
   }, [resourceValues])
   
   useEffect( () => { 
-    if (selectedValues.length > 0) {
-      findResults();
-    }
-  }, [selectedValues])
-  
-  useEffect( () => { 
     if (! loading && results.length === 0) {
       handleNewSearchClick();
     }
@@ -267,6 +246,7 @@ const Search = ({
       } else if(searchIndex > searchFields.length-1 ) {
         goToSearchField(searchFields.length);
         setSelectedField(null);
+        findResults();
       } else {
         displayField(searchIndex);  
       }
@@ -373,9 +353,9 @@ const Search = ({
                                       className = `${className} ${classes.iconButton}`;
                                     }
                                     if (field.type === 'field-choice') {
-                                      iconName = field.icons[value.slug];
+                                      iconName = field.icons[value.name];
                                     } else {
-                                      iconName = field.icons[getSlugFromContainerUrl(field.slug, value.id)];
+                                      iconName = field.icons[getSlugFromContainerUrl(value.id)];
                                     }
                                   }
                                   if (selectedValues.find(sv =>(sv.value[matchField] === value[matchField])) !== undefined) {
@@ -463,13 +443,13 @@ const Search = ({
                         <ListItem
                           button key={index}
                           component={Link}
-                          to={`/structures/${getSlugFromContainerUrl('structures', result.id)}`}
+                          to={`/structures/${getSlugFromContainerUrl(result.id)}`}
                           className={classes.resultListItem}
                         >
                           <ResultCard
                             id={result.id}
                             label={result.label}
-                            depictedBy={result.depictedBy}
+                            depictedBy={result["pair:depictedBy"]}
                           />
                         </ListItem>
                       )) }

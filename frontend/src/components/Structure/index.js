@@ -95,8 +95,8 @@ const Structure = ({ loading, programs, structure, loadData }) => {
               <AppBar/>
               <Container className={classes.mainContainer} maxWidth="sm">
                 <Box className={classes.imageContainer}>
-                  { structure.depictedBy &&
-                    <img src={structure.depictedBy} alt={`logo ${structure.label}`} />
+                  { structure["pair:depictedBy"] &&
+                    <img src={structure["pair:depictedBy"]} alt={`logo ${structure.label}`} />
                   }
                 </Box>
                 <Typography component="h1" className={classes.title}>
@@ -110,7 +110,7 @@ const Structure = ({ loading, programs, structure, loadData }) => {
                     <ListItem 
                       button key={index} 
                       component={Link} 
-                      to={`/programmes/${getSlugFromContainerUrl('programs', program.id)}`}
+                      to={`/programmes/${getSlugFromContainerUrl(program.id)}`}
                       className={classes.listItem}
                     >
                       <Card sx={{ minWidth: 275 }} className={classes.cardContainer}>
@@ -125,7 +125,7 @@ const Structure = ({ loading, programs, structure, loadData }) => {
                               <Box className={classes.infosContainer}>
                                 <Typography component="div" className={classes.infos}>
                                   <Box>{program['opal:financialParticipation'] ? "Payant" : "Gratuit"}</Box>
-                                  <Box>{program.duration}</Box>
+                                  <Box>{program['opal:duration']}</Box>
                                 </Typography>
                               </Box>
                             </Grid>

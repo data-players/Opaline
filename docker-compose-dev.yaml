@@ -35,13 +35,13 @@ services:
       - "3000:3000"
     expose:
       - "3000"
-    command: bash -c "yarn install && npm run devwithlink"
-
-  frontend:
-    build: frontend
-    container_name: frontend_opaline
+    command: bash -c "yarn install && pm2-runtime 'yarn run dev'"
+    
+  backoffice:
+    build: backoffice
+    container_name: backoffice_opaline
     volumes:
-      - ./frontend:/app
+      - ./backoffice:/app
       - ./../semapps:/semapps
     environment:
       - REACT_APP_MIDDLEWARE_URL=http://localhost:3000/
@@ -53,4 +53,22 @@ services:
       - "5000:5000"
     expose:
       - "5000"
-    command: bash -c "yarn install && npm run startwithlink"
+    command: bash -c "yarn install && yarn run startwithlink"
+    
+  frontend:
+    build: frontend
+    container_name: frontend_opaline
+    volumes:
+      - ./frontend:/app
+      - ./../semapps:/semapps
+    environment:
+      - REACT_APP_MIDDLEWARE_URL=http://localhost:3000/
+      - REACT_APP_MAPBOX_ACCESS_TOKEN=${REACT_APP_MAPBOX_ACCESS_TOKEN}
+      - PORT=5001
+    depends_on:
+      - middleware
+    ports:
+      - "5001:5001"
+    expose:
+      - "5001"
+    command: bash -c "yarn install && yarn run startwithlink"

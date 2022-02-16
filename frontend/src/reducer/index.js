@@ -76,9 +76,10 @@ const reducer = (state = initialState, action = {}) => {
         }
       };
     case GET_RESOURCE_VALUES:
+      let resourceValues = action.resourceValues;
       if ( action.container.slug === 'configurations' ) {
         action.resourceValues.map(resource => {
-          resource.json = JSON.parse(resource.json);
+          resource.json = JSON.parse(resource['opal:json']);
         })
       }
       return {
@@ -118,7 +119,7 @@ const reducer = (state = initialState, action = {}) => {
     case SET_RESULTS:
       const resultsByStructure = 
         action.results
-          .map(result => result.programOfferedBy)
+          .map(result => result['opal:programOfferedBy'])
           .filter((value, index, self) => self.indexOf(value) === index)
           .map(result => state.resourceValues['structures'].find(resource => resource.id === result));
       return {

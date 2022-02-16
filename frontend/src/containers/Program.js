@@ -11,7 +11,7 @@ const mapStateToProps = (state, ownProps) => {
     : getResourceFromSlug(state.resourceValues['programs'], slug)
   const structure = (state.loading.structures || ! program)
     ? null
-    : state.resourceValues['structures'].find(structure => structure.id === program.programOfferedBy)
+    : state.resourceValues['structures'].find(structure => structure.id === program['opal:programOfferedBy'])
   return {
     loading: state.loading.programs || state.loading.structures,
     program: program,

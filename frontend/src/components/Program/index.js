@@ -139,15 +139,15 @@ const Program = ({ loading, program, structure, loadData, openContactForm }) => 
               <AppBar/>
               <Container className={classes.mainContainer} maxWidth="sm">
                 <Box className={classes.imageContainer}>
-                  { structure.depictedBy &&
-                    <img src={structure.depictedBy} alt={`logo ${structure.label}`} />
+                  { structure["pair:depictedBy"] &&
+                    <img src={structure["pair:depictedBy"]} alt={`logo ${structure.label}`} />
                   }
                 </Box>
                 <Typography component="h1" className={classes.title}>
                   {program.label}
                 </Typography>
                 <Typography component="div" className={classes.description}>
-                  <ReactMarkdown children={program.description} />
+                  <ReactMarkdown children={program["pair:description"]} />
                 </Typography>
                 <Container className={classes.contactContainer} maxWidth="sm">
                   <Typography component="h2" className={classes.contactTitle}>
@@ -181,7 +181,7 @@ const Program = ({ loading, program, structure, loadData, openContactForm }) => 
                       variant="contained"
                       color="primary"
                       className={classes.webSiteButton}
-                      href={structure.webPage}
+                      href={structure["pair:webPage"]}
                       target="_blank"
                     >
                       site web
@@ -190,7 +190,7 @@ const Program = ({ loading, program, structure, loadData, openContactForm }) => 
                   </Stack>
                 </Container>
                 <PhoneDialog
-                  phone={structure.phone}
+                  phone={structure["pair:phone"]}
                   open={phoneDialogOpen}
                   handleClose={handlePhoneDialogClose}
                 />

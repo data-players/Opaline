@@ -1,3 +1,5 @@
+import jsonld from 'jsonld';
+
 import {
   LOAD_DATA,
   LOAD_FIELDS,
@@ -7,6 +9,8 @@ import {
   getResourceValues,
 } from '../actions';
 
+import containers from '../config/containers.json';
+import context from '../config/context.json';
 import ontologies from '../config/ontologies.json';
 
 import DataFactory from '@rdfjs/data-model';
@@ -18,16 +22,20 @@ const middleware = (store) => (next) => (action) => {
   
   const state = store.getState();
   
-  const fetchResourceContainer = (container) => {
-    if (container.slug === 'structures') {
-      container.slug = 'organizations'
-    }
-    return fetchContainer(container, 'resource')
+  const fetchResourceContainer = (containerName) => {
+    return fetchContainer(containerName, 'resource')
   }
+
   const fetchFieldContainer = (container) => {
     return fetchContainer(container, 'field')
   }
-  const fetchContainer = (container, type) => {
+
+  const fetchContainer = (containerName, type) => {
+    if (! containers[containerName]) {
+      return;
+    }
+    const container = containers[containerName];
+    
     let sparqljsParams = {
       queryType: 'CONSTRUCT',
       template: [quad(variable('s1'), variable('p1'), variable('o1'))],
@@ -92,17 +100,26 @@ const middleware = (store) => (next) => (action) => {
       return response.json();
     })
     .then((json) => {
-      const data = json['@graph'] ? json['@graph'] : [json];
       
-      if (data.find(d => d['@id']) === undefined) {
+      const frame = {
+        '@context': context,
+        "@type": [container.resource],
+        '@embed': '@never',
+      };
+      
+      return jsonld.frame(json, frame, { omitGraph: false });
+    })
+    .then((compactJson) => {
+      
+      const data = compactJson['@graph'];
+      
+      if (data.find(d => d.id === undefined)) {
         console.log('error: data not found', container);
         
       } else {
-        
         const formatedData = data.map(d => ({ 
           ...d,
-          id: d['@id'],
-          type: d['@type']
+          label: d['pair:label']
         }))
         
         // console.log('middleware-LOAD_DATA DATA', container, formatedData);
@@ -122,8 +139,8 @@ const middleware = (store) => (next) => (action) => {
   switch (action.type) {
     
     case LOAD_DATA:
-      if (!state.resourceValues[action.container]) {
-        fetchResourceContainer({name: action.container, slug: action.container})
+      if (!state.resourceValues[action.containerName]) {
+        fetchResourceContainer(action.containerName)
       }
     break;
     
@@ -134,8 +151,8 @@ const middleware = (store) => (next) => (action) => {
             switch (field.type) {
               case 'field-choice': getFieldData(field.fields); break;
               case 'boolean': store.dispatch(addBooleanField(field)); break;
-              case 'standard': fetchFieldContainer(field); break;
-              case 'chosen-field': fetchFieldContainer(field); break;
+              case 'standard': fetchFieldContainer(field.name); break;
+              case 'chosen-field': fetchFieldContainer(field.name); break;
             }
           }
         })
@@ -145,7 +162,7 @@ const middleware = (store) => (next) => (action) => {
     
     case LOAD_FAQ:
       if (!state.resourceValues['faq']) {
-        fetchResourceContainer({name: 'faq', slug: 'faq'})
+        fetchResourceContainer('faq')
       }
     break;
 

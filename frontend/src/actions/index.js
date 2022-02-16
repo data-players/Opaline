@@ -33,9 +33,9 @@ export const getResourceValues = (container, resourceValues) => ({
   container,
   resourceValues
 });
-export const loadData = (container) => ({
+export const loadData = (containerName) => ({
   type: LOAD_DATA,
-  container
+  containerName
 });
 export const loadFields = () => ({
   type: LOAD_FIELDS,

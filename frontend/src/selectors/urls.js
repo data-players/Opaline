@@ -17,12 +17,6 @@ export const getResourceFromSlug = (resources, slug) => {
   return resources.find((resource) => getSlugFromString(resource.id.substring(resource.id.lastIndexOf('/') + 1)) === slug);
 };
 
-export const getSlugFromContainerUrl = (containerSlug, url) => {
-  if (! containerSlug || ! url) {
-    return false;
-  }
-  if (containerSlug === 'structures') {
-    containerSlug = 'organizations'
-  }
-  return url.replace(process.env.REACT_APP_MIDDLEWARE_URL + containerSlug + '/', '');
+export const getSlugFromContainerUrl = (url) => {
+  return url.substring(url.lastIndexOf('/') + 1);
 }
