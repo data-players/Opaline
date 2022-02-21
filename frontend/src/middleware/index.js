@@ -13,6 +13,8 @@ import containers from '../config/containers.json';
 import context from '../config/context.json';
 import ontologies from '../config/ontologies.json';
 
+import { getEmbedFrame } from './dereference';
+
 import DataFactory from '@rdfjs/data-model';
 const { literal, namedNode, quad, variable } = DataFactory;
 
@@ -68,12 +70,31 @@ const middleware = (store) => (next) => (action) => {
       type: 'query',
       prefixes: {}
     }
+    
+    if ( container.location === true ) {
+      const locationTriples = [
+        quad(variable('s1'), namedNode('http://virtual-assembly.org/ontologies/pair#hasLocation'), variable('sPairHasLocation')),
+        quad(variable('sPairHasLocation '), variable('pPairHasLocation'), variable('oPairHasLocation ')),
+        quad(variable('sPairHasLocation '), namedNode('http://virtual-assembly.org/ontologies/pair#hasPostalAddress'), variable('sPairHasPostalAddress ')),
+        quad(variable('sPairHasPostalAddress '), variable('pPairHasPostalAddress'), variable('oPairHasPostalAddress '))
+      ];
+      sparqljsParams.template = sparqljsParams.template.concat(locationTriples);
+      sparqljsParams.where = sparqljsParams.where.concat([{
+        type: 'optional',
+        patterns: [{
+          type: 'bgp',
+          triples: locationTriples
+        }]
+      }]);
+    }
+    
     ontologies.map(ontology => {
       return sparqljsParams.prefixes = {
         ...sparqljsParams.prefixes,
         [ontology.prefix]: ontology.url
       };
     });
+    
     // Regenerate a SPARQL query from a JSON object
     let SparqlGenerator = require('sparqljs').Generator;
     let generator = new SparqlGenerator({});
@@ -101,11 +122,18 @@ const middleware = (store) => (next) => (action) => {
     })
     .then((json) => {
       
-      const frame = {
+      let frame = {
         '@context': context,
         "@type": [container.resource],
-        '@embed': '@never',
+        '@embed': '@never'
       };
+      
+      if ( container.location === true ) {
+        frame = {
+          ...frame,
+          ...getEmbedFrame(['pair:hasLocation/pair:hasPostalAddress'])
+        };
+      }
       
       return jsonld.frame(json, frame, { omitGraph: false });
     })

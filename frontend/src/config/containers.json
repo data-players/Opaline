@@ -12,7 +12,8 @@
   "structures": {
     "slug": "organizations",
     "name": "structures",
-    "resource": "pair:Organization"
+    "resource": "pair:Organization",
+    "location": true
   },
   "configurations": {
     "slug": "configurations",

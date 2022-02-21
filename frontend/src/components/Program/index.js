@@ -129,6 +129,11 @@ const Program = ({ loading, program, structure, loadData, openContactForm }) => 
     openContactForm(contact);
   };
   
+  let location = null;
+  if (structure) {
+    location = structure["pair:hasLocation"];
+  }
+  
   return (
     <>
       { loading &&
@@ -194,7 +199,17 @@ const Program = ({ loading, program, structure, loadData, openContactForm }) => 
                     >
                       site web
                     </Button>
-                    <Button variant="contained" color="primary" className={classes.addressButton}>voir l'adresse</Button>
+                    <Button 
+                      variant="contained" 
+                      color="primary" 
+                      className={classes.addressButton}
+                      href={`https://maps.google.com/?q="${location["pair:label"]}&ll=${location["pair:latitude"]},${location["pair:longitude"]}&z=12"`}
+                      target="_blank"
+                      disabled={(location && location["pair:hasPostalAddress"]) ? false : true}
+                    >
+                      
+                      voir l'adresse
+                    </Button>
                   </Stack>
                 </Container>
                 { structure["pair:phone"] &&
