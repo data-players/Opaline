@@ -1,13 +1,11 @@
 import { PairResourceCreate } from '../../pair';
 import ConfigurationEdit from './ConfigurationEdit';
 import ConfigurationList from './ConfigurationList';
-import ConfigurationShow from './ConfigurationShow';
 import BuildIcon from '@material-ui/icons/Build';
 
 export default {
   config: {
       list: ConfigurationList,
-      show: ConfigurationShow,
       create: PairResourceCreate,
       edit: ConfigurationEdit,
       icon: BuildIcon,

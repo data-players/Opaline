@@ -1,13 +1,11 @@
 import { PairResourceCreate } from '../../pair';
 import ProgramEdit from './ProgramEdit';
 import ProgramList from './ProgramList';
-import ProgramShow from './ProgramShow';
 import ProgramIcon from '@material-ui/icons/AccountTree';
 
 export default {
   config: {
       list: ProgramList,
-      show: ProgramShow,
       create: PairResourceCreate,
       edit: ProgramEdit,
       icon: ProgramIcon,
