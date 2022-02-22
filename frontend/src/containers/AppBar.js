@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import AppBar from '../components/AppBar';
-import { goToSearchField, setMessage } from '../actions';
+import { goToSearchField, openContactForm, setMessage } from '../actions';
 
 // state
 const mapStateToProps = (state) => ({
@@ -12,6 +12,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   goToSearchField: (searchIndex) => {
     dispatch(goToSearchField(searchIndex));
+  },
+  openContactForm: (contact) => {
+    dispatch(openContactForm(contact));
   },
   setMessage: (message) => {
     dispatch(setMessage(message));

@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Drawer() {
+export default function Drawer({ openContactForm }) {
   
   const classes = useStyles();
   
@@ -62,6 +62,10 @@ export default function Drawer() {
     }
 
     setState({ ...state, [anchor]: open });
+  };
+  
+  const handleContactClick = (contact) => {
+    openContactForm(contact);
   };
 
   const list = (anchor) => (
@@ -83,7 +87,15 @@ export default function Drawer() {
         <ListItem button component={Link} to={'/FAQ'}>
           <ListItemText primary={'FAQ'} />
         </ListItem>
-        <ListItem button>
+        <ListItem
+          button
+          component={Link}
+          to={'/Contact'}
+          onClick={() => handleContactClick({
+              label: 'Opaline',
+              emails: ['contact@opaline.fr']
+            })}
+        >
           <ListItemText primary={'Nous contacter'} />
         </ListItem>
       </List>

@@ -183,7 +183,7 @@ const Program = ({ loading, program, structure, loadData, openContactForm }) => 
                       to={'/Contact'}
                       onClick={() => handleEmailClick({
                         label: structure.label,
-                        emails: structure["e-mail"]
+                        emails: [structure["pair:e-mail"]]
                       })}
                       disabled={structure["pair:e-mail"] ? false : true}
                     >

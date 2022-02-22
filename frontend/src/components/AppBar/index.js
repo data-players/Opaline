@@ -56,6 +56,7 @@ export default function AppBar({
   message,
   searchIndex,
   goToSearchField,
+  openContactForm,
   setMessage
 }) {
   const classes = useStyles();
@@ -84,7 +85,7 @@ export default function AppBar({
               />
             }
           </Box>
-          <Drawer />
+          <Drawer openContactForm={openContactForm} />
         </Stack>
       </MuiAppBar>
     </Container>
