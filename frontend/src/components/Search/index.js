@@ -163,7 +163,7 @@ const Search = ({
     }
     let results = resourceValues['programs'];
     selectedValues.forEach(sv => {
-      if (sv.field.type !== 'field-choice') {
+      if (sv.field.type !== 'field-choice' || sv.value.type === 'no-choice') {
         switch (sv.field.type) {
           case 'range':
             const minFieldName = sv.field.min;
@@ -176,14 +176,17 @@ const Search = ({
             })
           break;
           default:
-            const fieldName = sv.field.name;
+            let fieldName = sv.field.name;
+            if (sv.value.type === 'no-choice') {
+              fieldName = sv.value.name;
+            }
             // single selected value to array :
             const values = [].concat(sv.value);
             // array of all selected ids for the current field
             const valueIds = values.map(v => v.id)
             results = results.filter(result => {
               // result kept if no value for the current field
-              if (! result[fieldName] && ! sv.field.required) { 
+              if (result[fieldName] === undefined && ! sv.field.required) { 
                 return true
               } else {
                 // single value to array for the current field
@@ -191,8 +194,18 @@ const Search = ({
                 // check if at least one result value matches with one selected value
                 let resultOk = false;
                 resultValues.forEach(rv => {
-                  if (valueIds.includes(rv)) {
+                  if (sv.field.type === 'boolean') {
                     resultOk = true;
+                    // only choice "true" is explicit
+                    if (sv.value.id === true) {
+                      resultOk = rv;
+                    }
+                  } else if (sv.value.type === 'no-choice') {
+                    resultOk = rv;
+                  } else {
+                    if (valueIds.includes(rv)) {
+                      resultOk = true;
+                    }                    
                   }
                 })
                 return resultOk;
