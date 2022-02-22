@@ -100,7 +100,7 @@ const middleware = (store) => (next) => (action) => {
     let generator = new SparqlGenerator({});
     const sparqljsQuery = generator.stringify(sparqljsParams);
     
-    console.log('middleware-LOAD_DATA SPARQL', sparqljsQuery);
+    // console.log('middleware-LOAD_DATA SPARQL', sparqljsQuery);
     
     fetch(
       process.env.REACT_APP_MIDDLEWARE_URL + 'sparql', {
@@ -141,7 +141,7 @@ const middleware = (store) => (next) => (action) => {
       
       const data = compactJson['@graph'];
       
-      console.log('middleware-LOAD_DATA DATA', container, data);
+      // console.log('middleware-LOAD_DATA DATA', container, data);
       
       if (data.find(d => d.id === undefined)) {
         console.log('error: data not found', container);
@@ -152,7 +152,7 @@ const middleware = (store) => (next) => (action) => {
           label: d['pair:label']
         }))
         
-        console.log('middleware-LOAD_DATA FORMATED DATA', container, formatedData);
+        // console.log('middleware-LOAD_DATA FORMATED DATA', container, formatedData);
       
         if (type === 'resource') {
           store.dispatch(getResourceValues(container, formatedData));

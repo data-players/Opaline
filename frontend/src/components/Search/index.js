@@ -225,9 +225,7 @@ const Search = ({
   }, [])
   
   useEffect( () => { 
-    console.log('useEffect resourceValues');
     if (resourceValues['configurations'] && loading) {
-      console.log('loadFields');
       loadFields()
     }
   }, [resourceValues])
