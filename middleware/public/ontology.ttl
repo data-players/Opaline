@@ -1,12 +1,12 @@
-@prefix : <http://localhost:5000/ontology#> .
+@prefix : <http://data.opaline.data-players.com/ontology#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <http://localhost:5000/ontology> .
+@base <http://data.opaline.data-players.com/ontology> .
 
-<http://localhost:5000/ontology> rdf:type owl:Ontology ;
+<http://data.opaline.data-players.com/ontology> rdf:type owl:Ontology ;
                                                    owl:imports <http://virtual-assembly.org/ontologies/pair> ;
                                                    <http://purl.org/vocab/vann/preferredNamespacePrefix> "opal" .
 
@@ -14,7 +14,7 @@
 #    Object Properties
 #################################################################
 
-###  http://localhost:5000/ontology#programOfferedBy
+###  http://data.opaline.data-players.com/ontology#programOfferedBy
 :programOfferedBy rdf:type owl:ObjectProperty ;
                     rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#offeredBy> ;
                     owl:inverseOf :programOffers ;
@@ -22,84 +22,84 @@
                     rdfs:range <http://virtual-assembly.org/ontologies/pair#Organization> .
 
 
-###  http://localhost:5000/ontology#programOffers
+###  http://data.opaline.data-players.com/ontology#programOffers
 :programOffers rdf:type owl:ObjectProperty ;
                  rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#offers> ;
                  rdfs:domain <http://virtual-assembly.org/ontologies/pair#Organization> ;
                  rdfs:range :Program .
 
-###  http://localhost:5000/ontology#hasBusinessCreationGoal
+###  http://data.opaline.data-players.com/ontology#hasBusinessCreationGoal
 :hasBusinessCreationGoal rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
              rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
              rdfs:range :BusinessCreationGoal .
              
-###  http://localhost:5000/ontology#BusinessCreationGoalOf
+###  http://data.opaline.data-players.com/ontology#BusinessCreationGoalOf
 :BusinessCreationGoalOf rdf:type owl:ObjectProperty ;
             rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
             owl:inverseOf :hasBusinessCreationGoal ;
             rdfs:domain :BusinessCreationGoal ;
             rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
 
-###  http://localhost:5000/ontology#hasDegreeLevel
+###  http://data.opaline.data-players.com/ontology#hasDegreeLevel
 :hasDegreeLevel rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
              rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
              rdfs:range :DegreeLevel .
              
-###  http://localhost:5000/ontology#DegreeLevelOf
+###  http://data.opaline.data-players.com/ontology#DegreeLevelOf
 :DegreeLevelOf rdf:type owl:ObjectProperty ;
             rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
             owl:inverseOf :hasDegreeLevel ;
             rdfs:domain :DegreeLevel ;
             rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
 
-###  http://localhost:5000/ontology#hasGender
+###  http://data.opaline.data-players.com/ontology#hasGender
 :hasGender rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
              rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
              rdfs:range :Gender .
              
-###  http://localhost:5000/ontology#GenderOf
+###  http://data.opaline.data-players.com/ontology#GenderOf
 :GenderOf rdf:type owl:ObjectProperty ;
             rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
             owl:inverseOf :hasGender ;
             rdfs:domain :Gender ;
             rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
 
-###  http://localhost:5000/ontology#hasFindingHelpGoal
+###  http://data.opaline.data-players.com/ontology#hasFindingHelpGoal
 :hasFindingHelpGoal rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
              rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
              rdfs:range :FindingHelpGoal .
              
-###  http://localhost:5000/ontology#FindingHelpGoalOf
+###  http://data.opaline.data-players.com/ontology#FindingHelpGoalOf
 :FindingHelpGoalOf rdf:type owl:ObjectProperty ;
             rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
             owl:inverseOf :hasFindingHelpGoal ;
             rdfs:domain :FindingHelpGoal ;
             rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
 
-###  http://localhost:5000/ontology#hasJobSearchGoal
+###  http://data.opaline.data-players.com/ontology#hasJobSearchGoal
 :hasJobSearchGoal rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
              rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
              rdfs:range :JobSearchGoal .
              
-###  http://localhost:5000/ontology#JobSearchGoal
+###  http://data.opaline.data-players.com/ontology#JobSearchGoal
 :JobSearchGoal rdf:type owl:ObjectProperty ;
             rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
             owl:inverseOf :hasJobSearchGoal ;
             rdfs:domain :JobSearchGoal ;
             rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
 
-###  http://localhost:5000/ontology#hasTrainingGoal
+###  http://data.opaline.data-players.com/ontology#hasTrainingGoal
 :hasTrainingGoal rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
              rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
              rdfs:range :TrainingGoal .
              
-###  http://localhost:5000/ontology#TrainingGoal
+###  http://data.opaline.data-players.com/ontology#TrainingGoal
 :TrainingGoal rdf:type owl:ObjectProperty ;
             rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
             owl:inverseOf :hasTrainingGoal ;
@@ -107,14 +107,14 @@
             rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
 
 
-###  http://localhost:5000/ontology#hasLabel
+###  http://data.opaline.data-players.com/ontology#hasLabel
 #:hasLabel rdf:type owl:ObjectProperty ;
 #          rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
 #          owl:inverseOf :labelOf ;
 #          rdfs:domain <http://virtual-assembly.org/ontologies/pair#Organization> ;
 #          rdfs:range :Label .
 
-###  http://localhost:5000/ontology#labelOf
+###  http://data.opaline.data-players.com/ontology#labelOf
 #:labelOf rdf:type owl:ObjectProperty ;
 #         rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
 #         rdfs:domain :Label ;
@@ -126,61 +126,61 @@
 #    Data properties
 #################################################################
 
-###  http://localhost:5000/ontology#socialNetworks
+###  http://data.opaline.data-players.com/ontology#socialNetworks
 :socialNetworks rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:string .
         
-###  http://localhost:5000/ontology#minimumAge
+###  http://data.opaline.data-players.com/ontology#minimumAge
 :minimumAge rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:string .
 
-###  http://localhost:5000/ontology#maximumAge
+###  http://data.opaline.data-players.com/ontology#maximumAge
 :maximumAge rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:string .
 
-###  http://localhost:5000/ontology#rqth
+###  http://data.opaline.data-players.com/ontology#rqth
 :rqth rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:boolean .
 
-###  http://localhost:5000/ontology#otherInfos
+###  http://data.opaline.data-players.com/ontology#otherInfos
 :otherInfos rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:string .
         
-###  http://localhost:5000/ontology#poleEmploi
+###  http://data.opaline.data-players.com/ontology#poleEmploi
 :poleEmploi rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:boolean .
 
-###  http://localhost:5000/ontology#duration
+###  http://data.opaline.data-players.com/ontology#duration
 :duration rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:string .
 
-###  http://localhost:5000/ontology#financialParticipation
+###  http://data.opaline.data-players.com/ontology#financialParticipation
 :financialParticipation rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:string .
 
-###  http://localhost:5000/ontology#noIdea
+###  http://data.opaline.data-players.com/ontology#noIdea
 :noIdea rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:boolean .
 
-###  http://localhost:5000/ontology#json
+###  http://data.opaline.data-players.com/ontology#json
 :json rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
@@ -190,43 +190,43 @@
 #    Classes
 #################################################################
            
-###  http://localhost:5000/ontology#Program
+###  http://data.opaline.data-players.com/ontology#Program
 :Program rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Resource> .
 
-###  http://localhost:5000/ontology#Configuration
+###  http://data.opaline.data-players.com/ontology#Configuration
 :Configuration rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Resource> .
            
-###  http://localhost:5000/ontology#FAQ
+###  http://data.opaline.data-players.com/ontology#FAQ
 :Program rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Resource> .
 
-###  http://localhost:5000/ontology#BusinessCreationGoal
+###  http://data.opaline.data-players.com/ontology#BusinessCreationGoal
 :BusinessCreationGoal rdf:type owl:Class ;
           rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .
 
-###  http://localhost:5000/ontology#DegreeLevel
+###  http://data.opaline.data-players.com/ontology#DegreeLevel
 :DegreeLevel rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .
          
-###  http://localhost:5000/ontology#Gender
+###  http://data.opaline.data-players.com/ontology#Gender
 :Gender rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .
 
-###  http://localhost:5000/ontology#FindingHelpGoal
+###  http://data.opaline.data-players.com/ontology#FindingHelpGoal
 :FindingHelpGoal rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .
 
-###  http://localhost:5000/ontology#JobSearchGoal
+###  http://data.opaline.data-players.com/ontology#JobSearchGoal
 :JobSearchGoal rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .  
 
-###  http://localhost:5000/ontology#TrainingGoal
+###  http://data.opaline.data-players.com/ontology#TrainingGoal
 :TrainingGoal rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .  
 
-###  http://localhost:5000/ontology#Label
+###  http://data.opaline.data-players.com/ontology#Label
 #:Label rdf:type owl:Class ;
 #       rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .
 

@@ -13,7 +13,7 @@
     "foaf": "http://xmlns.com/foaf/0.1/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "semapps": "http://semapps.org/ns/core#",
-    "opal": "http://localhost:5000/ontology#",
+    "opal": "http://data.opaline.data-players.com/ontology#",
     "id": "@id",
     "type": "@type",
     "image": {

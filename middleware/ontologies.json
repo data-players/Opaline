@@ -57,6 +57,6 @@
   {
     "prefix": "opal",
     "owl": "",
-    "url": "http://localhost:5000/ontology#"
+    "url": "http://data.opaline.data-players.com/ontology#"
   }
 ]
