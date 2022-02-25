@@ -1,0 +1,53 @@
+{
+  "faq": {
+    "slug": "faq",
+    "name": "faq",
+    "resource": "opal:FAQ"
+  },
+  "programs": {
+    "slug": "programs",
+    "name": "programs",
+    "resource": "opal:Program"
+  },
+  "structures": {
+    "slug": "organizations",
+    "name": "structures",
+    "resource": "pair:Organization",
+    "location": true
+  },
+  "configurations": {
+    "slug": "configurations",
+    "name": "configurations",
+    "resource": "opal:Configuration"
+  },
+  "opal:hasBusinessCreationGoals": {
+    "slug": "business-creation-goals",
+    "name": "opal:hasBusinessCreationGoals",
+    "resource": "opal:BusinessCreationGoal"
+  },
+  "opal:hasDegreeLevel": {
+    "slug": "degree-levels",
+    "name": "opal:hasDegreeLevel",
+    "resource": "opal:DegreeLevel"
+  },
+  "opal:hasFindingHelpGoals": {
+    "slug": "finding-help-goals",
+    "name": "opal:hasFindingHelpGoals",
+    "resource": "opal:FindingHelpGoal"
+  },
+  "opal:hasGenders": {
+    "slug": "genders",
+    "name": "opal:hasGenders",
+    "resource": "opal:Gender"
+  },
+  "opal:hasJobSearchGoals": {
+    "slug": "job-search-goals",
+    "name": "opal:hasJobSearchGoals",
+    "resource": "opal:JobSearchGoal"
+  },
+  "opal:hasTrainingGoals": {
+    "slug": "training-goals",
+    "name": "opal:hasTrainingGoals",
+    "resource": "opal:TrainingGoal"
+  }
+}

@@ -1,221 +1,260 @@
-@prefix : <https://data.petr-msb.data-players.com/ontology#> .
+@prefix : <http://data.opaline.data-players.com/ontology#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <https://data.petr-msb.data-players.com/ontology> .
+@base <http://data.opaline.data-players.com/ontology> .
 
-<https://data.petr-msb.data-players.com/ontology> rdf:type owl:Ontology ;
+<http://data.opaline.data-players.com/ontology> rdf:type owl:Ontology ;
                                                    owl:imports <http://virtual-assembly.org/ontologies/pair> ;
-                                                   <http://purl.org/vocab/vann/preferredNamespacePrefix> "petr" .
+                                                   <http://purl.org/vocab/vann/preferredNamespacePrefix> "opal" .
 
 #################################################################
 #    Object Properties
 #################################################################
 
-###  https://data.petr-msb.data-players.com/ontology#audianceOf
-:audianceOf rdf:type owl:ObjectProperty ;
-            rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
-            owl:inverseOf :hasAudience ;
-            rdfs:domain :Audience ;
-            rdfs:range <http://virtual-assembly.org/ontologies/pair#Organization> .
-
-
-###  https://data.petr-msb.data-players.com/ontology#equipmentOfferedBy
-:equipmentOfferedBy rdf:type owl:ObjectProperty ;
+###  http://data.opaline.data-players.com/ontology#programOfferedBy
+:programOfferedBy rdf:type owl:ObjectProperty ;
                     rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#offeredBy> ;
-                    owl:inverseOf :equipmentOffers ;
-                    rdfs:domain :Equipment ;
+                    owl:inverseOf :programOffers ;
+                    rdfs:domain :Program ;
                     rdfs:range <http://virtual-assembly.org/ontologies/pair#Organization> .
 
 
-###  https://data.petr-msb.data-players.com/ontology#equipmentOffers
-:equipmentOffers rdf:type owl:ObjectProperty ;
+###  http://data.opaline.data-players.com/ontology#programOffers
+:programOffers rdf:type owl:ObjectProperty ;
                  rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#offers> ;
                  rdfs:domain <http://virtual-assembly.org/ontologies/pair#Organization> ;
-                 rdfs:range :Equipment .
+                 rdfs:range :Program .
 
-
-###  https://data.petr-msb.data-players.com/ontology#hasAudience
-:hasAudience rdf:type owl:ObjectProperty ;
+###  http://data.opaline.data-players.com/ontology#hasBusinessCreationGoal
+:hasBusinessCreationGoal rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
-             rdfs:domain <http://virtual-assembly.org/ontologies/pair#Organization> ;
-             rdfs:range :Audience .
-
-
-###  https://data.petr-msb.data-players.com/ontology#hasLabel
-:hasLabel rdf:type owl:ObjectProperty ;
-          rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
-          owl:inverseOf :labelOf ;
-          rdfs:domain <http://virtual-assembly.org/ontologies/pair#Organization> ;
-          rdfs:range :Label .
-
-
-###  https://data.petr-msb.data-players.com/ontology#hasLegalStatus
-:hasLegalStatus rdf:type owl:ObjectProperty ;
-                rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#hasStatus> ;
-                owl:inverseOf :statusOf ;
-                rdfs:domain <http://virtual-assembly.org/ontologies/pair#Organization> ;
-                rdfs:range :LegalStatus .
-
-
-###  https://data.petr-msb.data-players.com/ontology#hasNetwork
-:hasNetwork rdf:type owl:ObjectProperty ;
+             rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
+             rdfs:range :BusinessCreationGoal .
+             
+###  http://data.opaline.data-players.com/ontology#BusinessCreationGoalOf
+:BusinessCreationGoalOf rdf:type owl:ObjectProperty ;
             rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
-            owl:inverseOf :networkOf ;
-            rdfs:domain <http://virtual-assembly.org/ontologies/pair#Organization> ;
-            rdfs:range :Network .
+            owl:inverseOf :hasBusinessCreationGoal ;
+            rdfs:domain :BusinessCreationGoal ;
+            rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
+
+###  http://data.opaline.data-players.com/ontology#hasDegreeLevel
+:hasDegreeLevel rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
+             rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
+             rdfs:range :DegreeLevel .
+             
+###  http://data.opaline.data-players.com/ontology#DegreeLevelOf
+:DegreeLevelOf rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
+            owl:inverseOf :hasDegreeLevel ;
+            rdfs:domain :DegreeLevel ;
+            rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
+
+###  http://data.opaline.data-players.com/ontology#hasGender
+:hasGender rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
+             rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
+             rdfs:range :Gender .
+             
+###  http://data.opaline.data-players.com/ontology#GenderOf
+:GenderOf rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
+            owl:inverseOf :hasGender ;
+            rdfs:domain :Gender ;
+            rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
+
+###  http://data.opaline.data-players.com/ontology#hasFindingHelpGoal
+:hasFindingHelpGoal rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
+             rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
+             rdfs:range :FindingHelpGoal .
+             
+###  http://data.opaline.data-players.com/ontology#FindingHelpGoalOf
+:FindingHelpGoalOf rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
+            owl:inverseOf :hasFindingHelpGoal ;
+            rdfs:domain :FindingHelpGoal ;
+            rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
+
+###  http://data.opaline.data-players.com/ontology#hasJobSearchGoal
+:hasJobSearchGoal rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
+             rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
+             rdfs:range :JobSearchGoal .
+             
+###  http://data.opaline.data-players.com/ontology#JobSearchGoal
+:JobSearchGoal rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
+            owl:inverseOf :hasJobSearchGoal ;
+            rdfs:domain :JobSearchGoal ;
+            rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
+
+###  http://data.opaline.data-players.com/ontology#hasTrainingGoal
+:hasTrainingGoal rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
+             rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
+             rdfs:range :TrainingGoal .
+             
+###  http://data.opaline.data-players.com/ontology#TrainingGoal
+:TrainingGoal rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
+            owl:inverseOf :hasTrainingGoal ;
+            rdfs:domain :TrainingGoal ;
+            rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
 
 
-###  https://data.petr-msb.data-players.com/ontology#labelOf
-:labelOf rdf:type owl:ObjectProperty ;
-         rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
-         rdfs:domain :Label ;
-         rdfs:range <http://virtual-assembly.org/ontologies/pair#Organization> .
+###  http://data.opaline.data-players.com/ontology#hasLabel
+#:hasLabel rdf:type owl:ObjectProperty ;
+#          rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
+#          owl:inverseOf :labelOf ;
+#          rdfs:domain <http://virtual-assembly.org/ontologies/pair#Organization> ;
+#          rdfs:range :Label .
 
+###  http://data.opaline.data-players.com/ontology#labelOf
+#:labelOf rdf:type owl:ObjectProperty ;
+#         rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
+#         rdfs:domain :Label ;
+#         rdfs:range <http://virtual-assembly.org/ontologies/pair#Organization> .
 
-###  https://data.petr-msb.data-players.com/ontology#networkOf
-:networkOf rdf:type owl:ObjectProperty ;
-           rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
-           rdfs:domain :Network ;
-           rdfs:range <http://virtual-assembly.org/ontologies/pair#Organization> .
-
-
-###  https://data.petr-msb.data-players.com/ontology#serviceOfferedBy
-:serviceOfferedBy rdf:type owl:ObjectProperty ;
-                  rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#offeredBy> ;
-                  owl:inverseOf :serviceOffers ;
-                  rdfs:domain :Service ;
-                  rdfs:range <http://virtual-assembly.org/ontologies/pair#Organization> .
-
-
-###  https://data.petr-msb.data-players.com/ontology#serviceOffers
-:serviceOffers rdf:type owl:ObjectProperty ;
-               rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#offers> ;
-               rdfs:domain <http://virtual-assembly.org/ontologies/pair#Organization> ;
-               rdfs:range :Service .
-
-
-###  https://data.petr-msb.data-players.com/ontology#spaceOfferedBy
-:spaceOfferedBy rdf:type owl:ObjectProperty ;
-                rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#offeredBy> ;
-                owl:inverseOf :spaceOffers ;
-                rdfs:domain :Space ;
-                rdfs:range <http://virtual-assembly.org/ontologies/pair#Organization> .
-
-
-###  https://data.petr-msb.data-players.com/ontology#spaceOffers
-:spaceOffers rdf:type owl:ObjectProperty ;
-             rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#offers> ;
-             rdfs:domain <http://virtual-assembly.org/ontologies/pair#Organization> ;
-             rdfs:range :Space .
-
-
-###  https://data.petr-msb.data-players.com/ontology#statusOf
-:statusOf rdf:type owl:ObjectProperty ;
-          rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#entityConceptProperty> ;
-          rdfs:domain :LegalStatus ;
-          rdfs:range <http://virtual-assembly.org/ontologies/pair#Organization> .
 
 
 #################################################################
 #    Data properties
 #################################################################
 
-###  https://data.petr-msb.data-players.com/ontology#images
-:images rdf:type owl:DatatypeProperty ;
+###  http://data.opaline.data-players.com/ontology#socialNetworks
+:socialNetworks rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
+        rdfs:range xsd:string .
+        
+###  http://data.opaline.data-players.com/ontology#minimumAge
+:minimumAge rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:string .
 
-
-###  https://data.petr-msb.data-players.com/ontology#logo
-:logo rdf:type owl:DatatypeProperty ;
-      rdfs:subPropertyOf owl:topDataProperty ;
-      rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
-      rdfs:range xsd:string .
-
-
-###  https://data.petr-msb.data-players.com/ontology#socialMedias
-:socialMedias rdf:type owl:DatatypeProperty ;
-              rdfs:subPropertyOf owl:topDataProperty ;
-              rdfs:domain <http://virtual-assembly.org/ontologies/pair#Organization> ;
-              rdfs:range xsd:string .
-
-
-###  https://data.petr-msb.data-players.com/ontology#videos
-:videos rdf:type owl:DatatypeProperty ;
+###  http://data.opaline.data-players.com/ontology#maximumAge
+:maximumAge rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:string .
 
+###  http://data.opaline.data-players.com/ontology#rqth
+:rqth rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
+        rdfs:range xsd:boolean .
 
+###  http://data.opaline.data-players.com/ontology#otherInfos
+:otherInfos rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
+        rdfs:range xsd:string .
+        
+###  http://data.opaline.data-players.com/ontology#poleEmploi
+:poleEmploi rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
+        rdfs:range xsd:boolean .
+
+###  http://data.opaline.data-players.com/ontology#duration
+:duration rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
+        rdfs:range xsd:string .
+
+###  http://data.opaline.data-players.com/ontology#financialParticipation
+:financialParticipation rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
+        rdfs:range xsd:string .
+
+###  http://data.opaline.data-players.com/ontology#noIdea
+:noIdea rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
+        rdfs:range xsd:boolean .
+
+###  http://data.opaline.data-players.com/ontology#json
+:json rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
+        rdfs:range xsd:boolean .
+        
 #################################################################
 #    Classes
 #################################################################
-
-###  https://data.petr-msb.data-players.com/ontology#Audience
-:Audience rdf:type owl:Class ;
-          rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .
-
-
-###  https://data.petr-msb.data-players.com/ontology#Equipment
-:Equipment rdf:type owl:Class ;
+           
+###  http://data.opaline.data-players.com/ontology#Program
+:Program rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Resource> .
 
+###  http://data.opaline.data-players.com/ontology#Configuration
+:Configuration rdf:type owl:Class ;
+           rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Resource> .
+           
+###  http://data.opaline.data-players.com/ontology#FAQ
+:Program rdf:type owl:Class ;
+           rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Resource> .
 
-###  https://data.petr-msb.data-players.com/ontology#Label
-:Label rdf:type owl:Class ;
-       rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .
+###  http://data.opaline.data-players.com/ontology#BusinessCreationGoal
+:BusinessCreationGoal rdf:type owl:Class ;
+          rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .
 
+###  http://data.opaline.data-players.com/ontology#DegreeLevel
+:DegreeLevel rdf:type owl:Class ;
+           rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .
+         
+###  http://data.opaline.data-players.com/ontology#Gender
+:Gender rdf:type owl:Class ;
+           rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .
 
-###  https://data.petr-msb.data-players.com/ontology#LegalStatus
-:LegalStatus rdf:type owl:Class ;
-             rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair/OrganizationStatus> .
+###  http://data.opaline.data-players.com/ontology#FindingHelpGoal
+:FindingHelpGoal rdf:type owl:Class ;
+           rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .
 
+###  http://data.opaline.data-players.com/ontology#JobSearchGoal
+:JobSearchGoal rdf:type owl:Class ;
+           rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .  
 
-###  https://data.petr-msb.data-players.com/ontology#Network
-:Network rdf:type owl:Class ;
-         rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Ecosystem> .
+###  http://data.opaline.data-players.com/ontology#TrainingGoal
+:TrainingGoal rdf:type owl:Class ;
+           rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .  
 
-
-###  https://data.petr-msb.data-players.com/ontology#Service
-:Service rdf:type owl:Class ;
-         rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Resource> .
-
-
-###  https://data.petr-msb.data-players.com/ontology#Space
-:Space rdf:type owl:Class ;
-       rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Place> ;
-       rdfs:comment "a place into a building" .
+###  http://data.opaline.data-players.com/ontology#Label
+#:Label rdf:type owl:Class ;
+#       rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .
 
 
 #################################################################
 #    General axioms
 #################################################################
 
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( <http://virtual-assembly.org/ontologies/pair#ActivityField>
-                <http://virtual-assembly.org/ontologies/pair#Role>
-                <http://virtual-assembly.org/ontologies/pair#Status>
-                <http://virtual-assembly.org/ontologies/pair#Type>
-                <http://virtual-assembly.org/ontologies/pair/Grade>
-                :Label
-              )
-] .
+# [ rdf:type owl:AllDisjointClasses ;
+#   owl:members ( <http://virtual-assembly.org/ontologies/pair#ActivityField>
+#                 <http://virtual-assembly.org/ontologies/pair#Role>
+#                 <http://virtual-assembly.org/ontologies/pair#Status>
+#                 <http://virtual-assembly.org/ontologies/pair#Type>
+#                 <http://virtual-assembly.org/ontologies/pair/Grade>
+#                 :Label
+#               )
+# ] .
 
 
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( <http://virtual-assembly.org/ontologies/pair#AtomBasedResource>
-                <http://virtual-assembly.org/ontologies/pair#BitBasedResource>
-                <http://virtual-assembly.org/ontologies/pair#ConceptBasedResource>
-                <http://virtual-assembly.org/ontologies/pair#HumanBasedResource>
-                <http://virtual-assembly.org/ontologies/pair#MoneyBasedResource>
-                :Equipment
-                :Service
-              )
-] .
+# [ rdf:type owl:AllDisjointClasses ;
+#   owl:members ( <http://virtual-assembly.org/ontologies/pair#AtomBasedResource>
+#                 <http://virtual-assembly.org/ontologies/pair#BitBasedResource>
+#                 <http://virtual-assembly.org/ontologies/pair#ConceptBasedResource>
+#                 <http://virtual-assembly.org/ontologies/pair#HumanBasedResource>
+#                 <http://virtual-assembly.org/ontologies/pair#MoneyBasedResource>
+#                 :Program
+#               )
+# ] .
 
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

@@ -13,7 +13,7 @@ const PersonList = props => (
           <PersonIcon />
         </Avatar>
       )}
-      linkType="show"
+      linkType="edit"
     />
   </List>
 )

@@ -53,5 +53,10 @@
     "prefix": "semapps",
     "owl": "",
     "url": "http://semapps.org/ns/core#"
+  },
+  {
+    "prefix": "opal",
+    "owl": "",
+    "url": "http://data.opaline.data-players.com/ontology#"
   }
 ]

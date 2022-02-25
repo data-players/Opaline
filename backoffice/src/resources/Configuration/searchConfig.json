@@ -1,0 +1,81 @@
+{
+  "fields" : [
+    {
+      "type": "field-choice",
+      "name": "goal",
+      "title": "Dîtes-nous en plus sur votre <strong>projet</strong>...",
+      "icons": {
+        "opal:hasBusinessCreationGoals":"construction",
+        "opal:hasJobSearchGoals":"search",
+        "opal:hasTrainingGoals":"school",
+        "opal:hasFindingHelpGoals":"accessibility-new"
+      },
+      "fields": [
+        {
+          "type": "chosen-field",
+          "parent": "goal",
+          "name": "opal:hasBusinessCreationGoals",
+          "label": "Création d'entreprise",
+          "title": "Vous voulez <strong>créer une entreprise</strong>...<br>Où en êtes vous ?",
+          "required": true
+        },{
+          "type": "chosen-field",
+          "parent": "goal",
+          "name": "opal:hasJobSearchGoals",
+          "label": "Recherche d'emploi",
+          "title": "De quoi avez-vous <strong>besoin</strong> ?",
+          "multiple": 3,
+          "required": true
+        },{
+          "type": "chosen-field",
+          "parent": "goal",
+          "name": "opal:hasTrainingGoals",
+          "label": "Formation",
+          "title": "Précisez vos besoins de <strong>formation</strong>...",
+          "required": true
+        },{
+          "type": "chosen-field",
+          "parent": "goal",
+          "name": "opal:hasFindingHelpGoals",
+          "label": "Accompagnement",
+          "title": "Dîtes nous en plus ?",
+          "multiple": 999,
+          "required": true
+        },{
+          "type": "no-choice",
+          "parent": "goal",
+          "name": "opal:noIdea",
+          "label": "Je suis un peu perdu(e)",
+          "fullWidth": true
+        }
+      ]
+    },{
+      "type": "standard",
+      "name": "opal:hasDegreeLevel",
+      "label": "Niveau d'études",
+      "title": "Votre niveau <strong>d'études</strong> ?",
+      "fullWidth": true
+    },{
+      "type": "standard",
+      "name": "opal:hasGenders",
+      "label": "Genre",
+      "title": "Vous <strong>êtes</strong>... ?",
+      "icons": {
+        "femme":"woman",
+        "homme":"man"
+      }
+    },{
+      "type": "boolean",
+      "name": "opal:rqth",
+      "label": "RQTH",
+      "title": "Êtes-vous en situation de  <strong>handicap</strong> ?"
+    },{
+      "type": "range",
+      "name": "age",
+      "min": "opal:minimumAge",
+      "max": "opal:maximumAge",
+      "label": "Votre âge",
+      "title": "Quel <strong>âge</strong> avez-vous ?"
+    }
+  ]
+}

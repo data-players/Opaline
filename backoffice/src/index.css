@@ -12,3 +12,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+/*** SideMenu ***/
+.MuiDrawer-root .MuiPaper-root.MuiDrawer-paper.MuiDrawer-paperAnchorLeft,
+.MuiDrawer-root .MuiPaper-root.MuiDrawer-paper.MuiDrawer-paperAnchorLeft > div {
+  width: 240px;
+}
+@media (min-width: 1200px) {
+  .MuiDrawer-root .MuiPaper-root.MuiDrawer-paper.MuiDrawer-paperAnchorLeft,
+  .MuiDrawer-root .MuiPaper-root.MuiDrawer-paper.MuiDrawer-paperAnchorLeft > div {
+    width: 300px;
+  }
+}
+.MuiDrawer-root .MuiButtonBase-root.MuiListItem-root.MuiMenuItem-root {
+  white-space: normal;
+}
+

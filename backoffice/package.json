@@ -23,6 +23,7 @@
     "ra-language-french": "^3.13.1",
     "react": "^16.13.1",
     "react-admin": "^3.13.1",
+    "react-admin-json-view": "^1.2.1", 
     "react-dom": "^16.13.1",
     "react-leaflet": "^3.2.5",
     "react-leaflet-markercluster": "^3.0.0-rc1",

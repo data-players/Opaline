@@ -13,7 +13,7 @@ import OrganizationFilterSidebar from './OrganizationFilterSidebar';
 const OrganizationList = props => {
   return <MultiViewsList
     aside={<OrganizationFilterSidebar />}
-    actions={<ListActions exporter={true} />}
+    actions={<ListActions exporter={()=>(true)} />}
     views={{
       list: {
         label: 'Liste',
@@ -25,7 +25,7 @@ const OrganizationList = props => {
             primaryText={record => record['pair:label']}
             secondaryText={record => record['pair:description']}
             leftAvatar={record => (
-              <Avatar src={record['petr:logo']} width="100%">
+              <Avatar src={record['pair:depictedBy']} width="100%">
                 <HomeIcon />
               </Avatar>
             )}
@@ -43,7 +43,7 @@ const OrganizationList = props => {
             latitude={record => record['pair:hasLocation'] && record['pair:hasLocation']['pair:latitude']}
             longitude={record => record['pair:hasLocation'] && record['pair:hasLocation']['pair:longitude']}
             label={record => record['pair:label']}
-            description={record => record['pair:comment']}
+            /*description={record => record['pair:comment']}*/
             scrollWheelZoom
           />
         )
