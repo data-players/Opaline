@@ -95,8 +95,8 @@ export const ProgramEdit = props => {
           </ReferenceInput>
           { organization &&
             <ReferenceInput
-              source="opal:hasContactPerson"
-              reference="ContactPerson"
+              source="opal:OffersPlace"
+              reference="Place"
               fullWidth
               filter={{"pair:affiliates":organization}}
             >

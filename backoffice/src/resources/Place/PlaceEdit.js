@@ -1,31 +1,25 @@
-import { default as React } from 'react';
-
-import { TextInput } from "ra-ui-materialui";
-import {
-  ReferenceInput,
-  SelectInput,
-  required
-} from 'react-admin';
-
-import { MarkdownInput } from '@semapps/markdown-components'
-import PairLocationInput from '../../pair/PairLocationInput';
-import Title from '../commons/Title';
+import React from 'react';
+import { ReferenceInput, SelectInput, SimpleForm, TextInput, required } from 'react-admin';
 import { EditWithPermissions } from '@semapps/auth-provider';
+import { MarkdownInput } from '@semapps/markdown-components'
+import Title from "../commons/Title";
+import PairLocationInput from '../../pair/PairLocationInput';
 
 export const PlaceEdit = props => (
   <EditWithPermissions title={<Title />} {...props} >
-    <TextInput source="pair:label" fullWidth validate={[required()]} />
-    {/*
-    <ReferenceInput
-      source="opal:placeOfferedBy"
-      reference="Organization"
-      validate={[required()]}
-      fullWidth
-    >
-      <SelectInput optionText="pair:label" />
-    </ReferenceInput>
-    <PairLocationInput source="pair:hasLocation" fullWidth validate={[required()]} />*/}
-    <MarkdownInput source="pair:description" multiline fullWidth />
+    <SimpleForm>
+      <TextInput source="pair:label" fullWidth validate={[required()]} />
+      <ReferenceInput
+        source="opal:placeOfferedBy"
+        reference="Organization"
+        validate={[required()]}
+        fullWidth
+      >
+        <SelectInput optionText="pair:label" />
+      </ReferenceInput>
+      <PairLocationInput source="pair:hasLocation" fullWidth validate={[required()]} />
+      <MarkdownInput source="pair:description" multiline fullWidth />
+    </SimpleForm>
   </EditWithPermissions>
 );
 
