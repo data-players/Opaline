@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 
 import { TextInput } from "ra-ui-materialui";
 import {
+  ArrayInput,
   BooleanInput,
+  DateInput,
   FormTab,
   NumberInput,
   ReferenceInput,
   SelectArrayInput,
   SelectInput,
+  SimpleFormIterator,
   TabbedForm,
   required,
   useEditController
@@ -74,7 +77,22 @@ export const ProgramEdit = props => {
         <BooleanInput source="opal:poleEmploi" defaultValue={false} fullWidth />
         <TextInput source="opal:otherInfos" fullWidth />
         <TextInput source="opal:duration" fullWidth />
+        <ArrayInput source="opal:startingDates">
+          <SimpleFormIterator>
+            <DateInput label="Dates de démarrage"/>
+          </SimpleFormIterator>
+        </ArrayInput>
+        <NumberInput source="opal:numberOfParticipants" fullWidth />
         <BooleanInput source="opal:financialParticipation" defaultValue={false} fullWidth />
+        <TextInput type="url" source="opal:registerLink" fullWidth />
+        <ReferenceInput
+          source="opal:hasTrainingMode"
+          reference="TrainingMode"
+          validate={[required()]}
+          fullWidth
+        >
+          <SelectInput optionText="pair:label" />
+        </ReferenceInput>
         { organization &&
           <ReferenceInput
             source="opal:hasContactPerson"
@@ -85,7 +103,6 @@ export const ProgramEdit = props => {
             <SelectInput optionText={record => record["pair:firstName"] + ' ' + record["pair:lastName"]} allowEmpty resettable />
           </ReferenceInput>
         }
-
       </FormTab>
       <FormTab label="Objectifs">
         <ReferenceArrayInput source="opal:hasJobSearchGoals" reference="JobSearchGoal" fullWidth validate={[required()]}>

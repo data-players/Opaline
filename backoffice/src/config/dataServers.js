@@ -16,6 +16,7 @@ const dataServers = {
         'opal:Gender': ['/genders'],
         'opal:JobSearchGoal': ['/job-search-goals'],
         'opal:TrainingGoal': ['/training-goals'],
+        'opal:TrainingMode': ['/training-modes'],
         'opal:Program': ['/programs'],
         'pair:Organization': ['/organizations'],
         'pair:Person': ['/persons'],

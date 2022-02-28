@@ -94,4 +94,9 @@ module.exports = [
     acceptedTypes: ['opal:TrainingGoal'],
     newResourcesPermissions: writePermissionsToCreator
   },
+  {
+    path: '/training-modes',
+    acceptedTypes: ['opal:TrainingMode'],
+    newResourcesPermissions: writePermissionsToCreator
+  },
 ];
