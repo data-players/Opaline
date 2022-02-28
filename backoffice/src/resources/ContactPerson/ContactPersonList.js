@@ -8,7 +8,7 @@ import ContactPersonFilterSidebar from './ContactPersonFilterSidebar';
 const ContactPersonList = props => (
   <ListWithPermissions aside={<ContactPersonFilterSidebar />} {...props}>
     <SimpleList 
-      primaryText={record => record['pair:label']}
+      primaryText={record => record['pair:firstName'] + ' ' + record['pair:lastName']}
       secondaryText={record => record['pair:description']}
       leftAvatar={() => <Avatar width="100%"><ContactPersonIcon /></Avatar>}
       linkType="edit" 

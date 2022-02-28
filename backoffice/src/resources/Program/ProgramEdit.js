@@ -82,7 +82,7 @@ export const ProgramEdit = props => {
             fullWidth
             filter={{"pair:affiliates":organization}}
           >
-            <SelectInput optionText="pair:label" allowEmpty resettable />
+            <SelectInput optionText={record => record["pair:firstName"] + ' ' + record["pair:lastName"]} allowEmpty resettable />
           </ReferenceInput>
         }
 

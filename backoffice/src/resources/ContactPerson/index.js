@@ -1,4 +1,4 @@
-import { PairResourceCreate } from '../../pair';
+import ContactPersonCreate from './ContactPersonCreate';
 import ContactPersonEdit from './ContactPersonEdit';
 import ContactPersonList from './ContactPersonList';
 import ContactPersonIcon from '@material-ui/icons/ContactMail';
@@ -6,7 +6,7 @@ import ContactPersonIcon from '@material-ui/icons/ContactMail';
 export default {
   config: {
       list: ContactPersonList,
-      create: PairResourceCreate,
+      create: ContactPersonCreate,
       edit: ContactPersonEdit,
       icon: ContactPersonIcon,
       options: {
@@ -28,7 +28,8 @@ export default {
       name: 'Personne à contacter |||| Personnes à contacter',
       fields: {
         'pair:affiliates': 'Rattachée à', /*Organization*/
-        'pair:label': 'Nom complet',
+        'pair:firstName': 'Prénom',
+        'pair:lastName': 'Nom',
         'pair:description': 'Description',
         'pair:phone': 'Téléphone',
         'pair:e-mail': 'E-mail',

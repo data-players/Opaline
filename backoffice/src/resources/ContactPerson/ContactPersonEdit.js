@@ -15,13 +15,14 @@ export const ContactPersonEdit = props => (
       >
         <SelectInput optionText="pair:label" />
       </ReferenceInput>
-      <TextInput source="pair:label" fullWidth validate={[required()]} />
+      <TextInput source="pair:firstName" fullWidth validate={[required()]} />
+      <TextInput source="pair:lastName" fullWidth validate={[required()]} />
       <MarkdownInput multiline source="pair:description" fullWidth />
       <TextInput source="pair:phone" fullWidth />
       <TextInput source="pair:e-mail" fullWidth />
       <TextInput source="opal:civilityTitle" fullWidth />
     </SimpleForm>
   </EditWithPermissions>
-);
+)
 
 export default ContactPersonEdit;
