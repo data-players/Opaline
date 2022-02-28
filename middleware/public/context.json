@@ -65,6 +65,12 @@
     "opal:TrainingGoalOf": {
       "@type": "@id"
     },
+    "opal:hasTrainingMode": {
+      "@type": "@id"
+    },
+    "opal:TrainingModeOf": {
+      "@type": "@id"
+    },
     
     "pair:image": {
       "@type": "@id"
