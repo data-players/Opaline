@@ -19,6 +19,7 @@ const dataServers = {
         'opal:Program': ['/programs'],
         'pair:Organization': ['/organizations'],
         'pair:Person': ['/persons'],
+        'pair:Place': ['/places'],
       }
     },
     uploadsContainer: '/files'

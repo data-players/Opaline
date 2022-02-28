@@ -22,7 +22,12 @@
       "@id": "as:image",
       "@type": "@id"
     },
-    
+    "opal:placeOfferedBy": {
+      "@type": "@id"
+    },
+    "opal:placeOffers": {
+      "@type": "@id"
+    },
     "opal:programOfferedBy": {
       "@type": "@id"
     },

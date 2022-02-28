@@ -56,7 +56,6 @@ module.exports = [
     acceptedTypes: ['opal:FAQ'],
     newResourcesPermissions: writePermissionsToCreator
   },
-
   {
     path: '/genders',
     acceptedTypes: ['opal:Gender'],
@@ -76,6 +75,11 @@ module.exports = [
   {
     path: '/persons',
     acceptedTypes: ['pair:Person'],
+    newResourcesPermissions: writePermissionsToCreator
+  },
+  {
+    path: '/places',
+    acceptedTypes: ['pair:place'],
     newResourcesPermissions: writePermissionsToCreator
   },
   {

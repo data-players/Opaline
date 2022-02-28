@@ -27,6 +27,20 @@
                  rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#offers> ;
                  rdfs:domain <http://virtual-assembly.org/ontologies/pair#Organization> ;
                  rdfs:range :Program .
+                 
+###  http://data.opaline.data-players.com/ontology#placeOfferedBy
+:placeOfferedBy rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#offeredBy> ;
+                    owl:inverseOf :placeOffers ;
+                    rdfs:domain :Place ;
+                    rdfs:range <http://virtual-assembly.org/ontologies/pair#Organization> .
+
+
+###  http://data.opaline.data-players.com/ontology#placeOffers
+:placeOffers rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#offers> ;
+                 rdfs:domain <http://virtual-assembly.org/ontologies/pair#Organization> ;
+                 rdfs:range :Place .
 
 ###  http://data.opaline.data-players.com/ontology#hasBusinessCreationGoal
 :hasBusinessCreationGoal rdf:type owl:ObjectProperty ;
