@@ -50,6 +50,7 @@ export default {
         'opal:hasTrainingGoals': 'Se former',
         'opal:hasFindingHelpGoals': 'Besoin d\'aide',
         'opal:noIdea': 'Je ne sais pas ce que je veux faire',
+        'opal:hasContactPerson': 'Personne à contacter', /*ContactPerson*/
       }
     }
   }

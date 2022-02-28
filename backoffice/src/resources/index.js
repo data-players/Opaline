@@ -2,6 +2,7 @@
 export { default as Organization } from "./Organization";
 export { default as Program } from "./Program";
 export { default as Configuration } from "./Configuration";
+export { default as ContactPerson } from "./ContactPerson";
 export { default as FAQ } from "./FAQ";
 export { default as Person } from "./Person";
 

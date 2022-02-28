@@ -58,6 +58,14 @@ export const programEdit = props => (
         <TextInput source="opal:otherInfos" fullWidth />
         <TextInput source="opal:duration" fullWidth />
         <BooleanInput source="opal:financialParticipation" defaultValue={false} fullWidth />
+        <ReferenceInput
+          source="opal:hasContactPerson"
+          reference="ContactPerson"
+          fullWidth
+        >
+          <SelectInput optionText="pair:label" allowEmpty resettable />
+        </ReferenceInput>
+
       </FormTab>
       <FormTab label="Objectifs">
         <ReferenceArrayInput source="opal:hasJobSearchGoals" reference="JobSearchGoal" fullWidth validate={[required()]}>
