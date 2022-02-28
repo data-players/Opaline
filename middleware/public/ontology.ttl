@@ -106,6 +106,18 @@
             rdfs:domain :TrainingGoal ;
             rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
 
+###  http://data.opaline.data-players.com/ontology#hasTrainingMode
+:hasTrainingMode rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
+             rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
+             rdfs:range :TrainingMode .
+             
+###  http://data.opaline.data-players.com/ontology#TrainingMode
+:TrainingMode rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
+            owl:inverseOf :hasTrainingMode ;
+            rdfs:domain :TrainingMode ;
+            rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
 
 ###  http://data.opaline.data-players.com/ontology#hasLabel
 #:hasLabel rdf:type owl:ObjectProperty ;
@@ -167,9 +179,27 @@
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:string .
+        
+###  http://data.opaline.data-players.com/ontology#startingDates
+:startingDates rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
+        rdfs:range xsd:date .
+        
+###  http://data.opaline.data-players.com/ontology#numberOfParticipants
+:numberOfParticipants rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
+        rdfs:range xsd:string .
 
 ###  http://data.opaline.data-players.com/ontology#financialParticipation
 :financialParticipation rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
+        rdfs:range xsd:string .
+        
+###  http://data.opaline.data-players.com/ontology#registerLink
+:registerLink rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:string .
@@ -225,7 +255,11 @@
 ###  http://data.opaline.data-players.com/ontology#TrainingGoal
 :TrainingGoal rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .  
-
+           
+###  http://data.opaline.data-players.com/ontology#TrainingMode
+:TrainingMode rdf:type owl:Class ;
+           rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .  
+           
 ###  http://data.opaline.data-players.com/ontology#Label
 #:Label rdf:type owl:Class ;
 #       rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .
