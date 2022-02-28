@@ -42,19 +42,6 @@
                  rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
                  rdfs:range :ContactPerson .
 
-###  http://data.opaline.data-players.com/ontology#affiliatedBy
-:affiliatedBy rdf:type owl:ObjectProperty ;
-                 rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#affiliatedBy> ;
-                 rdfs:domain <http://virtual-assembly.org/ontologies/pair#Organization> ;
-                 rdfs:range :ContactPerson .
-                 
-###  http://data.opaline.data-players.com/ontology#affiliates
-:affiliates rdf:type owl:ObjectProperty ;
-                 rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#affiliates> ;
-                 owl:inverseOf :isContactPersonOf ;
-                 rdfs:domain :ContactPerson ;
-                 rdfs:range <http://virtual-assembly.org/ontologies/pair#Organization> .
-                 
 ###  http://data.opaline.data-players.com/ontology#hasBusinessCreationGoal
 :hasBusinessCreationGoal rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
