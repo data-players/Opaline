@@ -1,4 +1,4 @@
-import { default as React } from 'react';
+import React, { useState } from 'react';
 
 import { TextInput } from "ra-ui-materialui";
 import {
@@ -9,7 +9,8 @@ import {
   SelectArrayInput,
   SelectInput,
   TabbedForm,
-  required
+  required,
+  useEditController
 } from 'react-admin';
 
 import { MarkdownInput } from '@semapps/markdown-components'
@@ -17,7 +18,22 @@ import Title from '../commons/Title';
 import { EditWithPermissions } from '@semapps/auth-provider';
 import { ReferenceArrayInput } from '@semapps/semantic-data-provider';
 
-export const programEdit = props => (
+export const ProgramEdit = props => {
+  
+  const controllerProps = useEditController(props);
+  const [organization, setOrganization] = useState();
+  const [newOrganization, setNewOrganization] = useState();
+  if ( ! organization && ! newOrganization ) {
+    if ( controllerProps?.record && controllerProps.record['opal:programOfferedBy'] ) {
+      setOrganization(controllerProps.record['opal:programOfferedBy']);
+    }
+  } else {
+    if ( newOrganization && organization !== newOrganization ) {
+      setOrganization(newOrganization);
+    }
+  }
+ 
+  return (
   <EditWithPermissions title={<Title />} {...props} >
     <TabbedForm>
       <FormTab label="Principal">
@@ -27,6 +43,7 @@ export const programEdit = props => (
           reference="Organization"
           validate={[required()]}
           fullWidth
+          onChange={event => setNewOrganization(event.target.value)}
         >
           <SelectInput optionText="pair:label" />
         </ReferenceInput>
@@ -58,13 +75,16 @@ export const programEdit = props => (
         <TextInput source="opal:otherInfos" fullWidth />
         <TextInput source="opal:duration" fullWidth />
         <BooleanInput source="opal:financialParticipation" defaultValue={false} fullWidth />
-        <ReferenceInput
-          source="opal:hasContactPerson"
-          reference="ContactPerson"
-          fullWidth
-        >
-          <SelectInput optionText="pair:label" allowEmpty resettable />
-        </ReferenceInput>
+        { organization &&
+          <ReferenceInput
+            source="opal:hasContactPerson"
+            reference="ContactPerson"
+            fullWidth
+            filter={{"pair:affiliates":organization}}
+          >
+            <SelectInput optionText="pair:label" allowEmpty resettable />
+          </ReferenceInput>
+        }
 
       </FormTab>
       <FormTab label="Objectifs">
@@ -84,6 +104,7 @@ export const programEdit = props => (
       </FormTab>
     </TabbedForm>
   </EditWithPermissions>
-);
+  );
+}
 
-export default programEdit;
+export default ProgramEdit;

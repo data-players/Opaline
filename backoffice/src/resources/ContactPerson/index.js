@@ -27,6 +27,7 @@ export default {
     fr: {
       name: 'Personne à contacter |||| Personnes à contacter',
       fields: {
+        'pair:affiliates': 'Rattachée à', /*Organization*/
         'pair:label': 'Nom complet',
         'pair:description': 'Description',
         'pair:phone': 'Téléphone',

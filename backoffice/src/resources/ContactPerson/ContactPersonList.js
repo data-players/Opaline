@@ -1,17 +1,19 @@
 import React from 'react';
-import { List, SimpleList } from "@semapps/archipelago-layout";
+import { SimpleList } from "@semapps/archipelago-layout";
+import { ListWithPermissions } from '@semapps/auth-provider';
 import ContactPersonIcon from '@material-ui/icons/ContactMail';
 import { Avatar } from "@material-ui/core";
+import ContactPersonFilterSidebar from './ContactPersonFilterSidebar';
 
 const ContactPersonList = props => (
-  <List  {...props} sort={{ field: 'pair:label', order: 'ASC' }}>
-      <SimpleList 
-        primaryText={record => record['pair:label']}
-        secondaryText={record => record['pair:description']}
-        leftAvatar={() => <Avatar width="100%"><ContactPersonIcon /></Avatar>}
-        linkType="edit" 
-      />
-  </List>
+  <ListWithPermissions aside={<ContactPersonFilterSidebar />} {...props}>
+    <SimpleList 
+      primaryText={record => record['pair:label']}
+      secondaryText={record => record['pair:description']}
+      leftAvatar={() => <Avatar width="100%"><ContactPersonIcon /></Avatar>}
+      linkType="edit" 
+    />
+  </ListWithPermissions>
 )
 
 export default ContactPersonList;
