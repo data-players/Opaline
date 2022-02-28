@@ -9,6 +9,7 @@ export { default as Person } from "./Person";
 export { default as Concept } from './Concept';
 export { default as Gender } from './Concept/Gender';
 export { default as DegreeLevel } from './Concept/DegreeLevel';
+export { default as TrainingMode } from './Concept/TrainingMode';
 export { default as BusinessCreationGoal } from './Concept/BusinessCreationGoal';
 export { default as JobSearchGoal } from './Concept/JobSearchGoal';
 export { default as FindingHelpGoal } from './Concept/FindingHelpGoal';
