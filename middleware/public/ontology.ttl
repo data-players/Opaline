@@ -196,7 +196,7 @@
 :financialParticipation rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
-        rdfs:range xsd:string .
+        rdfs:range xsd:boolean .
         
 ###  http://data.opaline.data-players.com/ontology#registerLink
 :registerLink rdf:type owl:DatatypeProperty ;
@@ -214,7 +214,7 @@
 :json rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
-        rdfs:range xsd:boolean .
+        rdfs:range xsd:string .
         
 #################################################################
 #    Classes

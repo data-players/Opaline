@@ -162,7 +162,7 @@ const middleware = (store) => (next) => (action) => {
       }
     })
     .catch((error) => {
-      console.log('error:', error);
+      console.log('error:', container, error);
     });
   }
   
