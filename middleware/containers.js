@@ -78,8 +78,8 @@ module.exports = [
     newResourcesPermissions: writePermissionsToCreator
   },
   {
-    path: '/places',
-    acceptedTypes: ['pair:place'],
+    path: '/training-sites',
+    acceptedTypes: ['opal:TrainingSite'],
     newResourcesPermissions: writePermissionsToCreator
   },
   {

@@ -28,19 +28,19 @@
                  rdfs:domain <http://virtual-assembly.org/ontologies/pair#Organization> ;
                  rdfs:range :Program .
                  
-###  http://data.opaline.data-players.com/ontology#placeOfferedBy
-:placeOfferedBy rdf:type owl:ObjectProperty ;
+###  http://data.opaline.data-players.com/ontology#trainingSiteOfferedBy
+:trainingSiteOfferedBy rdf:type owl:ObjectProperty ;
                     rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#offeredBy> ;
-                    owl:inverseOf :placeOffers ;
-                    rdfs:domain :Place ;
+                    owl:inverseOf :trainingSiteOffers ;
+                    rdfs:domain :TrainingSite ;
                     rdfs:range <http://virtual-assembly.org/ontologies/pair#Organization> .
 
 
-###  http://data.opaline.data-players.com/ontology#placeOffers
-:placeOffers rdf:type owl:ObjectProperty ;
+###  http://data.opaline.data-players.com/ontology#trainingSiteOffers
+:trainingSiteOffers rdf:type owl:ObjectProperty ;
                  rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#offers> ;
                  rdfs:domain <http://virtual-assembly.org/ontologies/pair#Organization> ;
-                 rdfs:range :Place .
+                 rdfs:range :TrainingSite .
 
 ###  http://data.opaline.data-players.com/ontology#hasBusinessCreationGoal
 :hasBusinessCreationGoal rdf:type owl:ObjectProperty ;
@@ -273,7 +273,11 @@
 ###  http://data.opaline.data-players.com/ontology#TrainingMode
 :TrainingMode rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .  
-           
+
+###  http://data.opaline.data-players.com/ontology#TrainingSite
+:TrainingSite rdf:type owl:Class ;
+           rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Place> . 
+                   
 ###  http://data.opaline.data-players.com/ontology#Label
 #:Label rdf:type owl:Class ;
 #       rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .

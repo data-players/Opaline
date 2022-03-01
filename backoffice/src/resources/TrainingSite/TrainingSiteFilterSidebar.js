@@ -18,14 +18,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const PlaceFilterSidebar = () => {
+const TrainingSiteFilterSidebar = () => {
   const classes = useStyles();
   return (
     <Card className={classes.card}>
       <CardContent className={classes.cardContent}>
         <ReferenceFilter
           reference="Organization"
-          source="opal:placeOfferedBy"
+          source="opal:trainingSiteOfferedBy"
           // inverseSource=""
           sort={{ field: 'pair:label', order: 'DESC' }}
           limit={100}
@@ -35,4 +35,4 @@ const PlaceFilterSidebar = () => {
   );
 };
 
-export default PlaceFilterSidebar;
+export default TrainingSiteFilterSidebar;

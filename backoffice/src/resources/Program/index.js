@@ -55,7 +55,7 @@ export default {
         'opal:hasTrainingGoals': 'Se former',
         'opal:hasFindingHelpGoals': 'Besoin d\'aide',
         'opal:noIdea': 'Je ne sais pas ce que je veux faire',
-        'opal:OffersPlace': 'Lieux de formation' /*Place*/
+        'opal:offersTrainingSite': 'Lieux de formation' /*TrainingSite*/
       }
     }
   }

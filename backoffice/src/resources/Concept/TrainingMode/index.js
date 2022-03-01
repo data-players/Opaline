@@ -10,7 +10,7 @@ export default {
     edit: ConceptEdit,
     icon: StyleIcon,
     options: {
-      label: 'Mode de formation',
+      label: 'Modes de formation',
       parent: 'Concept'
     }
   },
@@ -24,7 +24,7 @@ export default {
   },
   translations: {
     fr: {
-      name: 'Mode de formation |||| Mode de formation',
+      name: 'Mode de formation |||| Modes de formation',
       fields: {
         '@type': 'Classe',
         'pair:label': 'Nom'

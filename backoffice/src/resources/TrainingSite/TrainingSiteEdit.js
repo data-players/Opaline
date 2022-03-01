@@ -5,12 +5,12 @@ import { MarkdownInput } from '@semapps/markdown-components'
 import Title from "../commons/Title";
 import PairLocationInput from '../../pair/PairLocationInput';
 
-export const PlaceEdit = props => (
+export const TrainingSiteEdit = props => (
   <EditWithPermissions title={<Title />} {...props} >
     <SimpleForm>
       <TextInput source="pair:label" fullWidth validate={[required()]} />
       <ReferenceInput
-        source="opal:placeOfferedBy"
+        source="opal:trainingSiteOfferedBy"
         reference="Organization"
         validate={[required()]}
         fullWidth
@@ -23,4 +23,4 @@ export const PlaceEdit = props => (
   </EditWithPermissions>
 );
 
-export default PlaceEdit;
+export default TrainingSiteEdit;

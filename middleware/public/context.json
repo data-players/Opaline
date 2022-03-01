@@ -22,10 +22,10 @@
       "@id": "as:image",
       "@type": "@id"
     },
-    "opal:placeOfferedBy": {
+    "opal:trainingSiteOfferedBy": {
       "@type": "@id"
     },
-    "opal:placeOffers": {
+    "opal:trainingSiteOffers": {
       "@type": "@id"
     },
     "opal:programOfferedBy": {

@@ -1,20 +1,20 @@
 import { PairResourceCreate } from '../../pair';
-import PlaceEdit from './PlaceEdit';
-import PlaceList from './PlaceList';
-import PlaceIcon from '@material-ui/icons/LocationOn';
+import TrainingSiteEdit from './TrainingSiteEdit';
+import TrainingSiteList from './TrainingSiteList';
+import TrainingSiteIcon from '@material-ui/icons/LocationOn';
 
 export default {
   config: {
-      list: PlaceList,
+      list: TrainingSiteList,
       create: PairResourceCreate,
-      edit: PlaceEdit,
-      icon: PlaceIcon,
+      edit: TrainingSiteEdit,
+      icon: TrainingSiteIcon,
       options: {
         label: 'Lieux de formation'
       },
   },
   dataModel: {
-    types: ['pair:Place'],
+    types: ['opal:TrainingSite'],
     list: {
       dereference: ['pair:hasLocation/pair:hasPostalAddress'],
       forceArray: [],
@@ -27,7 +27,7 @@ export default {
     fr: {
       name: 'Lieu de formation |||| Lieux de formation',
       fields: {
-        'opal:placeOfferedBy': 'Proposé par', /*Organization*/
+        'opal:trainingSiteOfferedBy': 'Proposé par', /*Organization*/
         'pair:label': 'Nom',
         'pair:description': 'Description',
         'pair:hasLocation': 'Adresse',

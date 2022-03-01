@@ -35,7 +35,7 @@ export const ProgramEdit = props => {
       setOrganization(newOrganization);
     }
   }
-
+  
   return (
     <EditWithPermissions title={<Title />} {...props} >
       <TabbedForm>
@@ -95,12 +95,12 @@ export const ProgramEdit = props => {
           </ReferenceInput>
           { organization &&
             <ReferenceInput
-              source="opal:OffersPlace"
-              reference="Place"
+              source="opal:offersTrainingSite"
+              reference="TrainingSite"
               fullWidth
-              filter={{"pair:affiliates":organization}}
+              filter={{"opal:trainingSiteOfferedBy":organization}}
             >
-              <SelectInput optionText={record => record["pair:firstName"] + ' ' + record["pair:lastName"]} allowEmpty resettable />
+              <SelectInput optionText="pair:label" allowEmpty resettable />
             </ReferenceInput>
           }
         </FormTab>
