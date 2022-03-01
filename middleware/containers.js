@@ -78,11 +78,6 @@ module.exports = [
     newResourcesPermissions: writePermissionsToCreator
   },
   {
-    path: '/training-sites',
-    acceptedTypes: ['opal:TrainingSite'],
-    newResourcesPermissions: writePermissionsToCreator
-  },
-  {
     path: '/programs',
     acceptedTypes: ['pair:Program'],
     newResourcesPermissions: writePermissionsToCreator
@@ -97,4 +92,11 @@ module.exports = [
     acceptedTypes: ['opal:TrainingMode'],
     newResourcesPermissions: writePermissionsToCreator
   },
+  {
+    path: '/training-sites',
+    acceptedTypes: ['opal:TrainingSite'],
+    dereference: ['pair:hasLocation/pair:hasPostalAddress'],
+    newResourcesPermissions: writePermissionsToCreator
+  },
+
 ];
