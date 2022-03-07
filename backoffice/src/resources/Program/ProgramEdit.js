@@ -24,16 +24,14 @@ import { ReferenceArrayInput } from '@semapps/semantic-data-provider';
 export const ProgramEdit = props => {
 
   const controllerProps = useEditController(props);
-  const [organization, setOrganization] = useState();
   const [newOrganization, setNewOrganization] = useState();
-  if ( ! organization && ! newOrganization ) {
-    if ( controllerProps?.record && controllerProps.record['opal:programOfferedBy'] ) {
-      setOrganization(controllerProps.record['opal:programOfferedBy']);
-    }
-  } else {
-    if ( newOrganization && organization !== newOrganization ) {
-      setOrganization(newOrganization);
-    }
+  
+  let organization = null;
+  if ( controllerProps?.record && controllerProps.record['opal:programOfferedBy'] ) {
+    organization = controllerProps.record['opal:programOfferedBy'];
+  }
+  if ( newOrganization && organization !== newOrganization ) {
+    organization = newOrganization;
   }
   
   return (
