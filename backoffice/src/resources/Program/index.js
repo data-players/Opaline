@@ -34,7 +34,7 @@ export default {
     fr: {
       name: 'Programme |||| Les programmes',
       fields: {
-        'opal:programOfferedBy': 'Proposé par', /*Organization*/
+        'pair:offeredBy': 'Proposé par', /*Organization*/
         'pair:label': 'Nom',
         'pair:description': 'Description',
         'opal:minimumAge' : 'Age minimum',
@@ -55,7 +55,7 @@ export default {
         'opal:hasTrainingGoals': 'Se former',
         'opal:hasFindingHelpGoals': 'Besoin d\'aide',
         'opal:noIdea': 'Je ne sais pas ce que je veux faire',
-        'opal:offersTrainingSite': 'Lieux de formation' /*TrainingSite*/
+        'pair:offers': 'Lieux de formation' /*TrainingSite*/
       }
     }
   }

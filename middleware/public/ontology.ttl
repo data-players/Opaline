@@ -14,34 +14,6 @@
 #    Object Properties
 #################################################################
 
-###  http://data.opaline.data-players.com/ontology#programOfferedBy
-:programOfferedBy rdf:type owl:ObjectProperty ;
-                    rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#offeredBy> ;
-                    owl:inverseOf :programOffers ;
-                    rdfs:domain :Program ;
-                    rdfs:range <http://virtual-assembly.org/ontologies/pair#Organization> .
-
-
-###  http://data.opaline.data-players.com/ontology#programOffers
-:programOffers rdf:type owl:ObjectProperty ;
-                 rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#offers> ;
-                 rdfs:domain <http://virtual-assembly.org/ontologies/pair#Organization> ;
-                 rdfs:range :Program .
-                 
-###  http://data.opaline.data-players.com/ontology#trainingSiteOfferedBy
-:trainingSiteOfferedBy rdf:type owl:ObjectProperty ;
-                    rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#offeredBy> ;
-                    owl:inverseOf :trainingSiteOffers ;
-                    rdfs:domain :TrainingSite ;
-                    rdfs:range <http://virtual-assembly.org/ontologies/pair#Organization> .
-
-
-###  http://data.opaline.data-players.com/ontology#trainingSiteOffers
-:trainingSiteOffers rdf:type owl:ObjectProperty ;
-                 rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#offers> ;
-                 rdfs:domain <http://virtual-assembly.org/ontologies/pair#Organization> ;
-                 rdfs:range :TrainingSite .
-
 ###  http://data.opaline.data-players.com/ontology#hasBusinessCreationGoal
 :hasBusinessCreationGoal rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
@@ -132,20 +104,6 @@
             owl:inverseOf :hasTrainingMode ;
             rdfs:domain :TrainingMode ;
             rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
-
-###  http://data.opaline.data-players.com/ontology#hasLabel
-#:hasLabel rdf:type owl:ObjectProperty ;
-#          rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
-#          owl:inverseOf :labelOf ;
-#          rdfs:domain <http://virtual-assembly.org/ontologies/pair#Organization> ;
-#          rdfs:range :Label .
-
-###  http://data.opaline.data-players.com/ontology#labelOf
-#:labelOf rdf:type owl:ObjectProperty ;
-#         rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
-#         rdfs:domain :Label ;
-#         rdfs:range <http://virtual-assembly.org/ontologies/pair#Organization> .
-
 
 
 #################################################################

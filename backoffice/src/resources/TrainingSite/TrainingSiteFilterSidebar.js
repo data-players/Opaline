@@ -25,7 +25,7 @@ const TrainingSiteFilterSidebar = () => {
       <CardContent className={classes.cardContent}>
         <ReferenceFilter
           reference="Organization"
-          source="opal:trainingSiteOfferedBy"
+          source="pair:offeredBy"
           // inverseSource=""
           sort={{ field: 'pair:label', order: 'DESC' }}
           limit={100}

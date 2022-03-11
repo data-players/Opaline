@@ -10,7 +10,7 @@ export const TrainingSiteEdit = props => (
     <SimpleForm>
       <TextInput source="pair:label" fullWidth validate={[required()]} />
       <ReferenceInput
-        source="opal:trainingSiteOfferedBy"
+        source="pair:offeredBy"
         reference="Organization"
         validate={[required()]}
         fullWidth

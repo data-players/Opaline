@@ -27,7 +27,7 @@ export default {
     fr: {
       name: 'Lieu de formation |||| Lieux de formation',
       fields: {
-        'opal:trainingSiteOfferedBy': 'Proposé par', /*Organization*/
+        'pair:offeredBy': 'Proposé par', /*Organization*/
         'pair:label': 'Nom',
         'pair:description': 'Description',
         'pair:hasLocation': 'Adresse',

@@ -20,18 +20,6 @@
       "@id": "as:image",
       "@type": "@id"
     },
-    "opal:trainingSiteOfferedBy": {
-      "@type": "@id"
-    },
-    "opal:trainingSiteOffers": {
-      "@type": "@id"
-    },
-    "opal:programOfferedBy": {
-      "@type": "@id"
-    },
-    "opal:programOffers": {
-      "@type": "@id"
-    },
     "opal:hasBusinessCreationGoal": {
       "@type": "@id"
     },

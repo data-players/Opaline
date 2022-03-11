@@ -27,8 +27,8 @@ export const ProgramEdit = props => {
   const [newOrganization, setNewOrganization] = useState();
   
   let organization = null;
-  if ( controllerProps?.record && controllerProps.record['opal:programOfferedBy'] ) {
-    organization = controllerProps.record['opal:programOfferedBy'];
+  if ( controllerProps?.record && controllerProps.record['pair:offeredBy'] ) {
+    organization = controllerProps.record['pair:offeredBy'];
   }
   if ( newOrganization && organization !== newOrganization ) {
     organization = newOrganization;
@@ -40,7 +40,7 @@ export const ProgramEdit = props => {
         <FormTab label="Principal">
           <TextInput source="pair:label" fullWidth validate={[required()]} />
           <ReferenceInput
-            source="opal:programOfferedBy"
+            source="pair:offeredBy"
             reference="Organization"
             validate={[required()]}
             fullWidth
@@ -93,10 +93,10 @@ export const ProgramEdit = props => {
           </ReferenceInput>
           { organization &&
             <ReferenceInput
-              source="opal:offersTrainingSite"
+              source="pair:offers"
               reference="TrainingSite"
               fullWidth
-              filter={{"opal:trainingSiteOfferedBy":organization}}
+              filter={{"pair:offeredBy":organization}}
             >
               <SelectInput optionText="pair:label" allowEmpty resettable />
             </ReferenceInput>
