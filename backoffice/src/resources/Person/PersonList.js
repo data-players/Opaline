@@ -1,10 +1,11 @@
 import React from 'react';
-import { List, SimpleList } from "@semapps/archipelago-layout";
+import { SimpleList } from "@semapps/archipelago-layout";
+import { ListWithPermissions } from '@semapps/auth-provider';
 import PersonIcon from '@material-ui/icons/Person';
 import { Avatar } from "@material-ui/core";
 
 const PersonList = props => (
-  <List  {...props}>
+  <ListWithPermissions {...props} sort={{ field: 'pair:label', order: 'ASC' }}>
     <SimpleList
       primaryText={record => record['pair:label']}
       /*secondaryText={record => record['pair:label']}*/
@@ -15,7 +16,7 @@ const PersonList = props => (
       )}
       linkType="edit"
     />
-  </List>
+  </ListWithPermissions>
 )
 
 export default PersonList;

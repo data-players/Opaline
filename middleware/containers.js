@@ -24,6 +24,36 @@ const writePermissionsToCreator = creatorUri => {
   }
 };
 
+const writePermissionsToAll = creatorUri => {
+  console.log('---------------------------- writePermissionsToAll',CONFIG.HOME_URL+'_groups/superadmins');
+  return {
+    anon : {
+      read: true,
+      read: true,
+      write: true,
+      control : true
+    },
+    anyUser: {
+      read: true,
+      read: true,
+      write: true,
+      control : true
+    },
+    user: {
+      uri: creatorUri,
+      read: true,
+      write: true,
+      control : true
+    },
+    group: {
+      uri : CONFIG.HOME_URL+'_groups/superadmins',
+      read: true,
+      write: true,
+      control : true
+    }
+  }
+};
+
 module.exports = [
     {
       path: '/',
@@ -54,7 +84,7 @@ module.exports = [
   {
     path: '/faq',
     acceptedTypes: ['opal:FAQ'],
-    newResourcesPermissions: writePermissionsToCreator
+    newResourcesPermissions: writePermissionsToAll
   },
 
   {
@@ -71,7 +101,7 @@ module.exports = [
     path: '/organizations',
     acceptedTypes: ['pair:Organization'],
     dereference: ['pair:hasLocation/pair:hasPostalAddress'],
-    newResourcesPermissions: writePermissionsToCreator
+    newResourcesPermissions: writePermissionsToAll
   },
   {
     path: '/persons',
@@ -81,7 +111,7 @@ module.exports = [
   {
     path: '/programs',
     acceptedTypes: ['pair:Program'],
-    newResourcesPermissions: writePermissionsToCreator
+    newResourcesPermissions: writePermissionsToAll
   },
   {
     path: '/training-goals',
