@@ -181,10 +181,10 @@ const Program = ({ loading, program, structure, loadData, openContactForm }) => 
                       className={classes.iconButton}
                       component={Link}
                       to={'/Contact'}
-                      onClick={() => handleEmailClick({
-                        label: structure.label,
-                        emails: [structure["pair:e-mail"]]
-                      })}
+                      onClick={() => handleEmailClick([{
+                        Email: structure["pair:e-mail"],
+                        Name: structure.label
+                      }])}
                       disabled={structure["pair:e-mail"] ? false : true}
                     >
                       <MailOutlineIcon />

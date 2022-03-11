@@ -4,14 +4,9 @@ import {
   Box,
   Button,
   Container,
-  FormControl,
-  Input,
-  InputLabel,
-  Link,
   TextField,
   Typography,
   makeStyles } from '@material-ui/core';
-import AppBar from '../../containers/AppBar';
 import Loading from '../Loading';
 
 const useStyles = makeStyles(theme => ({
@@ -61,13 +56,44 @@ const ContactForm = ({contact}) => {
   const classes = useStyles();
   const history = useHistory();
   const [emailSent, setEmailSent] = React.useState(false);
+  const [emailError, setEmailError] = React.useState(false);
   
-  const handleSubmit = (evt) => {
-    evt.preventDefault();    
-    setEmailSent(true);
+  const handleSubmit = async (evt) => {
+    evt.preventDefault();
+    
+    const mailparams = {
+      from: {
+        Email: evt.target.email.value,
+        Name: evt.target.name.value
+      },
+      to: contact,
+      body: {
+        subject: evt.target.subject.value,
+        message: evt.target.message.value
+      }
+    }
+    
+    const result = await fetch(process.env.REACT_APP_MIDDLEWARE_URL + '_mailer/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(mailparams)
+    })
+    .then(response => {
+      if ( ! response.ok ) {
+        console.log('Mailer error (1) : ', response);
+        setEmailError(true);
+      } else {
+        setEmailSent(true);
+      }
+    })
+    .catch(err => {
+      console.error('Mailer error (2) : ', err);
+      setEmailError(true);
+    })
+    
     setTimeout(()=>{
       history.push('/')
-    },3000);
+    },5000);
   }
   
   const handleCancel = () => {
@@ -76,10 +102,13 @@ const ContactForm = ({contact}) => {
   
   return (
     <>
-      { ! contact.emails && 
+      { ! contact[0].Email && 
         <Redirect to="/" />
       }
-      { emailSent &&
+      { emailError &&
+       <Loading message={'Erreur lors de l\'envoi du message'} />
+      }
+      { ! emailError && emailSent &&
        <Loading message={'Mail envoyé !'} />
       }
       { contact && ! emailSent &&
@@ -91,7 +120,7 @@ const ContactForm = ({contact}) => {
                 <TextField id="name" label="Votre nom (obligatoire)" variant="outlined" required fullWidth />
                 <TextField id="email" label="Votre email (obligatoire)" variant="outlined" required fullWidth />
                 <TextField id="subject" label="Sujet" variant="outlined" fullWidth />
-                <TextField id="message" variant="outlined" multiline rows={4} fullWidth />
+                <TextField id="message" label="Message" variant="outlined" multiline rows={4} fullWidth />
                 <Box className={classes.buttonContainer}>
                   <Button
                     color="default"
