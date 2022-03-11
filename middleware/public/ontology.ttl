@@ -14,20 +14,6 @@
 #    Object Properties
 #################################################################
 
-###  http://data.opaline.data-players.com/ontology#programOfferedBy
-:programOfferedBy rdf:type owl:ObjectProperty ;
-                 rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#offeredBy> ;
-                 owl:inverseOf :programOffers ;
-                 rdfs:domain :Program ;
-                 rdfs:range <http://virtual-assembly.org/ontologies/pair#Organization> .
-
-
-###  http://data.opaline.data-players.com/ontology#programOffers
-:programOffers rdf:type owl:ObjectProperty ;
-                 rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#offers> ;
-                 rdfs:domain <http://virtual-assembly.org/ontologies/pair#Organization> ;
-                 rdfs:range :Program .
-                 
 ###  http://data.opaline.data-players.com/ontology#isContactPersonOf
 :isContactPersonOf rdf:type owl:ObjectProperty ;
                  rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#affiliates> ;

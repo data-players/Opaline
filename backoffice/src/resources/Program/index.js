@@ -34,7 +34,7 @@ export default {
     fr: {
       name: 'Programme |||| Les programmes',
       fields: {
-        'opal:programOfferedBy': 'Proposé par', /*Organization*/
+        'pair:offeredBy': 'Proposé par', /*Organization*/
         'pair:label': 'Nom',
         'pair:description': 'Description',
         'opal:minimumAge' : 'Age minimum',

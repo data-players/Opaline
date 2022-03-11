@@ -23,12 +23,6 @@
       "@type": "@id"
     },
     
-    "opal:programOfferedBy": {
-      "@type": "@id"
-    },
-    "opal:programOffers": {
-      "@type": "@id"
-    },
     "opal:hasBusinessCreationGoal": {
       "@type": "@id"
     },

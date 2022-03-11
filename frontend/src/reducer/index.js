@@ -119,7 +119,7 @@ const reducer = (state = initialState, action = {}) => {
     case SET_RESULTS:
       const resultsByStructure = 
         action.results
-          .map(result => result['opal:programOfferedBy'])
+          .map(result => result['pair:offeredBy'])
           .filter((value, index, self) => self.indexOf(value) === index)
           .map(result => state.resourceValues['structures'].find(resource => resource.id === result));
       return {
