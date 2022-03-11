@@ -91,10 +91,10 @@ export default function Drawer({ openContactForm }) {
           button
           component={Link}
           to={'/Contact'}
-          onClick={() => handleContactClick({
-              label: 'Opaline',
-              emails: ['contact@opaline.fr']
-            })}
+          onClick={() => handleContactClick([{
+            Email: process.env.REACT_APP_CONTACT_EMAIL,
+            Name: process.env.REACT_APP_CONTACT_LABEL
+          }])}
         >
           <ListItemText primary={'Nous contacter'} />
         </ListItem>
