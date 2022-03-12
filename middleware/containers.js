@@ -86,7 +86,6 @@ module.exports = [
     acceptedTypes: ['opal:FAQ'],
     newResourcesPermissions: writePermissionsToAll
   },
-
   {
     path: '/genders',
     acceptedTypes: ['opal:Gender'],
@@ -123,4 +122,11 @@ module.exports = [
     acceptedTypes: ['opal:TrainingMode'],
     newResourcesPermissions: writePermissionsToCreator
   },
+  {
+    path: '/training-sites',
+    acceptedTypes: ['opal:TrainingSite'],
+    dereference: ['pair:hasLocation/pair:hasPostalAddress'],
+    newResourcesPermissions: writePermissionsToCreator
+  },
+
 ];
