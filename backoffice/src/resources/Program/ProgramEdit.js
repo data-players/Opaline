@@ -91,24 +91,24 @@ export const ProgramEdit = props => {
           <SelectInput optionText="pair:label" />
         </ReferenceInput>
         { organization &&
-          <>
-            <ReferenceInput
-              source="opal:hasContactPerson"
-              reference="ContactPerson"
-              fullWidth
-              filter={{"pair:affiliates":organization}}
-            >
-              <SelectInput optionText={record => record["pair:firstName"] + ' ' + record["pair:lastName"]} allowEmpty resettable />
-            </ReferenceInput>
-            <ReferenceInput
-              source="pair:offers"
-              reference="TrainingSite"
-              fullWidth
-              filter={{"pair:offeredBy":organization}}
-            >
-              <SelectInput optionText="pair:label" allowEmpty resettable />
-            </ReferenceInput>
-          </>
+          <ReferenceInput
+            source="opal:hasContactPerson"
+            reference="ContactPerson"
+            fullWidth
+            filter={{"pair:affiliates":organization}}
+          >
+            <SelectInput optionText={record => record["pair:firstName"] + ' ' + record["pair:lastName"]} allowEmpty resettable />
+          </ReferenceInput>
+        }
+        { organization &&
+          <ReferenceInput
+            source="pair:offers"
+            reference="TrainingSite"
+            fullWidth
+            filter={{"pair:offeredBy":organization}}
+          >
+            <SelectInput optionText="pair:label" allowEmpty resettable />
+          </ReferenceInput>
         }
       </FormTab>
       <FormTab label="Objectifs">
