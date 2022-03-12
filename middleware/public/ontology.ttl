@@ -21,7 +21,6 @@
                  rdfs:domain :ContactPerson ;
                  rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
 
-
 ###  http://data.opaline.data-players.com/ontology#hasContactPerson
 :hasContactPerson rdf:type owl:ObjectProperty ;
                  rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#affiliatedBy> ;
@@ -119,20 +118,6 @@
             rdfs:domain :TrainingMode ;
             rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
 
-###  http://data.opaline.data-players.com/ontology#hasLabel
-#:hasLabel rdf:type owl:ObjectProperty ;
-#          rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
-#          owl:inverseOf :labelOf ;
-#          rdfs:domain <http://virtual-assembly.org/ontologies/pair#Organization> ;
-#          rdfs:range :Label .
-
-###  http://data.opaline.data-players.com/ontology#labelOf
-#:labelOf rdf:type owl:ObjectProperty ;
-#         rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
-#         rdfs:domain :Label ;
-#         rdfs:range <http://virtual-assembly.org/ontologies/pair#Organization> .
-
-
 
 #################################################################
 #    Data properties
@@ -196,7 +181,7 @@
 :financialParticipation rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
-        rdfs:range xsd:string .
+        rdfs:range xsd:boolean .
         
 ###  http://data.opaline.data-players.com/ontology#registerLink
 :registerLink rdf:type owl:DatatypeProperty ;
@@ -214,7 +199,7 @@
 :json rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
-        rdfs:range xsd:boolean .
+        rdfs:range xsd:string .
         
 ###  http://data.opaline.data-players.com/ontology#civilityTitle
 :civilityTitle rdf:type owl:DatatypeProperty ;
@@ -269,7 +254,11 @@
 ###  http://data.opaline.data-players.com/ontology#TrainingMode
 :TrainingMode rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .  
-           
+
+###  http://data.opaline.data-players.com/ontology#TrainingSite
+:TrainingSite rdf:type owl:Class ;
+           rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Place> . 
+                   
 ###  http://data.opaline.data-players.com/ontology#Label
 #:Label rdf:type owl:Class ;
 #       rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .

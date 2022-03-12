@@ -22,10 +22,9 @@ import { EditWithPermissions } from '@semapps/auth-provider';
 import { ReferenceArrayInput } from '@semapps/semantic-data-provider';
 
 export const ProgramEdit = props => {
-  
+
   const controllerProps = useEditController(props);
   const [newOrganization, setNewOrganization] = useState();
-  
   let organization = null;
   if ( controllerProps?.record && controllerProps.record['pair:offeredBy'] ) {
     organization = controllerProps.record['pair:offeredBy'];
@@ -92,14 +91,24 @@ export const ProgramEdit = props => {
           <SelectInput optionText="pair:label" />
         </ReferenceInput>
         { organization &&
-          <ReferenceInput
-            source="opal:hasContactPerson"
-            reference="ContactPerson"
-            fullWidth
-            filter={{"pair:affiliates":organization}}
-          >
-            <SelectInput optionText={record => record["pair:firstName"] + ' ' + record["pair:lastName"]} allowEmpty resettable />
-          </ReferenceInput>
+          <>
+            <ReferenceInput
+              source="opal:hasContactPerson"
+              reference="ContactPerson"
+              fullWidth
+              filter={{"pair:affiliates":organization}}
+            >
+              <SelectInput optionText={record => record["pair:firstName"] + ' ' + record["pair:lastName"]} allowEmpty resettable />
+            </ReferenceInput>
+            <ReferenceInput
+              source="pair:offers"
+              reference="TrainingSite"
+              fullWidth
+              filter={{"pair:offeredBy":organization}}
+            >
+              <SelectInput optionText="pair:label" allowEmpty resettable />
+            </ReferenceInput>
+          </>
         }
       </FormTab>
       <FormTab label="Objectifs">

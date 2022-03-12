@@ -10,6 +10,7 @@
         "opal:hasTrainingGoals":"school",
         "opal:hasFindingHelpGoals":"accessibility-new"
       },
+      "required": true,
       "fields": [
         {
           "type": "chosen-field",

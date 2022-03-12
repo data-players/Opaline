@@ -30,6 +30,10 @@ services:
       - SEMAPPS_BACKUP_FUSEKI_DATASETS_PATH=/app/fuseki-backups
       - SEMAPPS_OIDC_ISSUER=https://login.lescommuns.org/auth/realms/master/
       - SEMAPPS_OIDC_CLIENT_ID=semapps
+      - REPLYTO_EMAIL=${REPLYTO_EMAIL}
+      - REPLYTO_LABEL=${REPLYTO_LABEL}
+      - MJ_APIKEY_PUBLIC=${MJ_APIKEY_PUBLIC}
+      - MJ_APIKEY_PRIVATE=${MJ_APIKEY_PRIVATE}
     ports:
       - "3000:3000"
     expose:
@@ -61,6 +65,8 @@ services:
     environment:
       - REACT_APP_MIDDLEWARE_URL=http://localhost:3000/
       - REACT_APP_MAPBOX_ACCESS_TOKEN=${REACT_APP_MAPBOX_ACCESS_TOKEN}
+      - REACT_APP_CONTACT_EMAIL=${CONTACT_EMAIL}
+      - REACT_APP_CONTACT_LABEL=${CONTACT_LABEL}
       - PORT=5001
     depends_on:
       - middleware

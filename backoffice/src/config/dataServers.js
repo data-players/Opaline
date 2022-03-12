@@ -17,6 +17,7 @@ const dataServers = {
         'opal:JobSearchGoal': ['/job-search-goals'],
         'opal:TrainingGoal': ['/training-goals'],
         'opal:TrainingMode': ['/training-modes'],
+        'opal:TrainingSite': ['/training-sites'],
         'opal:Program': ['/programs'],
         'pair:Organization': ['/organizations'],
         'pair:Person': ['/persons'],

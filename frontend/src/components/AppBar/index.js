@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Drawer from './components/Drawer';
 
@@ -26,7 +26,8 @@ const useStyles = makeStyles(theme => ({
   },
   goBackButtonContainer: {
     paddingLeft: '0px !important',
-    justifyContent: 'flex-start !important'
+    justifyContent: 'flex-start !important',
+    marginLeft: -12
   }
 }))
 
@@ -44,9 +45,9 @@ function GoBack({searchIndex, goToSearchField}) {
   }
   return (
     <BrowserRouter>
-      <Button color="inherit" onClick={handleGoBackClick}>
+      <IconButton color="inherit" size="large" onClick={handleGoBackClick}>
         <ArrowBackIcon/>
-      </Button>
+      </IconButton>
     </BrowserRouter>
   );
 }
