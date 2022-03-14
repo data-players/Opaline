@@ -14,6 +14,19 @@
 #    Object Properties
 #################################################################
 
+###  http://data.opaline.data-players.com/ontology#isContactPersonOf
+:isContactPersonOf rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#affiliates> ;
+                 owl:inverseOf :isContactPersonOf ;
+                 rdfs:domain :ContactPerson ;
+                 rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
+
+###  http://data.opaline.data-players.com/ontology#hasContactPerson
+:hasContactPerson rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#affiliatedBy> ;
+                 rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
+                 rdfs:range :ContactPerson .
+
 ###  http://data.opaline.data-players.com/ontology#hasBusinessCreationGoal
 :hasBusinessCreationGoal rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
@@ -188,6 +201,12 @@
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:string .
         
+###  http://data.opaline.data-players.com/ontology#civilityTitle
+:civilityTitle rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
+        rdfs:range xsd:string .     
+        
 #################################################################
 #    Classes
 #################################################################
@@ -198,6 +217,10 @@
 
 ###  http://data.opaline.data-players.com/ontology#Configuration
 :Configuration rdf:type owl:Class ;
+           rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Resource> .
+
+###  http://data.opaline.data-players.com/ontology#ContactPerson
+:ContactPerson rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Resource> .
            
 ###  http://data.opaline.data-players.com/ontology#FAQ

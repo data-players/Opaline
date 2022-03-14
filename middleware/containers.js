@@ -72,6 +72,12 @@ module.exports = [
     newResourcesPermissions: writePermissionsToCreator
   },
   {
+    path: '/contact-persons',
+    acceptedTypes: ['opal:ContactPersons'],
+    newResourcesPermissions: writePermissionsToCreator
+  },
+
+  {
     path: '/degree-levels',
     acceptedTypes: ['opal:DegreeLevel'],
     newResourcesPermissions: writePermissionsToCreator

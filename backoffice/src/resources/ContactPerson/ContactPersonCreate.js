@@ -2,12 +2,13 @@ import React from 'react';
 import { SimpleForm, TextInput } from 'react-admin';
 import { Create } from '@semapps/archipelago-layout';
 
-const PairResourceCreate = props => (
+const ContactPersonCreate = props => (
   <Create {...props}>
     <SimpleForm>
-      <TextInput source="pair:label" fullWidth />
+      <TextInput source="pair:firstName" fullWidth />
+      <TextInput source="pair:lastName" fullWidth />
     </SimpleForm>
   </Create>
 );
 
-export default PairResourceCreate;
+export default ContactPersonCreate;
