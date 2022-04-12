@@ -12,10 +12,14 @@ const mapStateToProps = (state, ownProps) => {
   const structure = (state.loading.structures || ! program)
     ? null
     : state.resourceValues['structures'].find(structure => structure.id === program['pair:offeredBy'])
+  const trainingSite = (state.loading.trainingSites || ! program)
+    ? null
+    : state.resourceValues['trainingSites'].find(trainingSite => trainingSite.id === program['pair:offers'])
   return {
     loading: state.loading.programs || state.loading.structures,
     program: program,
-    structure: structure
+    structure: structure,
+    trainingSite: trainingSite
   };
 };
 
