@@ -110,12 +110,13 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Program = ({ loading, program, structure, loadData, openContactForm }) => {
+const Program = ({ loading, program, structure, trainingSite, loadData, openContactForm }) => {
   const classes = useStyles();
   
   useEffect( () => { 
     loadData('programs');
     loadData('structures');
+    loadData('trainingSites');
   }, [])
   
   const [phoneDialogOpen, setPhoneDialogOpen] = React.useState(false);
@@ -130,7 +131,10 @@ const Program = ({ loading, program, structure, loadData, openContactForm }) => 
   };
   
   let location = null;
-  if (structure) {
+  
+  if (trainingSite) {
+    location = trainingSite['pair:hasLocation'];
+  } else if (structure) {
     location = structure["pair:hasLocation"];
   }
   

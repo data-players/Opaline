@@ -9,6 +9,12 @@
     "name": "programs",
     "resource": "opal:Program"
   },
+  "trainingSites": {
+    "slug": "training-sites",
+    "name": "trainingSites",
+    "resource": "opal:TrainingSite",
+    "location": true
+  },
   "structures": {
     "slug": "organizations",
     "name": "structures",
