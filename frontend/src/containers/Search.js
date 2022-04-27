@@ -16,7 +16,11 @@ from '../actions';
 // state
 const mapStateToProps = (state) => ({
   searchIndex: state.searchIndex,
-  loading: state.loading.programs || state.loading.containers || state.loading.configurations || state.loading.fields,
+  loading: state.loading.programs
+        || state.loading.structures
+        || state.loading.configurations
+        || state.loading.fields
+        || state.loading.trainingSites,
   message: state.message,
   startOfLoading: state.startOfLoading,
   resourceValues: state.resourceValues,

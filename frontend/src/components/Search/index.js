@@ -106,7 +106,7 @@ const Search = ({
         if (field.multiple) {
           setChecked(currentSelectedValue.value);
         }
-        if (field.type === 'range') {
+        if (field.type === 'range' || field.type === 'location') {
           setTextFieldValue(currentSelectedValue.value.id);
         }
       }
@@ -175,6 +175,27 @@ const Search = ({
               return minBoundOk && maxBoundOk;
             })
           break;
+          case 'location':
+            results = results.filter(result => {
+              const structure = resourceValues['structures'].find(orga => orga['id'] === result["pair:offeredBy"]);
+              let trainingSite = resourceValues['trainingSites']?.find(site => site['id'] === result["pair:offers"]);
+              if ( ! trainingSite ) {
+                trainingSite = structure;
+              }
+              if ( ! trainingSite 
+                || ! trainingSite['pair:hasLocation'] 
+                || ! trainingSite['pair:hasLocation']['pair:hasPostalAddress']
+                || ! trainingSite['pair:hasLocation']['pair:hasPostalAddress']['pair:addressZipCode']
+              ) {
+                return false
+              }
+              if (trainingSite['pair:hasLocation']['pair:hasPostalAddress']['pair:addressZipCode'] === sv.value.id) {
+                return true
+              } else {
+                return false
+              }
+            })
+          break;
           default:
             let fieldName = sv.field.name;
             if (sv.value.type === 'no-choice') {
@@ -222,6 +243,7 @@ const Search = ({
     loadData('configurations');
     loadData('structures');
     loadData('programs');
+    loadData('trainingSites');
   }, [])
   
   useEffect( () => { 
@@ -299,14 +321,14 @@ const Search = ({
                 { 
                   searchFields.filter(field => selectedField === field).map((field, index) => {
                     
-                    if (field.type === 'range') {
+                    if (field.type === 'range' || field.type === 'location') {
                       
                       return (
                         <Box key={index} className={classes.criteriaContainerText}>
                           <TextField 
                             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                             onChange={handleTextFieldChange}
-                            defaultValue={textFieldValue}
+                            value={textFieldValue}
                           />
                           <NextButton 
                             field={field}

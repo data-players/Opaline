@@ -77,6 +77,10 @@
       "max": "opal:maximumAge",
       "label": "Votre âge",
       "title": "Quel <strong>âge</strong> avez-vous ?"
+    },{
+      "type": "location",
+      "label": "Votre code postal",
+      "title": "Quel est votre <strong>code postal</strong> ?"
     }
   ]
 }

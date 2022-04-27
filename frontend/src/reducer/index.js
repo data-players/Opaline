@@ -21,7 +21,8 @@ const initialState = {
     fields: true,
     programs: true,
     structures: true,
-    faq: true
+    faq: true,
+    trainingSites: true
   },
   startOfLoading: 0,
   resourceValues: {},
