@@ -55,11 +55,12 @@ const writePermissionsToAll = creatorUri => {
 };
 
 module.exports = [
-    {
-      path: '/',
-    },
   {
-    path: '/files'
+    path: '/',
+  },
+  {
+    path: '/files',
+    newResourcesPermissions: writePermissionsToAll
   },
   {
     path: '/business-creation-goals',
@@ -74,7 +75,7 @@ module.exports = [
   {
     path: '/contact-persons',
     acceptedTypes: ['opal:ContactPersons'],
-    newResourcesPermissions: writePermissionsToCreator
+    newResourcesPermissions: writePermissionsToAll
   },
 
   {
@@ -132,7 +133,7 @@ module.exports = [
     path: '/training-sites',
     acceptedTypes: ['opal:TrainingSite'],
     dereference: ['pair:hasLocation/pair:hasPostalAddress'],
-    newResourcesPermissions: writePermissionsToCreator
+    newResourcesPermissions: writePermissionsToAll
   },
 
 ];
