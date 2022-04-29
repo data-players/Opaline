@@ -39,7 +39,7 @@ services:
     expose:
       - "3000"
     command: bash -c "yarn install && pm2-runtime 'yarn run dev'"
-    
+
   backoffice:
     build: backoffice
     container_name: backoffice_opaline
@@ -56,7 +56,7 @@ services:
     expose:
       - "5000"
     command: bash -c "yarn install && yarn start"
-    
+
   frontend:
     build: frontend
     container_name: frontend_opaline
@@ -75,5 +75,3 @@ services:
     expose:
       - "5001"
     command: bash -c "node -v && yarn install && yarn start"
-
-

@@ -15,7 +15,7 @@ import { ImageField } from '@semapps/semantic-data-provider';
 import PairLocationInput from '../../pair/PairLocationInput';
 import Title from '../commons/Title';
 import { EditWithPermissions } from '@semapps/auth-provider';
- 
+
 const validateForm = (values) => {
   const errors = {};
   const emailFilled = values['pair:e-mail']?.length > 0;
@@ -33,6 +33,7 @@ export const OrganizationEdit = props => (
     <SimpleForm validate={validateForm}>
       <TextInput source="pair:label" fullWidth validate={[required()]} />
       <PairLocationInput source="pair:hasLocation" fullWidth validate={[required()]} />
+      <TextInput source="pair:hasLocation.pair:hasPostalAddress.pair:addressZipCode" fullWidth disabled={true} />
       <MarkdownInput source="pair:description" multiline fullWidth validate={[required()]} />
       <ImageInput source="pair:depictedBy" accept="image/*">
         <ImageField source="src" />

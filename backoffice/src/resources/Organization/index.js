@@ -37,7 +37,8 @@ export default {
         'pair:phone': 'Téléphone',
         'pair:e-mail': 'E-mail',
         'pair:webPage': 'Site internet',
-        'opal:socialNetworks': 'Réseaux sociaux'
+        'opal:socialNetworks': 'Réseaux sociaux',
+        'pair:hasLocation.pair:hasPostalAddress.pair:addressZipCode':'code postale'
       }
     }
   }

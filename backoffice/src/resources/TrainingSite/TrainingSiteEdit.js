@@ -18,6 +18,7 @@ export const TrainingSiteEdit = props => (
         <SelectInput optionText="pair:label" />
       </ReferenceInput>
       <PairLocationInput source="pair:hasLocation" fullWidth validate={[required()]} />
+      <TextInput source="pair:hasLocation.pair:hasPostalAddress.pair:addressZipCode" fullWidth disabled={true} />
       <MarkdownInput source="pair:description" multiline fullWidth />
     </SimpleForm>
   </EditWithPermissions>

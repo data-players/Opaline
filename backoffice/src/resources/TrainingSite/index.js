@@ -31,6 +31,7 @@ export default {
         'pair:label': 'Nom',
         'pair:description': 'Description',
         'pair:hasLocation': 'Adresse',
+        'pair:hasLocation.pair:hasPostalAddress.pair:addressZipCode':'code postale'
       }
     }
   }

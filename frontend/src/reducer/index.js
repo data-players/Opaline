@@ -12,7 +12,7 @@ import {
   SET_SELECTED_VALUES
 }
   from '../actions';
-  
+
 
 const initialState = {
   searchIndex: -1,
@@ -36,7 +36,7 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action = {}) => {
-  console.log('** reducer', state, action);
+  // console.log('** reducer', state, action);
   switch (action.type) {
     case ADD_BOOLEAN_FIELD:
       return {
@@ -118,7 +118,7 @@ const reducer = (state = initialState, action = {}) => {
         startOfLoading: action.startOfLoading
       };
     case SET_RESULTS:
-      const resultsByStructure = 
+      const resultsByStructure =
         action.results
           .map(result => result['pair:offeredBy'])
           .filter((value, index, self) => self.indexOf(value) === index)

@@ -42,17 +42,17 @@ const Search = ({
 }) => {
 
   const classes = useStyles();
-  
+
   const [isReady, setIsReady] = useState(false);
   const [selectedField, setSelectedField] = useState(null);
   const [checked, setChecked] = useState([]);
   const [textFieldValue, setTextFieldValue] = useState('');
-  
+
   let selectedFieldValues = null;
   if (selectedField?.name) {
     selectedFieldValues = fieldValues[selectedField.name];
   }
-  
+
   const isNewSearch = searchIndex === -1
   const isResultsStep = searchIndex === searchFields.length
 
@@ -81,7 +81,7 @@ const Search = ({
         // delete current chosen-field
         searchFields.splice(choiceFieldIndex+1 , 1)
         // replace selected values
-        const newSelectedValues = selectedValues.filter(sv => 
+        const newSelectedValues = selectedValues.filter(sv =>
           sv.field.parent!==field.name && sv.field.name!==field.name
         );
         newSelectedValues.push({ field: field, value: value });
@@ -112,11 +112,11 @@ const Search = ({
       }
     }
   };
-  
+
   const handleTextFieldChange = (evt) => {
     setTextFieldValue(evt.target.value);
   }
-  
+
   const handleClickValue = (field, value) => {
     setMessage('');
     if (value) {
@@ -161,6 +161,7 @@ const Search = ({
     if (!resourceValues) {
       return;
     }
+    console.log('findResults',selectedValues);
     let results = resourceValues['programs'];
     selectedValues.forEach(sv => {
       if (sv.field.type !== 'field-choice' || sv.value.type === 'no-choice') {
@@ -182,8 +183,8 @@ const Search = ({
               if ( ! trainingSite ) {
                 trainingSite = structure;
               }
-              if ( ! trainingSite 
-                || ! trainingSite['pair:hasLocation'] 
+              if ( ! trainingSite
+                || ! trainingSite['pair:hasLocation']
                 || ! trainingSite['pair:hasLocation']['pair:hasPostalAddress']
                 || ! trainingSite['pair:hasLocation']['pair:hasPostalAddress']['pair:addressZipCode']
               ) {
@@ -207,7 +208,7 @@ const Search = ({
             const valueIds = values.map(v => v.id)
             results = results.filter(result => {
               // result kept if no value for the current field
-              if (result[fieldName] === undefined && ! sv.field.required) { 
+              if (result[fieldName] === undefined && ! sv.field.required) {
                 return true
               } else {
                 // single value to array for the current field
@@ -226,7 +227,7 @@ const Search = ({
                   } else {
                     if (valueIds.includes(rv)) {
                       resultOk = true;
-                    }                    
+                    }
                   }
                 })
                 return resultOk;
@@ -237,22 +238,22 @@ const Search = ({
     })
     setResults(results);
   }
-  
-  useEffect( () => { 
+
+  useEffect( () => {
     setMinimalDelay(Date.now());
     loadData('configurations');
     loadData('structures');
     loadData('programs');
     loadData('trainingSites');
   }, [])
-  
-  useEffect( () => { 
+
+  useEffect( () => {
     if (resourceValues['configurations'] && loading) {
       loadFields()
     }
   }, [resourceValues])
-  
-  useEffect( () => { 
+
+  useEffect( () => {
     if (! loading && results.length === 0) {
       handleNewSearchClick();
     }
@@ -265,16 +266,16 @@ const Search = ({
           delay = delay < 0 ? 0 : delay;
         }
         setMinimalDelay(null);
-        setTimeout(() => { 
-          setIsReady(true); 
+        setTimeout(() => {
+          setIsReady(true);
         }, delay);
       } else {
-        setIsReady(true); 
+        setIsReady(true);
       }
     }
   }, [loading]);
-  
-  useEffect( () => { 
+
+  useEffect( () => {
     if ( searchFields.length > 0) {
       if(searchIndex < 0 ) {
         goToSearchField(0);
@@ -283,7 +284,7 @@ const Search = ({
         setSelectedField(null);
         findResults();
       } else {
-        displayField(searchIndex);  
+        displayField(searchIndex);
       }
     }
   }, [searchIndex]);
@@ -318,39 +319,39 @@ const Search = ({
                 </>
               }
               <Box pb={4} mt={-1} className={classes.criteriasContainer}>
-                { 
+                {
                   searchFields.filter(field => selectedField === field).map((field, index) => {
-                    
+
                     if (field.type === 'range' || field.type === 'location') {
-                      
+
                       return (
                         <Box key={index} className={classes.criteriaContainerText}>
-                          <TextField 
+                          <TextField
                             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                             onChange={handleTextFieldChange}
                             value={textFieldValue}
                           />
-                          <NextButton 
+                          <NextButton
                             field={field}
                             value={(isNaN(Number(textFieldValue)) || Number(textFieldValue) === 0) ? null : {id: textFieldValue}}
                             onClick={handleClickValue}
                           />
                         </Box>
                       )
-                      
+
                     } else {
-                    
+
                       const isChoice = field.type === 'field-choice';
                       const fieldsArray = isChoice ? selectedField.fields : selectedFieldValues;
                       const isMultiple = field.multiple && fieldsArray;
                       const matchField = isChoice ? 'name' : 'id';
                       const currentSelectedValue = selectedValues.find(sv => sv.field.name === field.name);
                       const currentSelectedValueExist = currentSelectedValue !== undefined;
-                      
+
                       const handleToggle = (value) => () => {
                         const currentIndex = checked.findIndex(c => c.id === value.id);
                         const newChecked = [...checked];
-                        
+
                         if (currentIndex === -1) {
                           if (field.multiple && field.multiple === newChecked.length) {
                             setMessage('Vous avez atteint le nombre de choix maximum.');
@@ -365,12 +366,12 @@ const Search = ({
 
                         setChecked(newChecked);
                       };
-                      
+
                       return(
                         <Box key={index}>
-                          { ! field.multiple && fieldsArray && 
+                          { ! field.multiple && fieldsArray &&
                             <Box className={classes.criteriaContainer}>
-                              { 
+                              {
                                 fieldsArray.map((value, index) => {
                                   let className = classes.criteriaButtonContainer;
                                   if (field.fullWidth || value.fullWidth) {
@@ -436,7 +437,7 @@ const Search = ({
                             </Box>
                           }
                           { ( isMultiple || currentSelectedValueExist || ! field.required ) &&
-                            <NextButton 
+                            <NextButton
                               field= {field}
                               value= {
                                 isMultiple
@@ -458,8 +459,8 @@ const Search = ({
           }
           <Box>
             { isResultsStep &&
-              <Box> 
-                { results && 
+              <Box>
+                { results &&
                   <Box>
                     { results.length === 0 &&
                       <Box p={3}>
