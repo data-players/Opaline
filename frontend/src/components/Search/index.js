@@ -103,7 +103,7 @@ const Search = ({
     const field = searchFields[searchIndex];
 
     if(field){
-          console.log('trackPageView',field);
+          // console.log('trackPageView',field);
       trackPageView(
         {
           documentTitle: `recherche : ${field.label||field.name}`
@@ -191,7 +191,7 @@ const Search = ({
     if (!resourceValues) {
       return;
     }
-    console.log('findResults',selectedValues);
+    // console.log('findResults',selectedValues);
     let results = resourceValues['programs'];
     let searchSynthesys={};
     selectedValues.forEach(sv => {
@@ -271,7 +271,7 @@ const Search = ({
       }
     })
     trackSiteSearch({ keyword: JSON.stringify(searchSynthesys),count:results.length})
-    console.log('trackSiteSearch');
+    // console.log('trackSiteSearch');
     setResults(results);
   }
 
