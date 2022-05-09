@@ -19,6 +19,8 @@ import NextButton from './components/NextButton';
 import ResultCard from './components/ResultCard';
 import ResultStepTitle from './components/ResultStepTitle';
 
+import { useMatomo } from '@datapunt/matomo-tracker-react'
+
 
 const Search = ({
   fieldValues,
@@ -47,6 +49,8 @@ const Search = ({
   const [selectedField, setSelectedField] = useState(null);
   const [checked, setChecked] = useState([]);
   const [textFieldValue, setTextFieldValue] = useState('');
+
+  const { trackPageView, trackEvent, trackSiteSearch } = useMatomo()
 
   let selectedFieldValues = null;
   if (selectedField?.name) {
@@ -97,6 +101,15 @@ const Search = ({
 
   const displayField = (searchIndex) => {
     const field = searchFields[searchIndex];
+
+    if(field){
+          console.log('trackPageView',field);
+      trackPageView(
+        {
+          documentTitle: `recherche : ${field.label||field.name}`
+        }
+      )
+    }
     if (! field || ! selectedField || field.name !== selectedField.name) {
       setChecked([]);
       setTextFieldValue('');
@@ -119,12 +132,17 @@ const Search = ({
 
   const handleClickValue = (field, value) => {
     setMessage('');
+
+    // Track click on button
+    // trackEvent({ category: `search-${selectedField.name}`, action: 'click-event' })
+
     if (value) {
       if (field.type === 'field-choice') {
         value.id = value.name
       }
       const currentValueForField = selectedValues.find(selectedValue => selectedValue.field.name === field.name);
       if (! currentValueForField) {
+        // console.log('NORMAL WAY');
         if (field.type !== 'chosen-field') {
           selectedValues.push({ field: field, value: value });
         } else {
@@ -132,15 +150,23 @@ const Search = ({
           const choiceFieldIndex = selectedValues.findIndex(sv=> sv.field.name === field.parent);
           selectedValues.splice(choiceFieldIndex+1, 0, { field: field, value: value });
         }
+        // console.log('ACTION selectedValues',field,value);
+        const matomoValue= (Array.isArray(value)?value:[value]).map(v=>v.id);
+        // console.log('matomoValue',JSON.stringify(matomoValue));
+        // console.log('trackEvent',field);
+        trackEvent({ category: `next`, action:field.label||field.name,name:JSON.stringify(matomoValue)})
         setSelectedValues([...selectedValues]);
         if (field.type === 'field-choice') {
           setChosenField(field, value)
         }
       } else {
+        console.log('ANY WAY?');
         if (currentValueForField.value.id === value.id && ! Array.isArray(currentValueForField.value)) {
           goToNextField(field);
+          // console.log('ACTION next Page');
           return;
         } else {
+          // console.log('ACTION ?',field,value,selectedValues);
           if (field.type === 'field-choice') {
             setChosenField(field, value, /*replace=*/true);
           } else {
@@ -153,7 +179,11 @@ const Search = ({
           }
         }
       }
+    }else {
+      // console.log('field?',field);
+      trackEvent({ category: `next`, action:field.label||field.name,name:'undefined'})
     }
+    // console.log('FINAL GO NEXT');
     goToNextField(field);
   };
 
@@ -163,6 +193,7 @@ const Search = ({
     }
     console.log('findResults',selectedValues);
     let results = resourceValues['programs'];
+    let searchSynthesys={};
     selectedValues.forEach(sv => {
       if (sv.field.type !== 'field-choice' || sv.value.type === 'no-choice') {
         switch (sv.field.type) {
@@ -170,6 +201,7 @@ const Search = ({
             const minFieldName = sv.field.min;
             const maxFieldName = sv.field.max;
             const value = sv.value.id;
+            searchSynthesys[sv.field.label||sv.field.name]=value;
             results = results.filter(result => {
               const minBoundOk = ! result[minFieldName] || result[minFieldName] <= value;
               const maxBoundOk = ! result[maxFieldName] || result[maxFieldName] >= value;
@@ -177,6 +209,7 @@ const Search = ({
             })
           break;
           case 'location':
+            searchSynthesys[sv.field.label||sv.field.name]=sv.value.id;
             results = results.filter(result => {
               const structure = resourceValues['structures'].find(orga => orga['id'] === result["pair:offeredBy"]);
               let trainingSite = resourceValues['trainingSites']?.find(site => site['id'] === result["pair:offers"]);
@@ -206,6 +239,7 @@ const Search = ({
             const values = [].concat(sv.value);
             // array of all selected ids for the current field
             const valueIds = values.map(v => v.id)
+            searchSynthesys[sv.field.label||sv.field.name]=valueIds;
             results = results.filter(result => {
               // result kept if no value for the current field
               if (result[fieldName] === undefined && ! sv.field.required) {
@@ -236,6 +270,8 @@ const Search = ({
         }
       }
     })
+    trackSiteSearch({ keyword: JSON.stringify(searchSynthesys),count:results.length})
+    console.log('trackSiteSearch');
     setResults(results);
   }
 
@@ -288,6 +324,16 @@ const Search = ({
       }
     }
   }, [searchIndex]);
+
+  // Track page view
+  useEffect(() => {
+    // console.log('trackPageView',selectedField);
+    // trackPageView(
+    //   // {
+    //   //   documentTitle: `recherche/${selectedField.name}`
+    //   // }
+    // )
+  })
 
   return (
     <>

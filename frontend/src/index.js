@@ -7,14 +7,22 @@ import store from './store';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from './config/theme';
+import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react'
+
+const instance = createInstance({
+  urlBase: 'https://matomo.data-players.com/',
+  siteId: 1
+})
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <MuiThemeProvider theme={theme}>
-        <App />
-      </MuiThemeProvider>
-    </Provider>
+    <MatomoProvider value={instance}>
+      <Provider store={store}>
+        <MuiThemeProvider theme={theme}>
+          <App />
+        </MuiThemeProvider>
+      </Provider>
+    </MatomoProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
