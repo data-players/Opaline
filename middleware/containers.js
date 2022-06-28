@@ -135,5 +135,9 @@ module.exports = [
     dereference: ['pair:hasLocation/pair:hasPostalAddress'],
     newResourcesPermissions: writePermissionsToAll
   },
-
+  {
+    path: '/data-sources',
+    acceptedTypes: ['aurba:DataSource'],
+    newResourcesPermissions: writePermissionsToCreator
+  }
 ];

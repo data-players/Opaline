@@ -8,6 +8,13 @@ import { SimpleList ,MultiViewsList, ListActions} from '@semapps/archipelago-lay
 import { ListWithPermissions } from '@semapps/auth-provider';
 import { MapList } from '@semapps/geo-components';
 import MapIcon from '@material-ui/icons/Map';
+import { ReferenceField } from "@semapps/semantic-data-provider";
+
+import {
+  Datagrid,
+  TextField,
+  ShowButton
+} from 'react-admin';
 
 import OrganizationFilterSidebar from './OrganizationFilterSidebar';
 
@@ -23,16 +30,24 @@ const OrganizationList = props => {
         sort: { field: 'pair:label', order: 'DESC' },
         perPage: 25,
         list: (
-          <SimpleList
-            primaryText={record => record['pair:label']}
-            secondaryText={record => record['pair:description']}
-            leftAvatar={record => (
-              <Avatar src={record['pair:depictedBy']} width="100%">
-                <HomeIcon />
-              </Avatar>
-            )}
-            linkType="edit"
-          />
+          // <SimpleList
+          //   primaryText={record => record['pair:label']}
+          //   secondaryText={record => record['pair:description']}
+          //   leftAvatar={record => (
+          //     <Avatar src={record['pair:depictedBy']} width="100%">
+          //       <HomeIcon />
+          //     </Avatar>
+          //   )}
+          //   linkType="edit"
+          // />
+          <Datagrid>
+              <TextField source="pair:label" />
+              <TextField source="pair:description" />
+              <ReferenceField reference="DataSource" source="aurba:hasDataSource">
+                <TextField source="pair:label" />
+              </ReferenceField>
+              <ShowButton />
+          </Datagrid>
         )
       },
       map: {

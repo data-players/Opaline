@@ -58,5 +58,10 @@
     "prefix": "opal",
     "owl": "",
     "url": "http://data.opaline.data-players.com/ontology#"
+  },
+  {
+    "prefix": "aurba",
+    "owl": "https://64617461.AUrba.data-players.com/ontology",
+    "url": "https://64617461.AUrba.data-players.com/ontology#"
   }
 ]

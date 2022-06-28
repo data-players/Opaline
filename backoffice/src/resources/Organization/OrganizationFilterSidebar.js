@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardContent, makeStyles } from '@material-ui/core';
 // import { ReferenceFilter } from '@semapps/archipelago-layout';
+import { ReferenceFilter } from '@semapps/archipelago-layout';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -23,15 +24,14 @@ const OrganizationFilterSidebar = () => {
   return (
     <Card className={classes.card}>
       <CardContent className={classes.cardContent}>
-        {/*
         <ReferenceFilter
-          reference="Sector"
-          source="petr:hasSector"
-          // inverseSource="petr:sectorOf"
+          label="Source de données"
+          reference="DataSource"
+          source="aurba:hasDataSource"
+          inverseSource="aurba:dataSourceOf"
           sort={{ field: 'pair:label', order: 'DESC' }}
           limit={100}
         />
-        */}
       </CardContent>
     </Card>
   );

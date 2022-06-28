@@ -1,12 +1,12 @@
 const dataServers = {
-  av: {
+  opaline: {
     name: 'Opaline',
     baseUrl: process.env.REACT_APP_MIDDLEWARE_URL,
     sparqlEndpoint: process.env.REACT_APP_MIDDLEWARE_URL + 'sparql',
     authServer: true,
     default: true,
     containers: {
-      av: {
+      opaline: {
         'opal:BusinessCreationGoal': ['/business-creation-goals'],
         'opal:Configuration': ['/configurations'],
         'opal:ContactPerson': ['/contact-persons'],
@@ -21,6 +21,7 @@ const dataServers = {
         'opal:Program': ['/programs'],
         'pair:Organization': ['/organizations'],
         'pair:Person': ['/persons'],
+        'aurba:DataSource': ['/data-sources'],
       }
     },
     uploadsContainer: '/files'

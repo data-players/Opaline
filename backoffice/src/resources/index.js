@@ -6,6 +6,7 @@ export { default as TrainingSite } from "./TrainingSite";
 export { default as FAQ } from "./FAQ";
 export { default as Configuration } from "./Configuration";
 export { default as Person } from "./Person";
+export { default as DataSource } from "./DataSource";
 
 // Concepts
 export { default as Concept } from './Concept';

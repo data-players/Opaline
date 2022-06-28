@@ -6,11 +6,13 @@ import {
   ImageInput,
   SimpleForm,
   SimpleFormIterator,
-  required
+  required,
+  SelectInput,
+  useEditController
 } from 'react-admin';
 
 import { MarkdownInput } from '@semapps/markdown-components'
-import { ImageField } from '@semapps/semantic-data-provider';
+import { ImageField,ReferenceInput} from '@semapps/semantic-data-provider';
 
 import PairLocationInput from '../../pair/PairLocationInput';
 import Title from '../commons/Title';
@@ -28,26 +30,35 @@ const validateForm = (values) => {
   return errors
 };
 
-export const OrganizationEdit = props => (
-  <EditWithPermissions title={<Title />} {...props} >
-    <SimpleForm validate={validateForm}>
-      <TextInput source="pair:label" fullWidth validate={[required()]} />
-      <PairLocationInput source="pair:hasLocation" fullWidth validate={[required()]} />
-      <TextInput source="pair:hasLocation.pair:hasPostalAddress.pair:addressZipCode" fullWidth disabled={true} />
-      <MarkdownInput source="pair:description" multiline fullWidth validate={[required()]} />
-      <ImageInput source="pair:depictedBy" accept="image/*">
-        <ImageField source="src" />
-      </ImageInput>
-      <TextInput source="pair:phone" fullWidth />
-      <TextInput source="pair:e-mail" fullWidth />
-      <ArrayInput source="opal:socialNetworks">
-        <SimpleFormIterator>
-          <TextInput type="url" label="url"/>
-        </SimpleFormIterator>
-      </ArrayInput>
-      <TextInput source="pair:webPage" fullWidth />
-    </SimpleForm>
-  </EditWithPermissions>
-);
+export const OrganizationEdit = props => {
+  const {
+      record, // record fetched via dataProvider.getOne() based on the id from the location
+  } = useEditController(props);
+  const lock = record?.['aurba:externalSource']!=undefined;
+  return (
+    <EditWithPermissions title={<Title />} {...props} >
+      <SimpleForm validate={validateForm}>
+        <TextInput source="pair:label" fullWidth validate={[required()]} />
+        <PairLocationInput source="pair:hasLocation" fullWidth validate={[required()]} />
+        <TextInput source="pair:hasLocation.pair:hasPostalAddress.pair:addressZipCode" fullWidth disabled={true} />
+        <MarkdownInput source="pair:description" multiline fullWidth validate={[required()]} />
+        <ImageInput source="pair:depictedBy" accept="image/*">
+          <ImageField source="src" />
+        </ImageInput>
+        <TextInput source="pair:phone" fullWidth />
+        <TextInput source="pair:e-mail" fullWidth />
+        <ArrayInput source="opal:socialNetworks">
+          <SimpleFormIterator>
+            <TextInput type="url" label="url"/>
+          </SimpleFormIterator>
+        </ArrayInput>
+        <TextInput source="pair:webPage" fullWidth />
+        <ReferenceInput reference="DataSource" fullWidth source="aurba:hasDataSource">
+          <SelectInput optionText="pair:label" disabled={lock}/>
+        </ReferenceInput>
+      </SimpleForm>
+    </EditWithPermissions>
+  );
+}
 
 export default OrganizationEdit;
