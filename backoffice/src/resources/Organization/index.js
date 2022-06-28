@@ -41,7 +41,7 @@ export default {
         'pair:hasLocation.pair:hasPostalAddress.pair:addressZipCode':'code postale'
         'aurba:hasDataSource' : 'source de données',
         'pair:hasLocation.pair:longitude' :'longitude',
-        'pair:hasLocation.pair:latitude' :'latitude',
+        'pair:hasLocation.pair:latitude' :'latitude'
       }
     }
   }
