@@ -19,6 +19,9 @@ export default {
         types: ['aurba:DataSource'],
         containerUri: process.env.REACT_APP_MIDDLEWARE_URL + 'data-sources',
         slugField: 'pair:label',
+        fieldsMapping: {
+          title: 'pair:label'
+        }
       },
       translations: {
         fr: {
