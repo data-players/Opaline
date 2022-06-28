@@ -39,6 +39,9 @@ export default {
         'pair:webPage': 'Site internet',
         'opal:socialNetworks': 'Réseaux sociaux',
         'pair:hasLocation.pair:hasPostalAddress.pair:addressZipCode':'code postale'
+        'aurba:hasDataSource' : 'source de données',
+        'pair:hasLocation.pair:longitude' :'longitude',
+        'pair:hasLocation.pair:latitude' :'latitude',
       }
     }
   }
