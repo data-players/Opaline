@@ -15,7 +15,8 @@
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "semapps": "http://semapps.org/ns/core#",
     "opal": "http://data.opaline.data-players.com/ontology#",
-    
+    "aurba": "https://64617461.AUrba.data-players.com/ontology#",
+
     "id": "@id",
     "type": "@type",
     "image": {
@@ -64,7 +65,14 @@
     "opal:TrainingModeOf": {
       "@type": "@id"
     },
-    
+
+    "aurba:hasDataSource": {
+      "@type": "@id"
+    },
+    "aurba:dataSourceOf": {
+      "@type": "@id"
+    },
+
     "pair:image": {
       "@type": "@id"
     },
