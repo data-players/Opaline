@@ -2,6 +2,7 @@
   "@context": {
     "@vocab": "_:",
     "pair": "http://virtual-assembly.org/ontologies/pair#",
+
     "as": "https://www.w3.org/ns/activitystreams#",
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
@@ -14,6 +15,8 @@
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "semapps": "http://semapps.org/ns/core#",
     "opal": "http://data.opaline.data-players.com/ontology#",
+    "aurba": "https://64617461.AUrba.data-players.com/ontology#",
+
     "id": "@id",
     "type": "@type",
     "image": {
@@ -56,6 +59,20 @@
     "opal:TrainingGoalOf": {
       "@type": "@id"
     },
+    "opal:hasTrainingMode": {
+      "@type": "@id"
+    },
+    "opal:TrainingModeOf": {
+      "@type": "@id"
+    },
+
+    "aurba:hasDataSource": {
+      "@type": "@id"
+    },
+    "aurba:dataSourceOf": {
+      "@type": "@id"
+    },
+
     "pair:image": {
       "@type": "@id"
     },

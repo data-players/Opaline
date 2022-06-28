@@ -35,6 +35,7 @@ export const OrganizationEdit = props => {
       record, // record fetched via dataProvider.getOne() based on the id from the location
   } = useEditController(props);
   const lock = record?.['aurba:externalSource']!=undefined;
+  console.log('lock',lock);
   return (
     <EditWithPermissions title={<Title />} {...props} >
       <SimpleForm validate={validateForm}>
@@ -53,7 +54,7 @@ export const OrganizationEdit = props => {
           </SimpleFormIterator>
         </ArrayInput>
         <TextInput source="pair:webPage" fullWidth />
-        <ReferenceInput reference="DataSource" fullWidth source="aurba:hasDataSource">
+        <ReferenceInput reference="DataSource" fullWidth source="aurba:hasDataSource" allowEmpty>
           <SelectInput optionText="pair:label" disabled={lock}/>
         </ReferenceInput>
       </SimpleForm>
