@@ -4,7 +4,7 @@ import { SimpleForm } from "ra-ui-materialui";
 import DataSourceTitle from './DataSourceTitle';
 // import MarkdownInput from '../../markdown/MarkdownInput'
 // import MarkdownField from "../../markdown/MarkdownField";
-import TooBarSaveOnly from '../../commons/ToolBarSaveOnly'
+import ToolBarCustom from '../commons/ToolBarCustom';
 import {
   ReferenceInput,
   SelectInput,
@@ -22,7 +22,7 @@ export const DataSourceEdit = props => {
   const lock = record?.['aurba:deleteEdit'];
   return (
       <Edit title={<DataSourceTitle />} {...props} >
-        <SimpleForm redirect="show" toolbar={lock?<TooBarSaveOnly/>:undefined}>
+        <SimpleForm redirect="show" toolbar={<ToolBarCustom deleteable={!lock}/>}>
             <TextInput source="pair:label" fullWidth />
             <BooleanInput source="aurba:deleteEdit" fullWidth />
         </SimpleForm>

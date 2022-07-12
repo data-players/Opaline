@@ -17,6 +17,7 @@ export default {
     types: ['pair:Organization'],
     list: {
       dereference: ['pair:hasLocation/pair:hasPostalAddress'],
+      fetchContainer: true,
       forceArray: [
         'pair:e-mail',
         'opal:socialNetworks',
@@ -39,9 +40,10 @@ export default {
         'pair:webPage': 'Site internet',
         'opal:socialNetworks': 'Réseaux sociaux',
         'pair:hasLocation.pair:hasPostalAddress.pair:addressZipCode':'code postale',
-        'aurba:hasDataSource' : 'source de données',
+        'aurba:hasDataSource' : 'source',
         'pair:hasLocation.pair:longitude' :'longitude',
-        'pair:hasLocation.pair:latitude' :'latitude'
+        'pair:hasLocation.pair:latitude' :'latitude',
+        'aurba:externalDeleted':`suppression à la source`
       }
     }
   }

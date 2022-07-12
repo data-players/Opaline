@@ -1,10 +1,12 @@
 const path = require('path');
 const { MIME_TYPES } = require('@semapps/mime-types');
 
+console.log(process.env);
+
 var mailjet = require ('node-mailjet')
   .connect(process.env.MJ_APIKEY_PUBLIC, process.env.MJ_APIKEY_PRIVATE);
-  
-  
+
+
 module.exports = {
   name: 'mailer',
   dependencies: ['api'],
@@ -26,7 +28,7 @@ module.exports = {
       if ( !ctx || !ctx.params || !ctx.params.from || !ctx.params.to || !ctx.params.body ) {
         throw new Error('One or more parameters are missing');
       }
-      
+
       const request = mailjet
         .post("send", {'version': 'v3.1'})
         .request({

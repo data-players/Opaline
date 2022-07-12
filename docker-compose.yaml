@@ -10,6 +10,8 @@ services:
       - "3030:3030"
     expose:
       - "3030"
+    networks:
+      - semapps
     environment:
       ADMIN_PASSWORD: "admin"
 
@@ -34,10 +36,13 @@ services:
       - REPLYTO_LABEL=${REPLYTO_LABEL}
       - MJ_APIKEY_PUBLIC=${MJ_APIKEY_PUBLIC}
       - MJ_APIKEY_PRIVATE=${MJ_APIKEY_PRIVATE}
+      - SEMAPPS_REDIS_CACHE_URL=redis://redis:6379/0
     ports:
       - "3000:3000"
     expose:
       - "3000"
+    networks:
+      - semapps
     command: bash -c "yarn install && pm2-runtime 'yarn run dev'"
 
   backoffice:
@@ -55,6 +60,8 @@ services:
       - "5000:5000"
     expose:
       - "5000"
+    networks:
+      - semapps
     command: bash -c "yarn install && yarn start"
 
   frontend:
@@ -74,4 +81,24 @@ services:
       - "5001:5001"
     expose:
       - "5001"
+    networks:
+      - semapps
     command: bash -c "node -v && yarn install && yarn start"
+
+  redis:
+    image: redis
+    container_name: redis
+    expose:
+      - "6379"
+    ports:
+      - "6379:6379"
+    networks:
+      - semapps
+    volumes:
+      - ./data/redis_data:/data
+    command: ["redis-server", "--appendonly", "yes"]
+
+networks:
+  semapps:
+    external:
+      name: bus_network

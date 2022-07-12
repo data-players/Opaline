@@ -13,7 +13,8 @@ module.exports = {
     defaultContainerOptions: {
       jsonContext: urlJoin(CONFIG.HOME_URL, 'context.json'),
       allowAnonymousEdit: true,
-      allowAnonymousDelete: true
+      allowAnonymousDelete: true,
+      accept:'application/ld+json'
     }
   }
 };
