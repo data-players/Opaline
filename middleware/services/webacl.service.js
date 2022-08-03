@@ -12,7 +12,12 @@ module.exports = {
       'https://data.opaline.data-players.com/persons/simon.louvet.zen',
       'https://data.opaline.data-players.com/persons/v.farcy72',
       'https://data.opaline.data-players.com/persons/helene',
-      'https://data.opaline.data-players.com/persons/heddy.lagache'
+      'https://data.opaline.data-players.com/persons/heddy.lagache',
+      'https://data.moncollectifemploi.fr/persons/pierre',
+      'https://data.moncollectifemploi.fr/persons/simon.louvet.zen',
+      'https://data.moncollectifemploi.fr/persons/v.farcy72',
+      'https://data.moncollectifemploi.fr/persons/helene',
+      'https://data.moncollectifemploi.fr/persons/heddy.lagache'
     ]
   }
 };
