@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "moleculer-runner --repl --hot services",
     "devwithlink": "make link & sleep 5 && npm run dev",
-    "link-semapps-packages": "yarn link @semapps/ldp",
+    "link-semapps-packages": "yarn link @semapps/auth",
     "start": "moleculer-runner --instances=max services",
     "prestart" : "npm run jwt",
     "predev" : "npm run jwt",

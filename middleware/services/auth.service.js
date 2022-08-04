@@ -22,7 +22,6 @@ module.exports = {
   events: {
     async 'auth.registered'(ctx) {
       const { webId, profileData } = ctx.params;
-
       await ctx.call(
         'ldp.resource.patch',
         {
@@ -30,7 +29,7 @@ module.exports = {
             '@context': urlJoin(CONFIG.HOME_URL, 'context.json'),
             '@id': webId,
             '@type': ['pair:Person', 'foaf:Person', 'Person'],
-            'pair:label': `${profileData.name} ${profileData.familyName.toUpperCase()}`,
+            'pair:label': `${profileData.name} ${profileData.familyName}`,
             'pair:firstName': profileData.name,
             'pair:lastName': profileData.familyName,
             'pair:e-mail': profileData.email
