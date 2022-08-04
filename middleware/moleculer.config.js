@@ -8,7 +8,10 @@ const cacherConfig = CONFIG.REDIS_CACHE_URL
       options: {
         prefix: 'action',
         ttl: 2592000, // Keep in cache for one month
-        redis: CONFIG.REDIS_CACHE_URL
+        redis: {
+         host: CONFIG.REDIS_CACHE_URL,
+         password: CONFIG.REDIS_CACHE_PASSW,
+       },
       }
     }
   : undefined;
