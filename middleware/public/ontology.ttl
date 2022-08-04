@@ -1,12 +1,12 @@
-@prefix : <http://data.opaline.data-players.com/ontology#> .
+@prefix : <https://data.moncollectifemploi.fr/ontology#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <http://data.opaline.data-players.com/ontology> .
+@base <https://data.moncollectifemploi.fr/ontology> .
 
-<http://data.opaline.data-players.com/ontology> rdf:type owl:Ontology ;
+<https://data.moncollectifemploi.fr/ontology> rdf:type owl:Ontology ;
                                                    owl:imports <http://virtual-assembly.org/ontologies/pair> ;
                                                    <http://purl.org/vocab/vann/preferredNamespacePrefix> "opal" .
 
@@ -14,104 +14,104 @@
 #    Object Properties
 #################################################################
 
-###  http://data.opaline.data-players.com/ontology#isContactPersonOf
+###  https://data.moncollectifemploi.fr/ontology#isContactPersonOf
 :isContactPersonOf rdf:type owl:ObjectProperty ;
                  rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#affiliates> ;
                  owl:inverseOf :isContactPersonOf ;
                  rdfs:domain :ContactPerson ;
                  rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
 
-###  http://data.opaline.data-players.com/ontology#hasContactPerson
+###  https://data.moncollectifemploi.fr/ontology#hasContactPerson
 :hasContactPerson rdf:type owl:ObjectProperty ;
                  rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#affiliatedBy> ;
                  rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
                  rdfs:range :ContactPerson .
 
-###  http://data.opaline.data-players.com/ontology#hasBusinessCreationGoal
+###  https://data.moncollectifemploi.fr/ontology#hasBusinessCreationGoal
 :hasBusinessCreationGoal rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
              rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
              rdfs:range :BusinessCreationGoal .
              
-###  http://data.opaline.data-players.com/ontology#BusinessCreationGoalOf
+###  https://data.moncollectifemploi.fr/ontology#BusinessCreationGoalOf
 :BusinessCreationGoalOf rdf:type owl:ObjectProperty ;
             rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
             owl:inverseOf :hasBusinessCreationGoal ;
             rdfs:domain :BusinessCreationGoal ;
             rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
 
-###  http://data.opaline.data-players.com/ontology#hasDegreeLevel
+###  https://data.moncollectifemploi.fr/ontology#hasDegreeLevel
 :hasDegreeLevel rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
              rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
              rdfs:range :DegreeLevel .
              
-###  http://data.opaline.data-players.com/ontology#DegreeLevelOf
+###  https://data.moncollectifemploi.fr/ontology#DegreeLevelOf
 :DegreeLevelOf rdf:type owl:ObjectProperty ;
             rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
             owl:inverseOf :hasDegreeLevel ;
             rdfs:domain :DegreeLevel ;
             rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
 
-###  http://data.opaline.data-players.com/ontology#hasGender
+###  https://data.moncollectifemploi.fr/ontology#hasGender
 :hasGender rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
              rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
              rdfs:range :Gender .
              
-###  http://data.opaline.data-players.com/ontology#GenderOf
+###  https://data.moncollectifemploi.fr/ontology#GenderOf
 :GenderOf rdf:type owl:ObjectProperty ;
             rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
             owl:inverseOf :hasGender ;
             rdfs:domain :Gender ;
             rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
 
-###  http://data.opaline.data-players.com/ontology#hasFindingHelpGoal
+###  https://data.moncollectifemploi.fr/ontology#hasFindingHelpGoal
 :hasFindingHelpGoal rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
              rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
              rdfs:range :FindingHelpGoal .
              
-###  http://data.opaline.data-players.com/ontology#FindingHelpGoalOf
+###  https://data.moncollectifemploi.fr/ontology#FindingHelpGoalOf
 :FindingHelpGoalOf rdf:type owl:ObjectProperty ;
             rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
             owl:inverseOf :hasFindingHelpGoal ;
             rdfs:domain :FindingHelpGoal ;
             rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
 
-###  http://data.opaline.data-players.com/ontology#hasJobSearchGoal
+###  https://data.moncollectifemploi.fr/ontology#hasJobSearchGoal
 :hasJobSearchGoal rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
              rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
              rdfs:range :JobSearchGoal .
              
-###  http://data.opaline.data-players.com/ontology#JobSearchGoal
+###  https://data.moncollectifemploi.fr/ontology#JobSearchGoal
 :JobSearchGoal rdf:type owl:ObjectProperty ;
             rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
             owl:inverseOf :hasJobSearchGoal ;
             rdfs:domain :JobSearchGoal ;
             rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
 
-###  http://data.opaline.data-players.com/ontology#hasTrainingGoal
+###  https://data.moncollectifemploi.fr/ontology#hasTrainingGoal
 :hasTrainingGoal rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
              rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
              rdfs:range :TrainingGoal .
              
-###  http://data.opaline.data-players.com/ontology#TrainingGoal
+###  https://data.moncollectifemploi.fr/ontology#TrainingGoal
 :TrainingGoal rdf:type owl:ObjectProperty ;
             rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
             owl:inverseOf :hasTrainingGoal ;
             rdfs:domain :TrainingGoal ;
             rdfs:range <http://virtual-assembly.org/ontologies/opal#Program> .
 
-###  http://data.opaline.data-players.com/ontology#hasTrainingMode
+###  https://data.moncollectifemploi.fr/ontology#hasTrainingMode
 :hasTrainingMode rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
              rdfs:domain <http://virtual-assembly.org/ontologies/opal#Program> ;
              rdfs:range :TrainingMode .
              
-###  http://data.opaline.data-players.com/ontology#TrainingMode
+###  https://data.moncollectifemploi.fr/ontology#TrainingMode
 :TrainingMode rdf:type owl:ObjectProperty ;
             rdfs:subPropertyOf <http://virtual-assembly.org/ontologies/pair#interSubjectProperty> ;
             owl:inverseOf :hasTrainingMode ;
@@ -123,85 +123,85 @@
 #    Data properties
 #################################################################
 
-###  http://data.opaline.data-players.com/ontology#socialNetworks
+###  https://data.moncollectifemploi.fr/ontology#socialNetworks
 :socialNetworks rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:string .
         
-###  http://data.opaline.data-players.com/ontology#minimumAge
+###  https://data.moncollectifemploi.fr/ontology#minimumAge
 :minimumAge rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:string .
 
-###  http://data.opaline.data-players.com/ontology#maximumAge
+###  https://data.moncollectifemploi.fr/ontology#maximumAge
 :maximumAge rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:string .
 
-###  http://data.opaline.data-players.com/ontology#rqth
+###  https://data.moncollectifemploi.fr/ontology#rqth
 :rqth rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:boolean .
 
-###  http://data.opaline.data-players.com/ontology#otherInfos
+###  https://data.moncollectifemploi.fr/ontology#otherInfos
 :otherInfos rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:string .
         
-###  http://data.opaline.data-players.com/ontology#poleEmploi
+###  https://data.moncollectifemploi.fr/ontology#poleEmploi
 :poleEmploi rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:boolean .
 
-###  http://data.opaline.data-players.com/ontology#duration
+###  https://data.moncollectifemploi.fr/ontology#duration
 :duration rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:string .
         
-###  http://data.opaline.data-players.com/ontology#startingDates
+###  https://data.moncollectifemploi.fr/ontology#startingDates
 :startingDates rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:date .
         
-###  http://data.opaline.data-players.com/ontology#numberOfParticipants
+###  https://data.moncollectifemploi.fr/ontology#numberOfParticipants
 :numberOfParticipants rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:string .
 
-###  http://data.opaline.data-players.com/ontology#financialParticipation
+###  https://data.moncollectifemploi.fr/ontology#financialParticipation
 :financialParticipation rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:boolean .
         
-###  http://data.opaline.data-players.com/ontology#registerLink
+###  https://data.moncollectifemploi.fr/ontology#registerLink
 :registerLink rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:string .
 
-###  http://data.opaline.data-players.com/ontology#noIdea
+###  https://data.moncollectifemploi.fr/ontology#noIdea
 :noIdea rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:boolean .
 
-###  http://data.opaline.data-players.com/ontology#json
+###  https://data.moncollectifemploi.fr/ontology#json
 :json rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
         rdfs:range xsd:string .
         
-###  http://data.opaline.data-players.com/ontology#civilityTitle
+###  https://data.moncollectifemploi.fr/ontology#civilityTitle
 :civilityTitle rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain <http://virtual-assembly.org/ontologies/pair#Subject> ;
@@ -211,55 +211,55 @@
 #    Classes
 #################################################################
            
-###  http://data.opaline.data-players.com/ontology#Program
+###  https://data.moncollectifemploi.fr/ontology#Program
 :Program rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Resource> .
 
-###  http://data.opaline.data-players.com/ontology#Configuration
+###  https://data.moncollectifemploi.fr/ontology#Configuration
 :Configuration rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Resource> .
 
-###  http://data.opaline.data-players.com/ontology#ContactPerson
+###  https://data.moncollectifemploi.fr/ontology#ContactPerson
 :ContactPerson rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Resource> .
            
-###  http://data.opaline.data-players.com/ontology#FAQ
+###  https://data.moncollectifemploi.fr/ontology#FAQ
 :Program rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Resource> .
 
-###  http://data.opaline.data-players.com/ontology#BusinessCreationGoal
+###  https://data.moncollectifemploi.fr/ontology#BusinessCreationGoal
 :BusinessCreationGoal rdf:type owl:Class ;
           rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .
 
-###  http://data.opaline.data-players.com/ontology#DegreeLevel
+###  https://data.moncollectifemploi.fr/ontology#DegreeLevel
 :DegreeLevel rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .
          
-###  http://data.opaline.data-players.com/ontology#Gender
+###  https://data.moncollectifemploi.fr/ontology#Gender
 :Gender rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .
 
-###  http://data.opaline.data-players.com/ontology#FindingHelpGoal
+###  https://data.moncollectifemploi.fr/ontology#FindingHelpGoal
 :FindingHelpGoal rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .
 
-###  http://data.opaline.data-players.com/ontology#JobSearchGoal
+###  https://data.moncollectifemploi.fr/ontology#JobSearchGoal
 :JobSearchGoal rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .  
 
-###  http://data.opaline.data-players.com/ontology#TrainingGoal
+###  https://data.moncollectifemploi.fr/ontology#TrainingGoal
 :TrainingGoal rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .  
            
-###  http://data.opaline.data-players.com/ontology#TrainingMode
+###  https://data.moncollectifemploi.fr/ontology#TrainingMode
 :TrainingMode rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .  
 
-###  http://data.opaline.data-players.com/ontology#TrainingSite
+###  https://data.moncollectifemploi.fr/ontology#TrainingSite
 :TrainingSite rdf:type owl:Class ;
            rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Place> . 
                    
-###  http://data.opaline.data-players.com/ontology#Label
+###  https://data.moncollectifemploi.fr/ontology#Label
 #:Label rdf:type owl:Class ;
 #       rdfs:subClassOf <http://virtual-assembly.org/ontologies/pair#Concept> .
 

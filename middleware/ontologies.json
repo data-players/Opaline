@@ -57,7 +57,7 @@
   {
     "prefix": "opal",
     "owl": "",
-    "url": "http://data.opaline.data-players.com/ontology#"
+    "url": "https://data.moncollectifemploi.fr/ontology#"
   },
   {
     "prefix": "aurba",
