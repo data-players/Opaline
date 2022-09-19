@@ -6,13 +6,15 @@
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@material-ui/core": "^4.12.2",
-    "@mui/material": "^5.3.0",
     "@mui/icons-material": "^5.3.0",
+    "@mui/material": "^5.3.0",
     "@semapps/activitypub-components": "0.4.0-alpha.29",
     "@semapps/archipelago-layout": "0.4.0-alpha.29",
     "@semapps/auth-provider": "0.4.0-alpha.29",
     "@semapps/date-components": "0.4.0-alpha.29",
+    "@semapps/field-components": "^0.4.0-alpha.34",
     "@semapps/geo-components": "0.4.0-alpha.29",
+    "@semapps/list-components": "^0.4.0-alpha.34",
     "@semapps/markdown-components": "0.4.0-alpha.29",
     "@semapps/semantic-data-provider": "0.4.0-alpha.29",
     "date-fns": "~2.8.1",
@@ -49,14 +51,13 @@
     "bootstrap": "lerna bootstrap",
     "link-semapps-packages": "yarn link @semapps/activitypub-components @semapps/archipelago-layout @semapps/auth-provider @semapps/date-components @semapps/field-components @semapps/geo-components @semapps/input-components @semapps/interop-components @semapps/list-components @semapps/markdown-components @semapps/semantic-data-provider",
     "unlink-semapps-packages": "yarn unlink @semapps/activitypub-components @semapps/archipelago-layout @semapps/auth-provider @semapps/date-components @semapps/field-components @semapps/geo-components @semapps/input-components @semapps/interop-components @semapps/list-components @semapps/markdown-components @semapps/semantic-data-provider"
-
   },
   "eslintConfig": {
     "extends": "react-app"
   },
   "browserslist": [
     ">0.2%",
-   "not dead",
-   "not op_mini all"
- ]
+    "not dead",
+    "not op_mini all"
+  ]
 }

@@ -63,7 +63,8 @@
       "title": "Vous <strong>êtes</strong>... ?",
       "icons": {
         "femme":"woman",
-        "homme":"man"
+        "homme":"man",
+        "autre":"person"
       }
     },{
       "type": "boolean",

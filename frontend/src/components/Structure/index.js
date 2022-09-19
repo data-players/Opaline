@@ -11,6 +11,8 @@ import AppBar from '../../containers/AppBar';
 import Loading from '../Loading';
 import { getSlugFromContainerUrl } from '../../selectors/urls';
 
+import { SocialIcon } from 'react-social-icons';
+
 const useStyles = makeStyles(theme => ({
   mainContainer: {
     marginTop: theme.margin.header,
@@ -53,6 +55,14 @@ const useStyles = makeStyles(theme => ({
       fontSize: 18
     },
   },
+  description: {
+    paddingTop: '4rem',
+    fontSize: 14,
+    fontWeight: 600,
+    [theme.breakpoints.up('sm')]: {
+      fontSize: 18
+    },
+  },
   programTitle: {
     display: 'flex',
     justifyContent: 'flex-start',
@@ -73,13 +83,14 @@ const useStyles = makeStyles(theme => ({
 
 const Structure = ({ loading, programs, structure, loadData }) => {
   const classes = useStyles();
-  
-  useEffect( () => { 
+
+  useEffect( () => {
     loadData('configurations');
     loadData('programs');
     loadData('structures');
   }, [])
-  
+  console.log('structure',structure);
+
   return (
     <>
       { loading &&
@@ -102,14 +113,28 @@ const Structure = ({ loading, programs, structure, loadData }) => {
                 <Typography component="h1" className={classes.title}>
                   {structure.label}
                 </Typography>
+                <Typography component="h3" className={classes.desription}>
+                  {structure['pair:description']}
+                </Typography>
+                <List sx={{
+                      display: 'flex',
+                  }}
+                >
+                  {  structure['opal:socialNetworks'].map(item => <ListItem sx={{
+                        width: 'auto',
+                    }}
+                    >
+                      <SocialIcon url={item}/>
+                    </ListItem>) }
+                </List>
                 <Typography component="h2" className={classes.subtitle}>
                   Les programmes d'accompagnement
                 </Typography>
                 <List>
                   { programs.map((program, index) => (
-                    <ListItem 
-                      button key={index} 
-                      component={Link} 
+                    <ListItem
+                      button key={index}
+                      component={Link}
                       to={`/programmes/${getSlugFromContainerUrl(program.id)}`}
                       className={classes.listItem}
                     >

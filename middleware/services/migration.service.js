@@ -8,9 +8,9 @@ module.exports = {
   dependencies: ['ldp', 'webacl'],
   actions: {
     async resetRightsToAll(ctx) {
-      
+
       console.log('===> resetRightsToAll');
-     
+
       for (let containerConfig of containers) {
         const container = await ctx.call(
           'ldp.container.get',
@@ -24,8 +24,8 @@ module.exports = {
         );
 
         const containerSlug = container.id.replace(CONFIG.HOME_URL, '')
-        const anonymousHasWritePermission = ['programs', 'organizations', 'faq'].includes(containerSlug);
-        
+        const anonymousHasWritePermission = ['programs', 'organizations','training-sites','contact-persons','faq'].includes(containerSlug);
+
         // delete all rights
         await ctx.call('webacl.resource.deleteAllRights', {
           webId: 'system',
@@ -54,17 +54,17 @@ module.exports = {
             }
           }
         });
-        
+
         if (container.id !== CONFIG.HOME_URL && container['ldp:contains'] && container['ldp:contains'].length > 0) {
           for (let resource of container['ldp:contains']) {
             if (resource && Object.keys(resource).length > 0) {
-              
+
               // delete all rights
               await ctx.call('webacl.resource.deleteAllRights', {
                 webId: 'system',
                 resourceUri: resource.id,
               });
-              
+
               // add all rights
               console.log('\n---> Adding rights for resource', resource.id);
 

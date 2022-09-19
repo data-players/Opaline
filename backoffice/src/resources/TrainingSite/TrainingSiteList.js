@@ -6,11 +6,11 @@ import { Avatar } from "@material-ui/core";
 import TrainingSiteFilterSidebar from './TrainingSiteFilterSidebar';
 
 const TrainingSiteList = props => (
-  <ListWithPermissions aside={<TrainingSiteFilterSidebar />} {...props}>
-      <SimpleList 
-        primaryText={record => record['pair:label']} 
+  <ListWithPermissions {...props}>
+      <SimpleList
+        primaryText={record => record['pair:label']}
         leftAvatar={() => <Avatar width="100%"><TrainingSiteIcon /></Avatar>}
-        linkType="edit" 
+        linkType="edit"
       />
   </ListWithPermissions>
 )

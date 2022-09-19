@@ -20,7 +20,7 @@ export default {
       forceArray: [],
     },
     fieldsMapping: {
-      title: 'pair:label'
+      title: 'pair:lastName'
     }
   },
   translations: {

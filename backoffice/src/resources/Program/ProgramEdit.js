@@ -7,11 +7,11 @@ import {
   DateInput,
   FormTab,
   NumberInput,
-  ReferenceInput,
   SelectArrayInput,
   SelectInput,
   SimpleFormIterator,
   TabbedForm,
+  AutocompleteInput,
   required,
   useEditController
 } from 'react-admin';
@@ -19,10 +19,11 @@ import {
 import { MarkdownInput } from '@semapps/markdown-components'
 import Title from '../commons/Title';
 import { EditWithPermissions } from '@semapps/auth-provider';
-import { ReferenceArrayInput } from '@semapps/semantic-data-provider';
+import { ReferenceArrayInput,ReferenceInput } from '@semapps/semantic-data-provider';
+
+import { QuickAppendReferenceArrayField } from '@semapps/field-components';
 
 export const ProgramEdit = props => {
-
   const controllerProps = useEditController(props);
   const [newOrganization, setNewOrganization] = useState();
   let organization = null;
@@ -32,7 +33,7 @@ export const ProgramEdit = props => {
   if ( newOrganization && organization !== newOrganization ) {
     organization = newOrganization;
   }
- 
+
   return (
   <EditWithPermissions title={<Title />} {...props} >
     <TabbedForm>
@@ -43,9 +44,13 @@ export const ProgramEdit = props => {
           reference="Organization"
           validate={[required()]}
           fullWidth
-          onChange={event => setNewOrganization(event.target.value)}
+          onChange={value => {
+            setNewOrganization(value)
+          }}
         >
-          <SelectInput optionText="pair:label" />
+            <AutocompleteInput optionText="pair:label" shouldRenderSuggestions={value => {
+              return value && value.length > 1
+            }}/>
         </ReferenceInput>
         <MarkdownInput source="pair:description" multiline fullWidth />
         <NumberInput source="opal:minimumAge" fullWidth />
@@ -58,8 +63,8 @@ export const ProgramEdit = props => {
         >
           <SelectArrayInput optionText="pair:label" />
         </ReferenceArrayInput>
-        <ReferenceArrayInput 
-          source="opal:hasGenders" 
+        <ReferenceArrayInput
+          source="opal:hasGenders"
           reference="Gender"
           fullWidth
           initialValue={[
@@ -82,14 +87,9 @@ export const ProgramEdit = props => {
         <NumberInput source="opal:numberOfParticipants" fullWidth />
         <BooleanInput source="opal:financialParticipation" defaultValue={false} fullWidth />
         <TextInput type="url" source="opal:registerLink" fullWidth />
-        <ReferenceInput
-          source="opal:hasTrainingMode"
-          reference="TrainingMode"
-          validate={[required()]}
-          fullWidth
-        >
-          <SelectInput optionText="pair:label" />
-        </ReferenceInput>
+        <ReferenceArrayInput source="opal:hasTrainingMode" reference="TrainingMode" fullWidth validate={[required()]}>
+          <SelectArrayInput optionText="pair:label" />
+        </ReferenceArrayInput>
         { organization &&
           <ReferenceInput
             source="opal:hasContactPerson"

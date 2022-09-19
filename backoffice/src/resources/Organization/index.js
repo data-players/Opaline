@@ -43,7 +43,8 @@ export default {
         'aurba:hasDataSource' : 'source',
         'pair:hasLocation.pair:longitude' :'longitude',
         'pair:hasLocation.pair:latitude' :'latitude',
-        'aurba:externalDeleted':`suppression à la source`
+        'aurba:externalDeleted':`suppression à la source`,
+        'aurba:siret':`siret`
       }
     }
   }
