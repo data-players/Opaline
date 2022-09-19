@@ -1,4 +1,4 @@
-githimport React from 'react';
+import React from 'react';
 import { Box, makeStyles } from '@material-ui/core';
 import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNewOutlined';
 import ConstructionIcon from '@mui/icons-material/ConstructionOutlined';
