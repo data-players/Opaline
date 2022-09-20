@@ -20,6 +20,7 @@ const dataServers = {
         'opal:TrainingSite': ['/training-sites'],
         'opal:Program': ['/programs'],
         'pair:Organization': ['/organizations'],
+        'semapps:Page': ['/pages'],
         'pair:Person': ['/persons'],
         'aurba:DataSource': ['/data-sources'],
       }

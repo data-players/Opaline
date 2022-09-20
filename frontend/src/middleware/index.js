@@ -4,6 +4,7 @@ import {
   LOAD_DATA,
   LOAD_FIELDS,
   LOAD_FAQ,
+  LOAD_PAGE,
   addBooleanField,
   getFieldValues,
   getResourceValues,
@@ -21,9 +22,9 @@ const { literal, namedNode, quad, variable } = DataFactory;
 
 // == Api Middleware
 const middleware = (store) => (next) => (action) => {
-  
+
   const state = store.getState();
-  
+
   const fetchResourceContainer = (containerName) => {
     return fetchContainer(containerName, 'resource')
   }
@@ -37,7 +38,7 @@ const middleware = (store) => (next) => (action) => {
       return;
     }
     const container = containers[containerName];
-    
+
     let sparqljsParams = {
       queryType: 'CONSTRUCT',
       template: [quad(variable('s1'), variable('p1'), variable('o1'))],
@@ -70,7 +71,7 @@ const middleware = (store) => (next) => (action) => {
       type: 'query',
       prefixes: {}
     }
-    
+
     if ( container.location === true ) {
       const locationTriples = [
         quad(variable('s1'), namedNode('http://virtual-assembly.org/ontologies/pair#hasLocation'), variable('sPairHasLocation')),
@@ -87,27 +88,27 @@ const middleware = (store) => (next) => (action) => {
         }]
       }]);
     }
-    
+
     ontologies.map(ontology => {
       return sparqljsParams.prefixes = {
         ...sparqljsParams.prefixes,
         [ontology.prefix]: ontology.url
       };
     });
-    
+
     // Regenerate a SPARQL query from a JSON object
     let SparqlGenerator = require('sparqljs').Generator;
     let generator = new SparqlGenerator({});
     const sparqljsQuery = generator.stringify(sparqljsParams);
-    
+
     // console.log('middleware-LOAD_DATA SPARQL', sparqljsQuery);
-    
+
     fetch(
       process.env.REACT_APP_MIDDLEWARE_URL + 'sparql', {
         method: 'POST',
         headers: new Headers({
           'content-type': 'application/ld+json',
-          'accept': 'application/json' 
+          'accept': 'application/json'
         }),
         mode: 'cors',
         body: sparqljsQuery,
@@ -121,39 +122,40 @@ const middleware = (store) => (next) => (action) => {
       return response.json();
     })
     .then((json) => {
-      
+
       let frame = {
         '@context': context,
         "@type": [container.resource],
         '@embed': '@never'
       };
-      
+
       if ( container.location === true ) {
         frame = {
           ...frame,
           ...getEmbedFrame(['pair:hasLocation/pair:hasPostalAddress'])
         };
       }
-      
+
       return jsonld.frame(json, frame, { omitGraph: false });
     })
     .then((compactJson) => {
-      
+      console.log('compactJson',compactJson);
+
       const data = compactJson['@graph'];
-      
+
       // console.log('middleware-LOAD_DATA DATA', container, data);
-      
+
       if (data.find(d => d.id === undefined)) {
         console.log('error: data not found', container);
-        
+
       } else {
-        const formatedData = data.map(d => ({ 
+        const formatedData = data.map(d => ({
           ...d,
           label: d['pair:label']
         }))
-        
+
         // console.log('middleware-LOAD_DATA FORMATED DATA', container, formatedData);
-      
+
         if (type === 'resource') {
           store.dispatch(getResourceValues(container, formatedData));
         } else {
@@ -165,15 +167,15 @@ const middleware = (store) => (next) => (action) => {
       console.log('error:', container, error);
     });
   }
-  
+
   switch (action.type) {
-    
+
     case LOAD_DATA:
       if (!state.resourceValues[action.containerName]) {
         fetchResourceContainer(action.containerName)
       }
     break;
-    
+
     case LOAD_FIELDS:
       const getFieldData = (data) => {
         data.forEach(field => {
@@ -189,10 +191,16 @@ const middleware = (store) => (next) => (action) => {
       }
       getFieldData(state.resourceValues['configurations'][0].json.fields);
     break;
-    
+
     case LOAD_FAQ:
       if (!state.resourceValues['faq']) {
         fetchResourceContainer('faq')
+      }
+    break;
+
+    case LOAD_PAGE:
+      if (!state.resourceValues['page']) {
+        fetchResourceContainer('page')
       }
     break;
 

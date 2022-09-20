@@ -6,6 +6,7 @@ export const GET_RESOURCE_VALUES = 'GET_RESOURCE_VALUES';
 export const LOAD_DATA = 'LOAD_DATA';
 export const LOAD_FIELDS = 'LOAD_FIELDS';
 export const LOAD_FAQ = 'LOAD_FAQ';
+export const LOAD_PAGE = 'LOAD_PAGE';
 export const OPEN_CONTACT_FORM = 'OPEN_CONTACT_FORM';
 export const NEW_SEARCH = 'NEW_SEARCH';
 export const SET_MESSAGE = 'SET_MESSAGE';
@@ -43,6 +44,10 @@ export const loadFields = () => ({
 export const loadFAQ = () => ({
   type: LOAD_FAQ,
 });
+
+export const loadPage = () => ({
+  type: LOAD_PAGE,
+});
 export const newSearch = () => ({
   type: NEW_SEARCH,
 });
@@ -70,7 +75,3 @@ export const setSelectedValues = (selectedValues) => ({
   type: SET_SELECTED_VALUES,
   selectedValues
 });
-
-
-
-
