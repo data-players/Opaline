@@ -26,6 +26,51 @@ import { QuickAppendReferenceArrayField } from '@semapps/field-components';
 export const ProgramEdit = props => {
   const controllerProps = useEditController(props);
   const [newOrganization, setNewOrganization] = useState();
+
+
+  const validateMultiple = (value, allValues) => {
+    const errors = {};
+    // console.log(value, allValues);
+    console.log('1',allValues['opal:hasJobSearchGoals']);
+    console.log('2',allValues['opal:hasBusinessCreationGoals']);
+    console.log('3',allValues['opal:hasTrainingGoals']);
+    console.log('4',allValues['opal:hasFindingHelpGoals']);
+    const hasJobSearchGoals=allValues['opal:hasJobSearchGoals']==undefined || allValues['opal:hasJobSearchGoals'].length==0;
+    const hasBusinessCreationGoals=allValues['opal:hasBusinessCreationGoals']==undefined || allValues['opal:hasBusinessCreationGoals'].length==0;
+    const hasTrainingGoals=allValues['opal:hasTrainingGoals']==undefined || allValues['opal:hasTrainingGoals'].length==0;
+    const hasFindingHelpGoals=allValues['opal:hasFindingHelpGoals']==undefined || allValues['opal:hasFindingHelpGoals'].length==0;
+
+
+    if ( hasJobSearchGoals && hasBusinessCreationGoals && hasTrainingGoals && hasFindingHelpGoals){
+      console.error('un des 4 champs doit être rempli');
+      // errors= {
+      //   'opal:hasJobSearchGoals':'oneOfFor',
+      //   'opal:hasBusinessCreationGoals':'oneOfFori',
+      //   'opal:hasTrainingGoals':'oneOfFor',
+      //   'opal:hasFindingHelpGoals':'oneOfFor'
+      // }
+      return 'un des 4 champs doit être rempli';
+    }
+    else{
+      return undefined
+    }
+    // if (!values.firstName) {
+    //     errors.firstName = 'The firstName is required';
+    // }
+    // if (!values.age) {
+    //     // You can return translation keys
+    //     errors.age = 'ra.validation.required';
+    // } else if (values.age < 18) {
+    //     // Or an object if the translation messages need parameters
+    //     errors.age = {
+    //         message: 'ra.validation.minValue',
+    //         args: { min: 18 }
+    //     };
+    // }
+    // console.log(errors);
+    // return errors
+  };
+
   let organization = null;
   if ( controllerProps?.record && controllerProps.record['pair:offeredBy'] ) {
     organization = controllerProps.record['pair:offeredBy'];
@@ -112,16 +157,16 @@ export const ProgramEdit = props => {
         }
       </FormTab>
       <FormTab label="Objectifs">
-        <ReferenceArrayInput source="opal:hasJobSearchGoals" reference="JobSearchGoal" fullWidth validate={[required()]}>
+        <ReferenceArrayInput source="opal:hasJobSearchGoals" reference="JobSearchGoal" fullWidth validate={validateMultiple}>
           <SelectArrayInput optionText="pair:label" />
         </ReferenceArrayInput>
-        <ReferenceArrayInput source="opal:hasBusinessCreationGoals" reference="BusinessCreationGoal" fullWidth validate={[required()]}>
+        <ReferenceArrayInput source="opal:hasBusinessCreationGoals" reference="BusinessCreationGoal" fullWidth validate={validateMultiple}>
           <SelectArrayInput optionText="pair:label" />
         </ReferenceArrayInput>
-        <ReferenceArrayInput source="opal:hasTrainingGoals" reference="TrainingGoal" fullWidth validate={[required()]}>
+        <ReferenceArrayInput source="opal:hasTrainingGoals" reference="TrainingGoal" fullWidth validate={validateMultiple}>
           <SelectArrayInput optionText="pair:label" />
         </ReferenceArrayInput>
-        <ReferenceArrayInput source="opal:hasFindingHelpGoals" reference="FindingHelpGoal" fullWidth validate={[required()]}>
+        <ReferenceArrayInput source="opal:hasFindingHelpGoals" reference="FindingHelpGoal" fullWidth validate={validateMultiple}>
           <SelectArrayInput optionText="pair:label" />
         </ReferenceArrayInput>
         <BooleanInput source="opal:noIdea" defaultValue={false} fullWidth validate={[required()]} />
