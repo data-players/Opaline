@@ -3,6 +3,8 @@ import ontologies from './ontologies.json';
 import dataServers from './dataServers';
 import * as resources from '../resources';
 
+console.log('dataprovider');
+
 const dataProvider = semanticDataProvider({
   dataServers,
   httpClient,

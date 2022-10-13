@@ -44,11 +44,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Drawer({ openContactForm }) {
-  
+
   const classes = useStyles();
-  
+
   const anchor = 'left';
-  
+
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -63,7 +63,7 @@ export default function Drawer({ openContactForm }) {
 
     setState({ ...state, [anchor]: open });
   };
-  
+
   const handleContactClick = (contact) => {
     openContactForm(contact);
   };
@@ -86,6 +86,9 @@ export default function Drawer({ openContactForm }) {
         </ListItem>
         <ListItem button component={Link} to={'/FAQ'}>
           <ListItemText primary={'FAQ'} />
+        </ListItem>
+        <ListItem button component={Link} to={'/Page'}>
+          <ListItemText primary={'Mentions Légales'} />
         </ListItem>
         <ListItem
           button

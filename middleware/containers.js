@@ -139,5 +139,10 @@ module.exports = [
     path: '/data-sources',
     acceptedTypes: ['aurba:DataSource'],
     newResourcesPermissions: writePermissionsToCreator
-  }
+  },
+  {
+    path: '/pages',
+    acceptedTypes: ['semapps:Page'],
+    newResourcesPermissions: writePermissionsToCreator
+  },
 ];

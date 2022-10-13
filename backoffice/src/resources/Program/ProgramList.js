@@ -6,11 +6,11 @@ import { Avatar } from "@material-ui/core";
 import ProgramFilterSidebar from './ProgramFilterSidebar';
 
 const ProgramList = props => (
-  <ListWithPermissions aside={<ProgramFilterSidebar />} {...props}>
-      <SimpleList 
-        primaryText={record => record['pair:label']} 
+  <ListWithPermissions {...props}>
+      <SimpleList
+        primaryText={record => record['pair:label']}
         leftAvatar={() => <Avatar width="100%"><ProgramIcon /></Avatar>}
-        linkType="edit" 
+        linkType="edit"
       />
   </ListWithPermissions>
 )

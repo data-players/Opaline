@@ -22,6 +22,7 @@ const initialState = {
     programs: true,
     structures: true,
     faq: true,
+    page: true,
     trainingSites: true
   },
   startOfLoading: 0,
@@ -83,6 +84,8 @@ const reducer = (state = initialState, action = {}) => {
           resource.json = JSON.parse(resource['opal:json']);
         })
       }
+
+      console.log('GET_RESOURCE_VALUES',action.resourceValues,action.container.name);
       return {
         ...state,
         resourceValues: {

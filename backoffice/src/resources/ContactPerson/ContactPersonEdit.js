@@ -1,8 +1,9 @@
 import React from 'react';
-import { ReferenceInput, SelectInput, SimpleForm, TextInput, required } from 'react-admin';
+import { SelectInput, SimpleForm, TextInput,AutocompleteInput, required } from 'react-admin';
 import { EditWithPermissions } from '@semapps/auth-provider';
 import { MarkdownInput } from '@semapps/markdown-components'
 import Title from "../commons/Title";
+import { ReferenceInput } from '@semapps/semantic-data-provider';
 
 export const ContactPersonEdit = props => (
   <EditWithPermissions title={<Title />} {...props}>
@@ -13,7 +14,9 @@ export const ContactPersonEdit = props => (
         validate={[required()]}
         fullWidth
       >
-        <SelectInput optionText="pair:label" />
+        <AutocompleteInput optionText="pair:label" shouldRenderSuggestions={value => {
+          return value && value.length > 1
+        }}/>
       </ReferenceInput>
       <TextInput source="pair:firstName" fullWidth validate={[required()]} />
       <TextInput source="pair:lastName" fullWidth validate={[required()]} />

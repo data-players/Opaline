@@ -4,6 +4,11 @@
     "name": "faq",
     "resource": "opal:FAQ"
   },
+  "page": {
+    "slug": "pages",
+    "name": "pages",
+    "resource": "semapps:Page"
+  },
   "programs": {
     "slug": "programs",
     "name": "programs",

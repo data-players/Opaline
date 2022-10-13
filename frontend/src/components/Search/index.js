@@ -223,7 +223,7 @@ const Search = ({
               ) {
                 return false
               }
-              if (trainingSite['pair:hasLocation']['pair:hasPostalAddress']['pair:addressZipCode'] === sv.value.id) {
+              if (trainingSite['pair:hasLocation']['pair:hasPostalAddress']['pair:addressZipCode'].substring(0,2) === sv.value.id.substring(0,2)) {
                 return true
               } else {
                 return false

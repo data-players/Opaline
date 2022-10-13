@@ -17,7 +17,7 @@ const App = () => (
   <Admin
     disableTelemetry
     history={history}
-    title="Opaline"
+    title="Mon Collectif Emploi"
     authProvider={authProvider}
     dataProvider={dataProvider}
     i18nProvider={i18nProvider}

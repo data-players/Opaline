@@ -6,12 +6,12 @@ import { Avatar } from "@material-ui/core";
 import ContactPersonFilterSidebar from './ContactPersonFilterSidebar';
 
 const ContactPersonList = props => (
-  <ListWithPermissions aside={<ContactPersonFilterSidebar />} {...props}>
-    <SimpleList 
+  <ListWithPermissions {...props}>
+    <SimpleList
       primaryText={record => record['pair:firstName'] + ' ' + record['pair:lastName']}
       secondaryText={record => record['pair:description']}
       leftAvatar={() => <Avatar width="100%"><ContactPersonIcon /></Avatar>}
-      linkType="edit" 
+      linkType="edit"
     />
   </ListWithPermissions>
 )
