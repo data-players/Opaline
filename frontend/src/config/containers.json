@@ -22,6 +22,7 @@
   },
   "structures": {
     "slug": "organizations",
+    "mode": "LDP",
     "name": "structures",
     "resource": "pair:Organization",
     "location": true
