@@ -106,3 +106,4 @@ dist
 data/
 temp/
 *-temp.yaml
+.vscode
