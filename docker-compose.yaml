@@ -101,5 +101,4 @@ services:
 
 networks:
   semapps:
-    external:
-      name: bus_network
+    name: bus_network

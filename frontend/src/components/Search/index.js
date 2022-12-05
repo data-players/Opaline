@@ -192,7 +192,7 @@ const Search = ({
       return;
     }
     // console.log('findResults',selectedValues);
-    let results = resourceValues['programs'];
+    let results = [resourceValues['programs'],resourceValues['structures']].flat();
     let searchSynthesys={};
     selectedValues.forEach(sv => {
       if (sv.field.type !== 'field-choice' || sv.value.type === 'no-choice') {

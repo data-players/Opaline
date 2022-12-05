@@ -112,10 +112,6 @@ export const ProgramEdit = props => {
           source="opal:hasGenders"
           reference="Gender"
           fullWidth
-          initialValue={[
-            process.env.REACT_APP_MIDDLEWARE_URL+'genders/homme',
-            process.env.REACT_APP_MIDDLEWARE_URL+'genders/femme'
-          ]}
           helperText="Sélectionner tous les éléments éligibles au programme"
         >
           <SelectArrayInput optionText="pair:label" />
